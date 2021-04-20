@@ -14,3 +14,12 @@ https://stdcxx.apache.org/doc/stdlibug/16-3.html
 
 
 http://pages.cs.wisc.edu/~driscoll/typename.html
+
+
+[Chapter: 31, 32, 33, 34] : https://drive.google.com/file/d/16nSuXoXYS8PN39ekMPVcQeos7WPz5apO/view?usp=sharing
+
+
+
+https://drive.google.com/file/d/11Fg6GRePMS8U_3Beodk6LJWPckLosWC6/view?usp=sharing
+
+https://stdcxx.apache.org/doc/stdlibug/
