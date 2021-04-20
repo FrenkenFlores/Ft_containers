@@ -2,6 +2,7 @@
 #define LIST_HPP
 
 #include <memory>
+#include <iterator>
 
 namespace ft {
 	template < typename T, typename A = std::allocator<T> >
@@ -15,14 +16,12 @@ namespace ft {
 		typedef typename allocator_type::const_pointer					const_pointer;
 		typedef typename iterator_traits<iterator>::difference_type		difference_type;
 		typedef size_t													size_type;
+		std::bidirectional_iterator_tag									iterator;
+		const std::bidirectional_iterator_tag							const_itertor;
+		std::reverse_iterator<iterator>									reverse_iterator;
+		std::reverse_iterator<const_itertor>							const_reverse_iterator;
 	protected:
 		A																the_allocator;
-	private:
-		iterator::iterator												iterator;
-		iterator::const_iterator										const_iterator;
-		iterator::reverse_iterator										reverse_iterator;
-		iterator::const_reverse_iterator								const_reverse_iterator;
-
 	public:
 		explicit list (const allocator_type& alloc = allocator_type());
 		~list();
@@ -78,6 +77,5 @@ namespace ft {
 	};
 }
 
-
-
+//#include "list.tpp"
 #endif

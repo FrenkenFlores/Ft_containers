@@ -23,3 +23,6 @@ http://pages.cs.wisc.edu/~driscoll/typename.html
 https://drive.google.com/file/d/11Fg6GRePMS8U_3Beodk6LJWPckLosWC6/view?usp=sharing
 
 https://stdcxx.apache.org/doc/stdlibug/
+
+
+https://stackoverflow.com/questions/495021/why-can-templates-only-be-implemented-in-the-header-file
