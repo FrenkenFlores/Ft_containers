@@ -1,4 +1,9 @@
 #include "test.hpp"
+#include <iterator>
+#include <list>
+
+std::bidirectional_iterator_tag i;
+std::list<int> j;
 
 int main() {
 	ns::test<int> _test;

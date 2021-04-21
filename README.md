@@ -26,3 +26,21 @@ https://stdcxx.apache.org/doc/stdlibug/
 
 
 https://stackoverflow.com/questions/495021/why-can-templates-only-be-implemented-in-the-header-file
+
+
+http://cs.brown.edu/people/jak/programming/stl-tutorial/tut.html#38
+
+
+https://www.cs.cmu.edu/afs/cs/academic/class/15451-s07/www/lecture_notes/
+
+
+https://medium.com/@vgasparyan1995/how-to-write-an-stl-compatible-container-fc5b994462c6
+
+
+https://stackoverflow.com/questions/7758580/writing-your-own-stl-container/7759622#7759622
+
+
+https://devdocs.io/cpp/
+
+
+https://devdocs.io/cpp/

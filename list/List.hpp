@@ -8,24 +8,26 @@ namespace ft {
 	template < typename T, typename A = std::allocator<T> >
 	class list {
 	public:
-		typedef T														value_type;
-		typedef A														allocator_type;
-		typedef typename allocator_type::reference						reference;
-		typedef typename allocator_type::const_reference				const_reference;
-		typedef typename allocator_type::pointer						pointer;
-		typedef typename allocator_type::const_pointer					const_pointer;
-		typedef typename iterator_traits<iterator>::difference_type		difference_type;
-		typedef typename size_t											size_type;
-		typedef typename std::bidirectional_iterator_tag				iterator;
-		typedef typename const std::bidirectional_iterator_tag			const_itertor;
-		typedef typename std::reverse_iterator<iterator>				reverse_iterator;
-		typedef typename std::reverse_iterator<const_itertor>			const_reverse_iterator;
+		typedef T																value_type;
+		typedef A																allocator_type;
+		typedef typename allocator_type::reference								reference;
+		typedef typename allocator_type::const_reference						const_reference;
+		typedef typename allocator_type::pointer								pointer;
+		typedef typename allocator_type::const_pointer							const_pointer;
+		typedef ptrdiff_t														difference_type;
+		typedef size_t															size_type;
+		typedef typename std::bidirectional_iterator_tag									iterator;
+		typedef typename std::bidirectional_iterator_tag					const_iterator;
+		typedef typename std::reverse_iterator<iterator>						reverse_iterator;
+		typedef typename std::reverse_iterator<const_iterator>					const_reverse_iterator;
 	protected:
-		A																the_allocator;
+		A																	the_allocator;
 	public:
-		explicit list (const allocator_type& alloc = allocator_type());
+		list();
 		~list();
-		list & operator=(const list &src);
+		list & operator=(const list &rhs);
+		list(const list &src);
+		explicit list (const allocator_type& alloc);
 		iterator begin();
 		const_iterator begin() const;
 		iterator end();
@@ -73,9 +75,8 @@ namespace ft {
 		template <class Compare>
 		void sort (Compare comp);
 		void reverse();
-		allocator_type get_allocator() const;
 	};
 }
 
-//#include "list.tpp"
+#include "list.tpp"
 #endif

@@ -1,6 +1,10 @@
-#include <memory>
-#include <list>
+#include "list.hpp"
+
+//template <typename T, typename A = std::allocator<T> >
+//ft::list<T, A>::list<typename T, typename A>() {}
+
+
 int main(int argc, char **argv) {
-	std::allocator<int> j;
-	std::list<int> i;
+	ft::list<int> i;
+	return 0;
 }
