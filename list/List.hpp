@@ -15,11 +15,11 @@ namespace ft {
 		typedef typename allocator_type::pointer						pointer;
 		typedef typename allocator_type::const_pointer					const_pointer;
 		typedef typename iterator_traits<iterator>::difference_type		difference_type;
-		typedef size_t													size_type;
-		std::bidirectional_iterator_tag									iterator;
-		const std::bidirectional_iterator_tag							const_itertor;
-		std::reverse_iterator<iterator>									reverse_iterator;
-		std::reverse_iterator<const_itertor>							const_reverse_iterator;
+		typedef typename size_t											size_type;
+		typedef typename std::bidirectional_iterator_tag				iterator;
+		typedef typename const std::bidirectional_iterator_tag			const_itertor;
+		typedef typename std::reverse_iterator<iterator>				reverse_iterator;
+		typedef typename std::reverse_iterator<const_itertor>			const_reverse_iterator;
 	protected:
 		A																the_allocator;
 	public:
