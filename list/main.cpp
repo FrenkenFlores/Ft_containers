@@ -1,3 +1,4 @@
+#include <list>
 #include "list.hpp"
 
 //template <typename T, typename A = std::allocator<T> >
@@ -5,6 +6,14 @@
 
 
 int main(int argc, char **argv) {
-	ft::list<int> i;
+	std::list<int> j;
+	j.push_back(1);
+	j.push_back(2);
+	j.push_back(3);
+	j.push_back(4);
+	std::list<int>::iterator w;
+	ft::iterator<int> k = j.begin();
+//	k = j.begin();
+
 	return 0;
 }

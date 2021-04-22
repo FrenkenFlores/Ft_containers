@@ -5,86 +5,137 @@
 
 //list iterator
 namespace ft {
-	class list_node_base {
-	public:
-		list_node_base *next;
-		list_node_base *prev;
-		static void swap(list_node_base &x, list_node_base &y) throw();
-		void transfer(const list_node_base *first, const list_node_base *last) throw();
-		void reverse() throw();
-		void hook() throw();
-		void unhook() throw();
-	};
-
-	template <typename T>
-	class list_node : public list_node_base {
-		T data;
-	};
-
-	template <typename T>
-	class list_iterator {
-	public:
-		typedef list_iterator<T> self;
-		typedef list_node<T> node;
-		typedef ptrdiff_t difference_type;
-		typedef std::bidirectional_iterator_tag iterator_category;
-		typedef T value_type;
-		typedef T* pointer;
-		typedef T& reference;
-		list_node_base *node_base;
-
-		list_iterator() : node_base() { }
-		explicit list_iterator(list_node_base *x) : node_base(x) { }
-		self _const_cast() const {return *this; }
-		// Must downcast from list_node_base to list_node to get to data.
-		reference operator*() const { return static_cast<node *>(node_base)->data; }
-		pointer operator->() const { return std::addressof(static_cast<node *>(node_base)->data); }
-		self &operator++() {
-			node_base = node_base->next;
-			return *this;
-		}
-		self &operator--() {
-			node_base = node_base->prev;
-			return *this;
-		}
-		bool operator==(const self &x) const { return node_base == x.node; }
-		bool operator!=(const self &x) const { return node_base != x.node; }
-	};
-
 	template<typename T>
-	class list_const_iterator {
+	class iterator {
 	public:
-		typedef list_const_iterator<T> self;
-		typedef const list_node<T> node;
-		typedef list_iterator<T> iterator;
+		typedef iterator<T> self;
 		typedef ptrdiff_t difference_type;
 		typedef std::bidirectional_iterator_tag iterator_category;
 		typedef T value_type;
-		typedef const T* pointer;
-		typedef const T& reference;
-		const list_node_base *node_base;
+		typedef T *pointer;
+		typedef T &reference;
 
-		list_const_iterator() : node_base() { }
-		explicit list_const_iterator(const list_node_base *x) : node_base(x) { }
-		list_const_iterator(const iterator &x) : node_base(x.node_base) { }
+		iterator *next;
+		iterator *prev;
+		T data;
 
-		iterator _const_cast() const {return iterator(const_cast<list_node_base *>(node_base)) ; }
-		// Must downcast from list_node_base to list_node to get to data.
-		reference operator*() const { return static_cast<node *>(node_base)->data; }
-		pointer operator->() const { return std::addressof(static_cast<node *>(node_base)->data); }
+		iterator() : next(this), prev(this), data(0) {}
+
+		iterator(const self &src) {
+			this->next = src.next;
+			this->prev = src.prev;
+			this->data = src.data;
+		}
+
+		self &operator=(const self &rhs) {
+			this->next = rhs.next;
+			this->prev = rhs.prev;
+			this->data = rhs.data;
+			return *this;
+		}
+
+		~iterator() {};
+
+		bool operator==(const iterator<T> &rhs) const { return *this == rhs; }
+
+		bool operator!=(const iterator<T> &rhs) const { return *this != rhs; }
+
+		reference operator*() const { return data; }
+
+		pointer operator->() const { return std::addressof(data); }
+
 		self &operator++() {
-			node_base = node_base->next;
+			this = this->next;
 			return *this;
 		}
-		self &operator--() {
-			node_base = node_base->prev;
-			return *this;
-		}
-		bool operator==(const self &x) const { return node_base == x.node; }
-		bool operator!=(const self &x) const { return node_base != x.node; }
-	};
-}
 
+		self &operator--() {
+			this = this->prev;
+			return *this;
+		}
+	};
+
+//
+//
+//	class list_node_base {
+//	public:
+//		list_node_base *next;
+//		list_node_base *prev;
+//		static void swap(list_node_base &x, list_node_base &y) throw();
+//		void transfer(const list_node_base *first, const list_node_base *last) throw();
+//		void reverse() throw();
+//		void hook() throw();
+//		void unhook() throw();
+//	};
+//
+//	template <typename T>
+//	class list_node : public list_node_base {
+//		T data;
+//	};
+//
+//	template <typename T>
+//	class list_iterator {
+//	public:
+//		typedef list_iterator<T> self;
+//		typedef list_node<T> node;
+//		typedef ptrdiff_t difference_type;
+//		typedef std::bidirectional_iterator_tag iterator_category;
+//		typedef T value_type;
+//		typedef T* pointer;
+//		typedef T& reference;
+//		list_node_base *node_base;
+//
+//		list_iterator() : node_base() { }
+//		explicit list_iterator(list_node_base *x) : node_base(x) { }
+//		self _const_cast() const {return *this; }
+//		// Must downcast from list_node_base to list_node to get to data.
+//		reference operator*() const { return static_cast<node *>(node_base)->data; }
+//		pointer operator->() const { return std::addressof(static_cast<node *>(node_base)->data); }
+//		self &operator++() {
+//			node_base = node_base->next;
+//			return *this;
+//		}
+//		self &operator--() {
+//			node_base = node_base->prev;
+//			return *this;
+//		}
+//		bool operator==(const self &x) const { return node_base == x.node; }
+//		bool operator!=(const self &x) const { return node_base != x.node; }
+//	};
+//
+//	template<typename T>
+//	class list_const_iterator {
+//	public:
+//		typedef list_const_iterator<T> self;
+//		typedef const list_node<T> node;
+//		typedef list_iterator<T> iterator;
+//		typedef ptrdiff_t difference_type;
+//		typedef std::bidirectional_iterator_tag iterator_category;
+//		typedef T value_type;
+//		typedef const T* pointer;
+//		typedef const T& reference;
+//		const list_node_base *node_base;
+//
+//		list_const_iterator() : node_base() { }
+//		explicit list_const_iterator(const list_node_base *x) : node_base(x) { }
+//		list_const_iterator(const iterator &x) : node_base(x.node_base) { }
+//
+//		iterator _const_cast() const {return iterator(const_cast<list_node_base *>(node_base)) ; }
+//		// Must downcast from list_node_base to list_node to get to data.
+//		reference operator*() const { return static_cast<node *>(node_base)->data; }
+//		pointer operator->() const { return std::addressof(static_cast<node *>(node_base)->data); }
+//		self &operator++() {
+//			node_base = node_base->next;
+//			return *this;
+//		}
+//		self &operator--() {
+//			node_base = node_base->prev;
+//			return *this;
+//		}
+//		bool operator==(const self &x) const { return node_base == x.node; }
+//		bool operator!=(const self &x) const { return node_base != x.node; }
+//	};
+}
 //list container
 namespace ft {
 	template < typename T, typename A = std::allocator<T> >
@@ -96,8 +147,8 @@ namespace ft {
 		typedef typename allocator_type::const_reference	const_reference;
 		typedef typename allocator_type::pointer			pointer;
 		typedef typename allocator_type::const_pointer		const_pointer;
-		typedef list_iterator<T>							iterator;
-		typedef list_const_iterator<T>						const_iterator;
+		typedef ft::iterator<T>								iterator;
+		typedef ft::iterator<T>								const_iterator;
 		typedef std::reverse_iterator<iterator>				reverse_iterator;
 		typedef std::reverse_iterator<const_iterator>		const_reverse_iterator;
 		typedef ptrdiff_t									difference_type;

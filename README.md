@@ -44,3 +44,6 @@ https://devdocs.io/cpp/
 
 
 https://devdocs.io/cpp/
+
+
+https://www.codeproject.com/Articles/36530/An-Introduction-to-Iterator-Traits
