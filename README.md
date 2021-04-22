@@ -47,3 +47,6 @@ https://devdocs.io/cpp/
 
 
 https://www.codeproject.com/Articles/36530/An-Introduction-to-Iterator-Traits
+
+
+[on how to write container+iterator]: https://internalpointers.com/post/writing-custom-iterators-modern-cpp
