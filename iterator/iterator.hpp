@@ -27,22 +27,23 @@ namespace ft {
 		typedef T value_type;
 		typedef T* pointer;
 		typedef T& reference;
-		list_node_base *node;
+		list_node_base *node_base;
 
-		list_iterator() : node() { }
-		explicit list_iterator(list_node_base *x) : node(x) { }
+		list_iterator() : node_base() { }
+		explicit list_iterator(list_node_base *x) : node_base(x) { }
 		self _const_cast() const {return *this; }
 		// Must downcast from list_node_base to list_node to get to data.
-		reference operator*() const { return static_cast<node *>(node)->data; }
-		pointer operator->() const { return std::addressof(static_cast<node *>(node)->data); }
+		reference operator*() const { return static_cast<node *>(node_base)->data; }
+		pointer operator->() const { return std::addressof(static_cast<node *>(node_base)->data); }
 		self &operator++() {
-			node = node->next;
+			node_base = node_base->next;
 			return *this;
 		}
 		self &operator--() {
-			node = node->prev;
+			node_base = node_base->prev;
 			return *this;
 		}
-
+		bool operator==(const self &x) const { return node_base == x.node; }
+		bool operator!=(const self &x) const { return node_base != x.node; }
 	};
 }

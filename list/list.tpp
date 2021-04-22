@@ -1,5 +1,3 @@
-#include "list.hpp"
-
 template <typename T, typename A>
 ft::list<T, A>::list() {}
 
@@ -60,11 +58,11 @@ typename ft::list<T, A>::reference ft::list<T, A>::back() {}
 template <typename T, typename A>
 typename ft::list<T, A>::const_reference ft::list<T, A>::back() const {}
 
-template <typename T, typename A, typename InputIterator>
-void ft::list<T, A>::assign(InputIterator first, InputIterator last) {}
+template <typename T, typename A>
+void ft::list<T, A>::assign(ft::list<T, A>::iterator first, ft::list<T, A>::iterator last) {}
 
 template <typename T, typename A>
-void ft::list<T,  A>::assign(typename ft::list<T, A>::size_type n, const typename ft::list<t, A>::value_type &val) {}
+void ft::list<T,  A>::assign(typename ft::list<T, A>::size_type n, const typename ft::list<T, A>::value_type &val) {}
 
 template <typename T, typename A>
 void ft::list<T, A>::push_front(const typename ft::list<T, A>::value_type &val) {}
@@ -85,7 +83,7 @@ template <typename T, typename A>
 void ft::list<T, A>::insert(typename ft::list<T, A>::iterator position, typename ft::list<T, A>::size_type n, const typename ft::list<T, A>::value_type &val) {}
 
 template <typename T, typename A>
-void ft::list<T, A>::insert(typename ft::list<T, A>::iterator position, InputIterator first, InputIterator last) {}
+void ft::list<T, A>::insert(typename ft::list<T, A>::iterator position, typename ft::list<T, A>::iterator first, typename ft::list<T, A>::iterator last) {}
 
 template <typename T, typename A>
 typename ft::list<T, A>::iterator ft::list<T, A>::erase(typename ft::list<T, A>::iterator position) {}
@@ -114,26 +112,26 @@ void ft::list<T, A>::splice(typename ft::list<T, A>::iterator position, ft::list
 template <typename T, typename A>
 void ft::list<T, A>::remove(const typename ft::list<T, A>::value_type &val) {}
 
-template <typename T, typename A, typename Predicate>
-void ft::list<T, A>::remove_if(Predicate pred) {}
+template <typename T, typename A>
+void ft::list<T, A>::remove_if(T pred) {}
 
 template <typename T, typename A>
 void ft::list<T, A>::unique() {}
 
-template <typename T, typename A, typename BinaryPredicate>
-void ft::list<T, A>::unique(BinaryPredicate binary_pred) {}
+template <typename T, typename A>
+void ft::list<T, A>::unique(T binary_pred) {}
 
 template <typename T, typename A>
-ft::list<T, A>::merge(ft::list<T, A> &x) {}
+void ft::list<T, A>::merge(ft::list<T, A> &x) {}
+
+template <typename T, typename A>
+void ft::list<T, A>::merge(ft::list<T, A> &x, void (*f)(T, T)) {}
 
 template <typename T, typename A>
 void ft::list<T, A>::sort() {}
 
-template <typename T, typename A, typename Compare>
-void ft::list<T, A>::sort(Compare comp) {}
+template <typename T, typename A>
+void ft::list<T, A>::sort(void (*f)(T, T)) {}
 
-template <typename T, typename A, typename Compare>
+template <typename T, typename A>
 void ft::list<T, A>::reverse() {}
-
-template <typename T, typename A, typename Compare>
-typename ft::list<T, A>::allocator_type ft::list<T, A>::get_allocator() const {}
