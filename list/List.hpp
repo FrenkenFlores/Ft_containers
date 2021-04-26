@@ -1,6 +1,6 @@
 #ifndef LIST_HPP
 #define LIST_HPP
-
+#include <iostream>
 #include <memory>
 #include <iterator>
 #include <cstddef>
@@ -142,17 +142,33 @@
 namespace ft {
 	template < typename T, typename A = std::allocator<T> >
 	class list {
+	private:
+		struct node {
+			node(T *data, struct node *next, struct node *prev) {
+				this->data = new T;
+				this->next = next;
+				this->prev = prev;
+				std::cout << "Node been created" <<std::endl;
+			}
+			T	*data;
+			node *next;
+			node *prev;
+		};
+		node *head;
+		node *tail;
 	public:
 		struct iterator {
 		public:
 			typedef std::bidirectional_iterator_tag iterator_category;
 			typedef std::ptrdiff_t difference_type;
 			typedef T value_type;
-			typedef T* pointer;
-			typedef T& reference;
+			typedef node* node_pointer;
+			typedef node& node_reference;
+			typedef T* type_pointer;
+			typedef T& type_reference;
 
 			iterator() : m_ptr(0) { }
-			iterator(pointer ptr) : m_ptr(ptr) { }
+			iterator(node_pointer ptr) : m_ptr(ptr) { }
 			iterator(const iterator & src) {
 				*this = src;
 				return;
@@ -162,14 +178,14 @@ namespace ft {
 				return *this;
 			}
 			~iterator() { }
-			reference operator*() const{ return *m_ptr; }
-			pointer operator->() const { return m_ptr; }
-			reference operator++() { m_ptr++; return *this; }
-			reference operator--() { m_ptr--; return *this; }
-			bool operator==(const iterator & rhs) { return *(this->m_ptr) == *(rhs.m_ptr) }
-			bool operator!=(const iterator & rhs) { return *(this->m_ptr) != *(rhs.m_ptr) }
+			type_reference operator*() const{ return *m_ptr->data; }
+			type_pointer operator->() const { return m_ptr->data; }
+			void operator++() { m_ptr = m_ptr->next; }
+			type_reference operator--() { m_ptr = m_ptr->prev; return *this; }
+			bool operator==(const iterator & rhs) { return this->m_ptr == rhs.m_ptr; }
+			bool operator!=(const iterator & rhs) { return this->m_ptr != rhs.m_ptr; }
 		private:
-			pointer m_ptr;
+			node_pointer m_ptr;
 		};
 		struct const_iterator {
 		public:
@@ -179,23 +195,23 @@ namespace ft {
 			typedef T* pointer;
 			typedef T& reference;
 
-			iterator() : m_ptr(0) { }
-			iterator(pointer ptr) : m_ptr(ptr) { }
-			iterator(const iterator & src) {
+			const_iterator() : m_ptr(0) { }
+			const_iterator(pointer ptr) : m_ptr(ptr) { }
+			const_iterator(const iterator & src) {
 				*this = src;
 				return;
 			}
-			iterator & operator=(const iterator & rhs) {
+			const_iterator & operator=(const const_iterator & rhs) {
 				this->m_ptr = rhs.m_ptr;
 				return *this;
 			}
-			~iterator() { }
+			~const_iterator() { }
 			reference operator*() const{ return *m_ptr; }
 			pointer operator->() const { return m_ptr; }
 			reference operator++() { m_ptr++; return *this; }
 			reference operator--() { m_ptr--; return *this; }
-			bool operator==(const iterator & rhs) { return *(this->m_ptr) == *(rhs.m_ptr) }
-			bool operator!=(const iterator & rhs) { return *(this->m_ptr) != *(rhs.m_ptr) }
+			bool operator==(const const_iterator & rhs) { return *(this->m_ptr) == *(rhs.m_ptr); }
+			bool operator!=(const const_iterator & rhs) { return *(this->m_ptr) != *(rhs.m_ptr); }
 		private:
 			pointer m_ptr;
 		};
@@ -210,52 +226,62 @@ namespace ft {
 		typedef ptrdiff_t									difference_type;
 		typedef size_t										size_type;
 
-		list();
-		~list();
-		list & operator=(const list &rhs);
-		list(const list &src);
-		explicit list (const allocator_type& alloc);
+		explicit list (const allocator_type& alloc = allocator_type());
+		explicit list (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());
+
+
+
+
+
+
+
+
+//		list();
+//		~list();
+//		list & operator=(const list &rhs);
+//		list(const list &src);
+//		explicit list (const allocator_type& alloc);
 		iterator begin();
-		const_iterator begin() const;
+//		const_iterator begin() const;
 		iterator end();
-		const_iterator end() const;
-		reverse_iterator rbegin();
-		const_reverse_iterator rbegin() const;
-		reverse_iterator rend();
-		const_reverse_iterator rend() const;
-		bool empty() const;
-		size_type size() const;
-		size_type max_size() const;
-		reference front();
-		const_reference front() const;
-		reference back();
-		const_reference back() const;
-		void assign (iterator first, iterator last);
-		void assign (size_type n, const value_type& val);
-		void push_front (const value_type& val);
-		void pop_front();
+//		const_iterator end() const;
+//		reverse_iterator rbegin();
+//		const_reverse_iterator rbegin() const;
+//		reverse_iterator rend();
+//		const_reverse_iterator rend() const;
+//		bool empty() const;
+//		size_type size() const;
+//		size_type max_size() const;
+//		reference front();
+//		const_reference front() const;
+//		reference back();
+//		const_reference back() const;
+//		void assign (iterator first, iterator last);
+//		void assign (size_type n, const value_type& val);
+//		void push_front (const value_type& val);
+//		void pop_front();
 		void push_back (const value_type& val);
-		void pop_back();
-		iterator insert (iterator position, const value_type& val);
-		void insert (iterator position, size_type n, const value_type& val);
-		void insert (iterator position, iterator first, iterator last);
-		iterator erase (iterator position);
-		iterator erase (iterator first, iterator last);
-		void swap (list& x);
-		void resize (size_type n, value_type val = value_type());
-		void clear();
-		void splice (iterator position, list& x);
-		void splice (iterator position, list& x, iterator i);
-		void splice (iterator position, list& x, iterator first, iterator last);
-		void remove (const value_type& val);
-		void remove_if (T pred);
-		void unique();
-		void unique (T binary_pred);
-		void merge (list& x);
-		void merge (list& x, void (*f)(T, T));
-		void sort();
-		void sort (void (*f)(T, T));
-		void reverse();
+//		void pop_back();
+//		iterator insert (iterator position, const value_type& val);
+//		void insert (iterator position, size_type n, const value_type& val);
+//		void insert (iterator position, iterator first, iterator last);
+//		iterator erase (iterator position);
+//		iterator erase (iterator first, iterator last);
+//		void swap (list& x);
+//		void resize (size_type n, value_type val = value_type());
+//		void clear();
+//		void splice (iterator position, list& x);
+//		void splice (iterator position, list& x, iterator i);
+//		void splice (iterator position, list& x, iterator first, iterator last);
+//		void remove (const value_type& val);
+//		void remove_if (T pred);
+//		void unique();
+//		void unique (T binary_pred);
+//		void merge (list& x);
+//		void merge (list& x, void (*f)(T, T));
+//		void sort();
+//		void sort (void (*f)(T, T));
+//		void reverse();
 	protected:
 		A	the_allocator;
 	};
