@@ -49,4 +49,8 @@ https://devdocs.io/cpp/
 https://www.codeproject.com/Articles/36530/An-Introduction-to-Iterator-Traits
 
 
-[on how to write container+iterator]: https://internalpointers.com/post/writing-custom-iterators-modern-cpp
+[on how to write container+iterator] : https://internalpointers.com/post/writing-custom-iterators-modern-cpp
+
+[initailizing lists] : https://thispointer.com/different-ways-to-initialize-a-list-in-c/
+
+[How to differentiate fill constructor and range constructor in C++] : https://stackoverflow.com/questions/45847787/how-to-differentiate-fill-constructor-and-range-constructor-in-c11

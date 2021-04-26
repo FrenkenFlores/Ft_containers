@@ -15,6 +15,18 @@ ft::list<T, A>::list (size_type n, const value_type& val, const allocator_type& 
 		push_back(val);
 };
 
+// range (3)
+template <typename T, typename A>
+template <class InputIterator>
+ft::list<T, A>::list (InputIterator first, InputIterator last, const allocator_type& alloc) {
+	head = NULL;
+	tail = NULL;
+	while (first != last) {
+		push_back(*first);
+		first++;
+	}
+}
+
 template <typename T, typename A>
 void ft::list<T, A>::push_back (const value_type& val) {
 	node *tmp = new node(val, NULL, NULL);

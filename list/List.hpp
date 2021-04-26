@@ -228,7 +228,8 @@ namespace ft {
 
 		explicit list (const allocator_type& alloc = allocator_type());
 		explicit list (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());
-
+		template <class InputIterator>
+		list (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
 
 
 
