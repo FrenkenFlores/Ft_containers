@@ -11,20 +11,35 @@
 
 
 int main(int argc, char **argv) {
-	std::cout << "Case 1" << std::endl;
-	ft::list<int> j;
-	ft::list<int>::iterator it;
-	j.push_back(1);
-	j.push_back(2);
-	j.push_back(3);
-	j.push_back(4);
-	ft::list<int>::iterator it_begin = j.begin();
-	ft::list<int>::iterator it_end = j.end();
-	while (it_begin != it_end)
 	{
-		std::cout << *it_begin << std::endl;
-		++it_begin;
+		std::cout << "DEFAULT CONSTRUCTOR: PUSH_BACK, ITERATOR, BEGIN, END, ++OPERATOR" << std::endl;
+		ft::list<int> j;
+		j.push_back(1);
+		j.push_back(2);
+		j.push_back(3);
+		j.push_back(4);
+		ft::list<int>::iterator jit;
+		ft::list<int>::iterator jit_begin = j.begin();
+		ft::list<int>::iterator jit_end = j.end();
+		while (jit_begin != jit_end)
+		{
+			std::cout << *jit_begin << std::endl;
+			++jit_begin;
+		}
 	}
+	{
+		std::cout << "FILL CONSTRUCTOR: PUSH_BACK, ITERATOR, BEGIN, END, ++OPERATOR" << std::endl;
+		ft::list<int> j(4, 42);
+//		ft::list<int>::iterator jit;
+//		ft::list<int>::iterator jit_begin = j.begin();
+//		ft::list<int>::iterator jit_end = j.end();
+//		while (jit_begin != jit_end)
+//		{
+//			std::cout << *jit_begin << std::endl;
+//			++jit_begin;
+//		}
+	}
+
 
 	return 0;
 }
@@ -38,3 +53,5 @@ int main(int argc, char **argv) {
 }
 
 #endif
+
+

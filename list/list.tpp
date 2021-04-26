@@ -15,9 +15,7 @@ ft::list<T, A>::list (size_type n, const value_type& val, const allocator_type& 
 
 template <typename T, typename A>
 void ft::list<T, A>::push_back (const value_type& val) {
-	node *tmp = new node(NULL, NULL, NULL);
-	*tmp->data = val;
-	tmp->next = NULL;
+	node *tmp = new node(val, NULL, NULL);
 	if (!head && !tail) {
 		head = tmp;
 		tail = tmp;

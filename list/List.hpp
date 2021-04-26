@@ -144,8 +144,8 @@ namespace ft {
 	class list {
 	private:
 		struct node {
-			node(T *data, struct node *next, struct node *prev) {
-				this->data = new T;
+			node(const T &data, struct node *next, struct node *prev) {
+				this->data = new T(data);
 				this->next = next;
 				this->prev = prev;
 				std::cout << "Node been created" <<std::endl;
