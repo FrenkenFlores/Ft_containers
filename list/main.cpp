@@ -30,14 +30,26 @@ int main(int argc, char **argv) {
 	{
 		std::cout << "FILL CONSTRUCTOR: PUSH_BACK, ITERATOR, BEGIN, END, ++OPERATOR" << std::endl;
 		ft::list<int> j(4, 42);
-//		ft::list<int>::iterator jit;
-//		ft::list<int>::iterator jit_begin = j.begin();
-//		ft::list<int>::iterator jit_end = j.end();
-//		while (jit_begin != jit_end)
-//		{
-//			std::cout << *jit_begin << std::endl;
-//			++jit_begin;
-//		}
+		ft::list<int>::iterator jit;
+		ft::list<int>::iterator jit_begin = j.begin();
+		ft::list<int>::iterator jit_end = j.end();
+		while (jit_begin != jit_end)
+		{
+			std::cout << *jit_begin << std::endl;
+			++jit_begin;
+		}
+	}
+	{
+		std::cout << "FILL CONSTRUCTOR: PUSH_BACK, ITERATOR, BEGIN, END, ++OPERATOR" << std::endl;
+		ft::list<int> k(4, 42);
+		ft::list<int>::iterator kt;
+		ft::list<int>::iterator kit_begin = k.begin();
+		ft::list<int>::iterator kit_end = k.end();
+		while (kit_begin != kit_end)
+		{
+			std::cout << *kit_begin << std::endl;
+			++kit_begin;
+		}
 	}
 
 

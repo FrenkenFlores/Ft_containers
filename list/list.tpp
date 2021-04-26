@@ -9,6 +9,8 @@ ft::list<T, A>::list (const allocator_type& alloc) {
 // fill (2)
 template <typename T, typename A>
 ft::list<T, A>::list (size_type n, const value_type& val, const allocator_type& alloc) {
+	head = NULL;
+	tail = NULL;
 	for (size_t i = 0; i < n; i++)
 		push_back(val);
 };
@@ -40,8 +42,11 @@ void ft::list<T, A>::push_back (const value_type& val) {
 //template <typename T, typename A>
 //ft::list<T, A>::list(const allocator_type &alloc) {}
 //
-//template <typename T, typename A>
-//ft::list<T, A>::~list() {}
+template <typename T, typename A>
+ft::list<T, A>::~list() {
+	this->head = NULL;
+	this->tail = NULL;
+}
 //
 //template <typename T, typename A>
 //ft::list<T, A> & ft::list<T, A>::operator=(const ft::list<T, A> &rhs) {}

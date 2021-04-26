@@ -237,7 +237,7 @@ namespace ft {
 
 
 //		list();
-//		~list();
+		~list();
 //		list & operator=(const list &rhs);
 //		list(const list &src);
 //		explicit list (const allocator_type& alloc);
