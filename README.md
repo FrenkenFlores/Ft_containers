@@ -54,3 +54,14 @@ https://www.codeproject.com/Articles/36530/An-Introduction-to-Iterator-Traits
 [initailizing lists] : https://thispointer.com/different-ways-to-initialize-a-list-in-c/
 
 [How to differentiate fill constructor and range constructor in C++] : https://stackoverflow.com/questions/45847787/how-to-differentiate-fill-constructor-and-range-constructor-in-c11
+
+
+
+http://www.cplusplus.com/reference/type_traits/enable_if/
+
+
+
+https://stackoverflow.com/questions/21860674/implementing-begin-and-end-for-doubly-linked-list
+
+
+

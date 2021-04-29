@@ -41,19 +41,19 @@ int main(int argc, char **argv) {
 			++jit_begin;
 		}
 	}
-//	{
-//		std::cout << "RANGE <VECTOR> CONSTRUCTOR: PUSH_BACK, ITERATOR, BEGIN, END, ++OPERATOR" << std::endl;
-//		std::vector<int> h(5, 42);
-//		ft::list<int> k(h.begin(), h.end());
-//		ft::list<int>::iterator kt;
-//		ft::list<int>::iterator kit_begin = k.begin();
-//		ft::list<int>::iterator kit_end = k.end();
-//		while (kit_begin != kit_end)
-//		{
-//			std::cout << *kit_begin << std::endl;
-//			++kit_begin;
-//		}
-//	}
+	{
+		std::cout << "RANGE <VECTOR> CONSTRUCTOR: PUSH_BACK, ITERATOR, BEGIN, END, ++OPERATOR" << std::endl;
+		std::vector<int> h(5, 42);
+		ft::list<int> k(h.begin(), h.end());
+		ft::list<int>::iterator kt;
+		ft::list<int>::iterator kit_begin = k.begin();
+		ft::list<int>::iterator kit_end = k.end();
+		while (kit_begin != kit_end)
+		{
+			std::cout << *kit_begin << std::endl;
+			++kit_begin;
+		}
+	}
 	{
 		std::cout << "RANGE <ARRAY> CONSTRUCTOR: PUSH_BACK, ITERATOR, BEGIN, END, ++OPERATOR" << std::endl;
 		int array[] = {1, 2, 3, 4, 5};

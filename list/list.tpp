@@ -17,7 +17,7 @@ ft::list<T, A>::list (size_type n, const value_type& val, const allocator_type& 
 
 // range (3)
 template <typename T, typename A>
-template <class InputIterator>
+template <class InputIterator, class>
 ft::list<T, A>::list (InputIterator first, InputIterator last, const allocator_type& alloc) {
 	head = NULL;
 	tail = NULL;

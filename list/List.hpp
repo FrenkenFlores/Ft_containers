@@ -4,6 +4,7 @@
 #include <memory>
 #include <iterator>
 #include <cstddef>
+#include <type_traits>
 
 //list iterator
 //namespace ft {
@@ -228,7 +229,7 @@ namespace ft {
 
 		explicit list (const allocator_type& alloc = allocator_type());
 		explicit list (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());
-		template <class InputIterator>
+		template <class InputIterator, class = typename std::enable_if<std::is_class<InputIterator>::value || std::is_pointer<InputIterator>::value >::type>
 		list (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
 
 
