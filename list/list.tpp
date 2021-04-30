@@ -50,16 +50,18 @@ ft::list<T, A>::list (const list& x) {
 template <typename T, typename A>
 void ft::list<T, A>::push_back (const value_type& val) {
 	node *tmp = new node(val, NULL, NULL);
-	if (!head->next && !tail->next) {
-		head->next = tmp;
+	if (!head->next && !tail->next) {			// list's first node after sentinel node
+		tmp->prev = tail;						//
+		tmp->next = head;
 		tail->next = tmp;
 		tail = tail->next;
-		tail->next = sentinel;
 	}
-	else {
-		tail->next = tmp;
-		tail = tail->next;
-		tail->next = sentinel;
+	else {										// node chain
+		tmp->prev = tail;						// tail is the last node
+		tmp->next = head;						// head = sentinel, circular list
+		tail->next = tmp;						// adding new node
+		tail = tail->next;						// moving to the added node, that way the last node will be the added one
+		head->prev = tail;						// it = end(); --it; in case when we move backword from the end of the list
 	}
 	node_number++;
 }
@@ -93,7 +95,7 @@ template <typename T, typename A>
 typename ft::list<T, A>::const_iterator ft::list<T, A>::begin() const {
 	if (head == tail)
 		return const_iterator(head);
-	return const_itertor(head->next);
+	return const_iterator(head->next);
 }
 
 template <typename T, typename A>

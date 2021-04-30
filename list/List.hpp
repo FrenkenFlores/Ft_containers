@@ -190,7 +190,7 @@ namespace ft {
 			type_reference operator*() const{ return *m_ptr->data; }
 			type_pointer operator->() const { return m_ptr->data; }
 			void operator++() { m_ptr = m_ptr->next; }
-			type_reference operator--() { m_ptr = m_ptr->prev; return *this; }
+			void operator--() { m_ptr = m_ptr->prev; }
 			bool operator==(const iterator & rhs) { return this->m_ptr == rhs.m_ptr; }
 			bool operator!=(const iterator & rhs) { return this->m_ptr != rhs.m_ptr; }
 		private:
@@ -220,7 +220,7 @@ namespace ft {
 			type_reference operator*() const{ return *m_ptr->data; }
 			type_pointer operator->() const { return m_ptr->data; }
 			void operator++() { m_ptr = m_ptr->next; }
-			type_reference operator--() { m_ptr = m_ptr->prev; return *this; }
+			void operator--() { m_ptr = m_ptr->prev; }
 			bool operator==(const const_iterator & rhs) { return this->m_ptr == rhs.m_ptr; }
 			bool operator!=(const const_iterator & rhs) { return this->m_ptr != rhs.m_ptr; }
 		private:
