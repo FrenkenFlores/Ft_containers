@@ -157,6 +157,7 @@ namespace ft {
 		};
 		node *head;
 		node *tail;
+		static int node_number;
 	public:
 		struct iterator {
 		public:
@@ -193,12 +194,14 @@ namespace ft {
 			typedef std::bidirectional_iterator_tag iterator_category;
 			typedef std::ptrdiff_t difference_type;
 			typedef T value_type;
-			typedef T* pointer;
-			typedef T& reference;
+			typedef node* node_pointer;
+			typedef node& node_reference;
+			typedef T* type_pointer;
+			typedef T& type_reference;
 
 			const_iterator() : m_ptr(0) { }
-			const_iterator(pointer ptr) : m_ptr(ptr) { }
-			const_iterator(const iterator & src) {
+			const_iterator(node_pointer ptr) : m_ptr(ptr) { }
+			const_iterator(const const_iterator & src) {
 				*this = src;
 				return;
 			}
@@ -207,14 +210,14 @@ namespace ft {
 				return *this;
 			}
 			~const_iterator() { }
-			reference operator*() const{ return *m_ptr; }
-			pointer operator->() const { return m_ptr; }
-			reference operator++() { m_ptr++; return *this; }
-			reference operator--() { m_ptr--; return *this; }
-			bool operator==(const const_iterator & rhs) { return *(this->m_ptr) == *(rhs.m_ptr); }
-			bool operator!=(const const_iterator & rhs) { return *(this->m_ptr) != *(rhs.m_ptr); }
+			type_reference operator*() const{ return *m_ptr->data; }
+			type_pointer operator->() const { return m_ptr->data; }
+			void operator++() { m_ptr = m_ptr->next; }
+			type_reference operator--() { m_ptr = m_ptr->prev; return *this; }
+			bool operator==(const const_iterator & rhs) { return this->m_ptr == rhs.m_ptr; }
+			bool operator!=(const const_iterator & rhs) { return this->m_ptr != rhs.m_ptr; }
 		private:
-			pointer m_ptr;
+			node_pointer m_ptr;
 		};
 		typedef T											value_type;
 		typedef A											allocator_type;
@@ -231,7 +234,7 @@ namespace ft {
 		explicit list (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());
 		template <class InputIterator, class = typename std::enable_if<std::is_class<InputIterator>::value || std::is_pointer<InputIterator>::value >::type>
 		list (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
-
+		list (const list& x);
 
 
 
@@ -244,9 +247,9 @@ namespace ft {
 //		list(const list &src);
 //		explicit list (const allocator_type& alloc);
 		iterator begin();
-//		const_iterator begin() const;
+		const_iterator begin() const;
 		iterator end();
-//		const_iterator end() const;
+		const_iterator end() const;
 //		reverse_iterator rbegin();
 //		const_reverse_iterator rbegin() const;
 //		reverse_iterator rend();

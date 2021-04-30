@@ -1,3 +1,5 @@
+template <typename T, typename A>
+int ft::list<T, A>::node_number = 0;
 
 // default (1)
 template <typename T, typename A>
@@ -15,7 +17,7 @@ ft::list<T, A>::list (size_type n, const value_type& val, const allocator_type& 
 		push_back(val);
 };
 
-// range (3)
+// range (3), InputIterator can be vector or array
 template <typename T, typename A>
 template <class InputIterator, class>
 ft::list<T, A>::list (InputIterator first, InputIterator last, const allocator_type& alloc) {
@@ -26,6 +28,22 @@ ft::list<T, A>::list (InputIterator first, InputIterator last, const allocator_t
 		first++;
 	}
 }
+
+// copy (4)
+template <typename T, typename A>
+ft::list<T, A>::list (const list& x) {
+	head = NULL;
+	tail = NULL;
+	const_iterator it_begin = x.begin();
+	const_iterator it_end = x.end();
+	while (it_begin != it_end)
+	{
+		push_back(*it_begin);
+		++it_begin;
+	}
+}
+
+
 
 template <typename T, typename A>
 void ft::list<T, A>::push_back (const value_type& val) {
@@ -39,6 +57,7 @@ void ft::list<T, A>::push_back (const value_type& val) {
 		tail = tail->next;
 		tail->next = NULL;
 	}
+	node_number++;
 }
 
 
@@ -67,10 +86,12 @@ template <typename T, typename A>
 typename ft::list<T, A>::iterator ft::list<T, A>::begin() {
 	return iterator(head);
 }
-//
-//template <typename T, typename A>
-//typename ft::list<T, A>::const_iterator ft::list<T, A>::begin() const {}
-//
+
+template <typename T, typename A>
+typename ft::list<T, A>::const_iterator ft::list<T, A>::begin() const {
+	return const_iterator(head);
+}
+
 template <typename T, typename A>
 typename ft::list<T, A>::iterator ft::list<T, A>::end() {
 	node *tmp = head;
@@ -79,10 +100,16 @@ typename ft::list<T, A>::iterator ft::list<T, A>::end() {
 	}
 	return iterator(tmp);
 }
-//
-//template <typename T, typename A>
-//typename ft::list<T, A>::const_iterator ft::list<T, A>::end() const {}
-//
+
+template <typename T, typename A>
+typename ft::list<T, A>::const_iterator ft::list<T, A>::end() const {
+	node *tmp = head;
+	while (tmp != NULL) {
+		tmp = tmp->next;
+	}
+	return const_iterator(tmp);
+}
+
 //template <typename T, typename A>
 //typename ft::list<T, A>::reverse_iterator ft::list<T, A>::rbegin() {}
 //
