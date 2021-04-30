@@ -4,15 +4,17 @@ int ft::list<T, A>::node_number = 0;
 // default (1)
 template <typename T, typename A>
 ft::list<T, A>::list (const allocator_type& alloc) {
-	head = NULL;
-	tail = NULL;
+	sentinel = new node();
+	head = sentinel;
+	tail = sentinel;
 	return;
 }
 // fill (2)
 template <typename T, typename A>
 ft::list<T, A>::list (size_type n, const value_type& val, const allocator_type& alloc) {
-	head = NULL;
-	tail = NULL;
+	sentinel = new node();
+	head = sentinel;
+	tail = sentinel;
 	for (size_t i = 0; i < n; i++)
 		push_back(val);
 };
@@ -21,8 +23,9 @@ ft::list<T, A>::list (size_type n, const value_type& val, const allocator_type& 
 template <typename T, typename A>
 template <class InputIterator, class>
 ft::list<T, A>::list (InputIterator first, InputIterator last, const allocator_type& alloc) {
-	head = NULL;
-	tail = NULL;
+	sentinel = new node();
+	head = sentinel;
+	tail = sentinel;
 	while (first != last) {
 		push_back(*first);
 		first++;
@@ -32,8 +35,9 @@ ft::list<T, A>::list (InputIterator first, InputIterator last, const allocator_t
 // copy (4)
 template <typename T, typename A>
 ft::list<T, A>::list (const list& x) {
-	head = NULL;
-	tail = NULL;
+	sentinel = new node();
+	head = sentinel;
+	tail = sentinel;
 	const_iterator it_begin = x.begin();
 	const_iterator it_end = x.end();
 	while (it_begin != it_end)
@@ -43,26 +47,22 @@ ft::list<T, A>::list (const list& x) {
 	}
 }
 
-
-
 template <typename T, typename A>
 void ft::list<T, A>::push_back (const value_type& val) {
 	node *tmp = new node(val, NULL, NULL);
-	if (!head && !tail) {
-		head = tmp;
-		tail = tmp;
+	if (!head->next && !tail->next) {
+		head->next = tmp;
+		tail->next = tmp;
+		tail = tail->next;
+		tail->next = sentinel;
 	}
 	else {
 		tail->next = tmp;
 		tail = tail->next;
-		tail->next = NULL;
+		tail->next = sentinel;
 	}
 	node_number++;
 }
-
-
-
-
 
 //template <typename T, typename A>
 //ft::list<T, A>::list() {}
@@ -84,30 +84,30 @@ ft::list<T, A>::~list() {
 //
 template <typename T, typename A>
 typename ft::list<T, A>::iterator ft::list<T, A>::begin() {
-	return iterator(head);
+	if (head == tail)
+		return iterator(head);
+	return iterator(head->next);
 }
 
 template <typename T, typename A>
 typename ft::list<T, A>::const_iterator ft::list<T, A>::begin() const {
-	return const_iterator(head);
+	if (head == tail)
+		return const_iterator(head);
+	return const_itertor(head->next);
 }
 
 template <typename T, typename A>
 typename ft::list<T, A>::iterator ft::list<T, A>::end() {
-	node *tmp = head;
-	while (tmp != NULL) {
-		tmp = tmp->next;
-	}
-	return iterator(tmp);
+	if (tail == head)
+		return iterator(tail);
+	return iterator(tail->next);
 }
 
 template <typename T, typename A>
 typename ft::list<T, A>::const_iterator ft::list<T, A>::end() const {
-	node *tmp = head;
-	while (tmp != NULL) {
-		tmp = tmp->next;
-	}
-	return const_iterator(tmp);
+	if (tail == head)
+		return const_iterator(tail);
+	return const_iterator(tail->next);
 }
 
 //template <typename T, typename A>
