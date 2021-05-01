@@ -239,14 +239,72 @@ namespace ft {
 		private:
 			node_pointer m_ptr;
 		};
+		struct reverse_iterator {
+		public:
+			typedef std::bidirectional_iterator_tag iterator_category;
+			typedef std::ptrdiff_t difference_type;
+			typedef T value_type;
+			typedef node* node_pointer;
+			typedef node& node_reference;
+			typedef T* type_pointer;
+			typedef T& type_reference;
+
+			reverse_iterator() : m_ptr(0) { }
+			reverse_iterator(node_pointer ptr) : m_ptr(ptr) { }
+			reverse_iterator(const reverse_iterator & src) {
+				*this = src;
+				return;
+			}
+			reverse_iterator & operator=(const reverse_iterator & rhs) {
+				this->m_ptr = rhs.m_ptr;
+				return *this;
+			}
+			~reverse_iterator() { }
+			type_reference operator*() const{ return m_ptr->data; }
+			type_pointer operator->() const { return &m_ptr->data; }
+			void operator++() { m_ptr = m_ptr->prev; }
+			void operator--() { m_ptr = m_ptr->next; }
+			bool operator==(const reverse_iterator & rhs) { return this->m_ptr == rhs.m_ptr; }
+			bool operator!=(const reverse_iterator & rhs) { return this->m_ptr != rhs.m_ptr; }
+		private:
+			node_pointer m_ptr;
+		};
+		struct const_reverse_iterator {
+		public:
+			typedef std::bidirectional_iterator_tag iterator_category;
+			typedef std::ptrdiff_t difference_type;
+			typedef T value_type;
+			typedef node* node_pointer;
+			typedef node& node_reference;
+			typedef T* type_pointer;
+			typedef T& type_reference;
+
+			const_reverse_iterator() : m_ptr(0) { }
+			const_reverse_iterator(node_pointer ptr) : m_ptr(ptr) { }
+			const_reverse_iterator(const const_reverse_iterator & src) {
+				*this = src;
+				return;
+			}
+			const_reverse_iterator & operator=(const const_reverse_iterator & rhs) {
+				this->m_ptr = rhs.m_ptr;
+				return *this;
+			}
+			~const_reverse_iterator() { }
+			type_reference operator*() const{ return m_ptr->data; }
+			type_pointer operator->() const { return &m_ptr->data; }
+			void operator++() { m_ptr = m_ptr->prev; }
+			void operator--() { m_ptr = m_ptr->next; }
+			bool operator==(const const_reverse_iterator & rhs) { return this->m_ptr == rhs.m_ptr; }
+			bool operator!=(const const_reverse_iterator & rhs) { return this->m_ptr != rhs.m_ptr; }
+		private:
+			node_pointer m_ptr;
+		};
 		typedef T											value_type;
 		typedef A											allocator_type;
 		typedef typename allocator_type::reference			reference;
 		typedef typename allocator_type::const_reference	const_reference;
 		typedef typename allocator_type::pointer			pointer;
 		typedef typename allocator_type::const_pointer		const_pointer;
-		typedef std::reverse_iterator<iterator>				reverse_iterator;
-		typedef std::reverse_iterator<const_iterator>		const_reverse_iterator;
 		typedef ptrdiff_t									difference_type;
 		typedef size_t										size_type;
 
@@ -263,11 +321,6 @@ namespace ft {
 
 		list (const list& x);
 
-
-
-
-
-
 //		list();
 		~list();
 //		list & operator=(const list &rhs);
@@ -277,10 +330,10 @@ namespace ft {
 		const_iterator begin() const;
 		iterator end();
 		const_iterator end() const;
-//		reverse_iterator rbegin();
-//		const_reverse_iterator rbegin() const;
-//		reverse_iterator rend();
-//		const_reverse_iterator rend() const;
+		reverse_iterator rbegin();
+		const_reverse_iterator rbegin() const;
+		reverse_iterator rend();
+		const_reverse_iterator rend() const;
 //		bool empty() const;
 //		size_type size() const;
 //		size_type max_size() const;

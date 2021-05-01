@@ -126,18 +126,34 @@ typename ft::list<T, A>::const_iterator ft::list<T, A>::end() const {
 	return const_iterator(tail->next);
 }
 
-//template <typename T, typename A>
-//typename ft::list<T, A>::reverse_iterator ft::list<T, A>::rbegin() {}
-//
-//template <typename T, typename A>
-//typename ft::list<T, A>::const_reverse_iterator ft::list<T, A>::rbegin() const {}
-//
-//template <typename T, typename A>
-//typename ft::list<T, A>::reverse_iterator ft::list<T, A>::rend() {}
-//
-//template <typename T, typename A>
-//typename ft::list<T, A>::const_reverse_iterator ft::list<T, A>::rend() const {}
-//
+template <typename T, typename A>
+typename ft::list<T, A>::reverse_iterator ft::list<T, A>::rbegin() {
+	if (head == tail)
+		return reverse_iterator(tail);
+	return reverse_iterator(tail->next);
+}
+
+template <typename T, typename A>
+typename ft::list<T, A>::const_reverse_iterator ft::list<T, A>::rbegin() const {
+	if (head == tail)
+		return const_reverse_iterator(tail);
+	return const_reverse_iterator(tail->next);
+}
+
+template <typename T, typename A>
+typename ft::list<T, A>::reverse_iterator ft::list<T, A>::rend() {
+	if (head == tail)
+		return reverse_iterator(head);
+	return reverse_iterator(head->next);
+}
+
+template <typename T, typename A>
+typename ft::list<T, A>::const_reverse_iterator ft::list<T, A>::rend() const {
+	if (head == tail)
+		return const_reverse_iterator(head);
+	return const_reverse_iterator(head->next);
+}
+
 //template <typename T, typename A>
 //bool ft::list<T, A>::empty() const {}
 //
