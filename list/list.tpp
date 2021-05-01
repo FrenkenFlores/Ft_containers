@@ -23,6 +23,7 @@ ft::list<T, A>::list (size_type n, const value_type& val, const allocator_type& 
 template <typename T, typename A>
 template <class InputIterator>
 ft::list<T, A>::list (InputIterator first, InputIterator last, const allocator_type& alloc, typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type*) {
+//ft::list<T, A>::list (InputIterator first, InputIterator last, const allocator_type& alloc, typename ft::enable_if<std::is_class<InputIterator>::value || std::is_pointer<InputIterator>::value >::type*) {
 	sentinel = new node();
 	head = sentinel;
 	tail = sentinel;

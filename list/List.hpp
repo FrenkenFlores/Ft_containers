@@ -159,18 +159,18 @@ namespace ft {
 	private:
 		struct node {
 			node(const T &data, struct node *next, struct node *prev) {
-				this->data = new T(data);
+				this->data = data;
 				this->next = next;
 				this->prev = prev;
 				std::cout << "Node been created" <<std::endl;
 			}
 			node() {
-				this->data = &node_number;
+				this->data = node_number;
 				this->next = NULL;
 				this->prev = NULL;
 				std::cout << "Sentinel node been created" <<std::endl;
 			}
-			T	*data;
+			T	data;
 			node *next;
 			node *prev;
 		};
@@ -200,8 +200,8 @@ namespace ft {
 				return *this;
 			}
 			~iterator() { }
-			type_reference operator*() const{ return *m_ptr->data; }
-			type_pointer operator->() const { return m_ptr->data; }
+			type_reference operator*() const{ return m_ptr->data; }
+			type_pointer operator->() const { return &m_ptr->data; }
 			void operator++() { m_ptr = m_ptr->next; }
 			void operator--() { m_ptr = m_ptr->prev; }
 			bool operator==(const iterator & rhs) { return this->m_ptr == rhs.m_ptr; }
@@ -230,8 +230,8 @@ namespace ft {
 				return *this;
 			}
 			~const_iterator() { }
-			type_reference operator*() const{ return *m_ptr->data; }
-			type_pointer operator->() const { return m_ptr->data; }
+			type_reference operator*() const{ return m_ptr->data; }
+			type_pointer operator->() const { return &m_ptr->data; }
 			void operator++() { m_ptr = m_ptr->next; }
 			void operator--() { m_ptr = m_ptr->prev; }
 			bool operator==(const const_iterator & rhs) { return this->m_ptr == rhs.m_ptr; }
@@ -259,6 +259,8 @@ namespace ft {
 //		c++98 standard
 		template <class InputIterator>
 		list (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0);
+//		list (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename ft::enable_if<std::is_class<InputIterator>::value || std::is_pointer<InputIterator>::value >::type* c = 0);
+
 		list (const list& x);
 
 
