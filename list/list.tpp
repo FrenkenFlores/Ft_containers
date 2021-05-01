@@ -91,6 +91,13 @@ void ft::list<T, A>::push_back (const value_type& val) {
 //
 template <typename T, typename A>
 ft::list<T, A>::~list() {
+	iterator it_begin = begin();
+	iterator it_end = end();
+	while (it_begin != it_end)
+	{
+		delete it_end.get_node_pointer();
+		--it_end;
+	}
 	this->head = NULL;
 	this->tail = NULL;
 }

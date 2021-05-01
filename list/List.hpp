@@ -206,6 +206,7 @@ namespace ft {
 			void operator--() { m_ptr = m_ptr->prev; }
 			bool operator==(const iterator & rhs) { return this->m_ptr == rhs.m_ptr; }
 			bool operator!=(const iterator & rhs) { return this->m_ptr != rhs.m_ptr; }
+			node_pointer get_node_pointer() { return m_ptr; }
 		private:
 			node_pointer m_ptr;
 		};
@@ -308,8 +309,11 @@ namespace ft {
 		typedef ptrdiff_t									difference_type;
 		typedef size_t										size_type;
 
+//		default constructor
 		explicit list (const allocator_type& alloc = allocator_type());
+//		fill constructor
 		explicit list (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());
+//		range constructor
 //		c++11 standard
 //		template <class InputIterator, class = typename ft::enable_if<std::is_class<InputIterator>::value || std::is_pointer<InputIterator>::value >::type>
 //		list (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
@@ -319,13 +323,10 @@ namespace ft {
 		list (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0);
 //		list (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename ft::enable_if<std::is_class<InputIterator>::value || std::is_pointer<InputIterator>::value >::type* c = 0);
 
+//		copy constructor
 		list (const list& x);
-
-//		list();
 		~list();
 //		list & operator=(const list &rhs);
-//		list(const list &src);
-//		explicit list (const allocator_type& alloc);
 		iterator begin();
 		const_iterator begin() const;
 		iterator end();
