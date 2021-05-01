@@ -141,6 +141,14 @@
 //}
 //list container
 namespace ft {
+	template <bool>
+	struct enable_if { };
+
+	template <>
+	struct enable_if<true> {
+		typedef void type;
+	};
+
 	template < typename T, typename A = std::allocator<T> >
 	class list {
 	private:
@@ -239,7 +247,7 @@ namespace ft {
 
 		explicit list (const allocator_type& alloc = allocator_type());
 		explicit list (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());
-		template <class InputIterator, class = typename std::enable_if<std::is_class<InputIterator>::value || std::is_pointer<InputIterator>::value >::type>
+		template <class InputIterator, class = typename ft::enable_if<std::is_class<InputIterator>::value || std::is_pointer<InputIterator>::value >::type>
 		list (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
 		list (const list& x);
 
