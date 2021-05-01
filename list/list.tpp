@@ -19,10 +19,10 @@ ft::list<T, A>::list (size_type n, const value_type& val, const allocator_type& 
 		push_back(val);
 };
 
-// range (3), InputIterator can be vector or array
+// C++98 range (3), InputIterator can be vector or array
 template <typename T, typename A>
-template <class InputIterator, class>
-ft::list<T, A>::list (InputIterator first, InputIterator last, const allocator_type& alloc) {
+template <class InputIterator>
+ft::list<T, A>::list (InputIterator first, InputIterator last, const allocator_type& alloc, typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type*) {
 	sentinel = new node();
 	head = sentinel;
 	tail = sentinel;
@@ -31,6 +31,19 @@ ft::list<T, A>::list (InputIterator first, InputIterator last, const allocator_t
 		first++;
 	}
 }
+
+// C++11 range (3), InputIterator can be vector or array
+//template <typename T, typename A>
+//template <class InputIterator, class>
+//ft::list<T, A>::list (InputIterator first, InputIterator last, const allocator_type& alloc) {
+//	sentinel = new node();
+//	head = sentinel;
+//	tail = sentinel;
+//	while (first != last) {
+//		push_back(*first);
+//		first++;
+//	}
+//}
 
 // copy (4)
 template <typename T, typename A>

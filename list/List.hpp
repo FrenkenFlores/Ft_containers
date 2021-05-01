@@ -5,6 +5,7 @@
 #include <iterator>
 #include <cstddef>
 #include <type_traits>
+#include <limits>
 
 //list iterator
 //namespace ft {
@@ -141,6 +142,10 @@
 //}
 //list container
 namespace ft {
+//	https://www.cplusplus.com/reference/type_traits/enable_if/?kw=enable_if
+//	template<bool Cond, class T = void> struct enable_if {};
+//	template<class T> struct enable_if<true, T> { typedef T type; };
+
 	template <bool>
 	struct enable_if { };
 
@@ -247,8 +252,13 @@ namespace ft {
 
 		explicit list (const allocator_type& alloc = allocator_type());
 		explicit list (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());
-		template <class InputIterator, class = typename ft::enable_if<std::is_class<InputIterator>::value || std::is_pointer<InputIterator>::value >::type>
-		list (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
+//		c++11 standard
+//		template <class InputIterator, class = typename ft::enable_if<std::is_class<InputIterator>::value || std::is_pointer<InputIterator>::value >::type>
+//		list (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
+
+//		c++98 standard
+		template <class InputIterator>
+		list (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0);
 		list (const list& x);
 
 
