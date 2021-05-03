@@ -102,10 +102,30 @@ ft::list<T, A>::~list() {
 	this->head = NULL;
 	this->tail = NULL;
 }
-//
-//template <typename T, typename A>
-//ft::list<T, A> & ft::list<T, A>::operator=(const ft::list<T, A> &rhs) {}
-//
+
+template <typename T, typename A>
+ft::list<T, A> & ft::list<T, A>::operator=(const ft::list<T, A> &rhs) {
+	iterator it_begin = begin();
+	iterator it_end = end();
+	while (it_begin != it_end)
+	{
+		delete it_end.get_node_pointer();
+		--it_end;
+	}
+	delete it_begin.get_node_pointer();
+	sentinel = new node();
+	head = sentinel;
+	tail = sentinel;
+	const_iterator const_it_begin = rhs.begin();
+	const_iterator const_it_end = rhs.end();
+	while (const_it_begin != const_it_end)
+	{
+		push_back(*const_it_begin);
+		++const_it_begin;
+	}
+	return *this;
+}
+
 template <typename T, typename A>
 typename ft::list<T, A>::iterator ft::list<T, A>::begin() {
 	if (head == tail)

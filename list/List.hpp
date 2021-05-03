@@ -326,7 +326,7 @@ namespace ft {
 //		copy constructor
 		list (const list& x);
 		~list();
-//		list & operator=(const list &rhs);
+		list & operator=(const list &rhs);
 		iterator begin();
 		const_iterator begin() const;
 		iterator end();

@@ -186,9 +186,19 @@ int main(int argc, char **argv) {
 //			++kit_begin;
 //		}
 //	}
-	{
-		std::cout << "REVERSE ITERATOR" << std::endl;
-		ft::list<int> j;
+//	{
+//		std::cout << "REVERSE ITERATOR" << std::endl;
+//		ft::list<int> j;
+////		j.push_back(1);
+////		j.push_back(2);
+////		j.push_back(3);
+////		j.push_back(4);
+////		j.push_back(5);
+////		j.push_back(6);
+////		j.push_back(9);
+//
+//		ft::list<int>::reverse_iterator jit_begin = j.rbegin();
+//		ft::list<int>::reverse_iterator jit_end = j.rend();
 //		j.push_back(1);
 //		j.push_back(2);
 //		j.push_back(3);
@@ -196,75 +206,93 @@ int main(int argc, char **argv) {
 //		j.push_back(5);
 //		j.push_back(6);
 //		j.push_back(9);
+//		std::cout << "BEGIN()->" << std::endl;
+//		std::cout << *jit_begin << std::endl;
+//		++jit_begin;
+//		std::cout << *jit_begin << std::endl;
+//		++jit_begin;
+//		std::cout << *jit_begin << std::endl;
+//		++jit_begin;
+//		std::cout << *jit_begin << std::endl;
+//		++jit_begin;
+//		std::cout << "<-BEGIN()" << std::endl;
+//		std::cout << *jit_begin << std::endl;
+//		--jit_begin;
+//		std::cout << *jit_begin << std::endl;
+//		--jit_begin;
+//		std::cout << *jit_begin << std::endl;
+//		--jit_begin;
+//		std::cout << *jit_begin << std::endl;
+//		--jit_begin;
+//		std::cout << *jit_begin << std::endl;
+//		--jit_begin;
+//		std::cout << *jit_begin << std::endl;
+//		--jit_begin;
+//		std::cout << "END()->" << std::endl;
+//
+//		std::cout << *jit_end << std::endl;
+//		++jit_end;
+//		std::cout << *jit_end << std::endl;
+//		++jit_end;
+//		std::cout << *jit_end << std::endl;
+//		++jit_end;
+//		std::cout << *jit_end << std::endl;
+//		++jit_end;
+//		std::cout << *jit_end << std::endl;
+//		++jit_end;
+//		std::cout << *jit_end << std::endl;
+//		++jit_end;
+//		std::cout << *jit_end << std::endl;
+//		++jit_end;
+//
+//		std::cout << "<-END()" << std::endl;
+//		std::cout << *jit_end << std::endl;
+//		--jit_end;
+//		std::cout << *jit_end << std::endl;
+//		--jit_end;
+//		std::cout << *jit_end << std::endl;
+//		--jit_end;
+//		std::cout << *jit_end << std::endl;
+//		--jit_end;
+//		std::cout << *jit_end << std::endl;
+//		--jit_end;
+//		std::cout << *jit_end << std::endl;
+//		--jit_end;
+////		ft::list<int>::iterator jit_begin = j.begin();
+////		ft::list<int>::iterator jit_end = j.end();
+////		while (jit_begin != jit_end)
+////		{
+////			std::cout << *jit_begin << std::endl;
+////			++jit_begin;
+////		}
+//	}
 
-		ft::list<int>::reverse_iterator jit_begin = j.rbegin();
-		ft::list<int>::reverse_iterator jit_end = j.rend();
-		j.push_back(1);
-		j.push_back(2);
-		j.push_back(3);
-		j.push_back(4);
-		j.push_back(5);
-		j.push_back(6);
-		j.push_back(9);
-		std::cout << "BEGIN()->" << std::endl;
-		std::cout << *jit_begin << std::endl;
-		++jit_begin;
-		std::cout << *jit_begin << std::endl;
-		++jit_begin;
-		std::cout << *jit_begin << std::endl;
-		++jit_begin;
-		std::cout << *jit_begin << std::endl;
-		++jit_begin;
-		std::cout << "<-BEGIN()" << std::endl;
-		std::cout << *jit_begin << std::endl;
-		--jit_begin;
-		std::cout << *jit_begin << std::endl;
-		--jit_begin;
-		std::cout << *jit_begin << std::endl;
-		--jit_begin;
-		std::cout << *jit_begin << std::endl;
-		--jit_begin;
-		std::cout << *jit_begin << std::endl;
-		--jit_begin;
-		std::cout << *jit_begin << std::endl;
-		--jit_begin;
-		std::cout << "END()->" << std::endl;
+		{
+		std::cout << "OPERATOR= " << std::endl;
 
-		std::cout << *jit_end << std::endl;
-		++jit_end;
-		std::cout << *jit_end << std::endl;
-		++jit_end;
-		std::cout << *jit_end << std::endl;
-		++jit_end;
-		std::cout << *jit_end << std::endl;
-		++jit_end;
-		std::cout << *jit_end << std::endl;
-		++jit_end;
-		std::cout << *jit_end << std::endl;
-		++jit_end;
-		std::cout << *jit_end << std::endl;
-		++jit_end;
+		ft::list<int> k;
+		k.push_back(1);
+		k.push_back(2);
+		k.push_back(3);
+		k.push_back(4);
+		k.push_back(5);
+		k.push_back(6);
+		k.push_back(9);
+		ft::list<int> j;
+		j.push_back(10);
+		j.push_back(20);
+		j.push_back(30);
+		j.push_back(40);
+		j.push_back(50);
+		k = j;
 
-		std::cout << "<-END()" << std::endl;
-		std::cout << *jit_end << std::endl;
-		--jit_end;
-		std::cout << *jit_end << std::endl;
-		--jit_end;
-		std::cout << *jit_end << std::endl;
-		--jit_end;
-		std::cout << *jit_end << std::endl;
-		--jit_end;
-		std::cout << *jit_end << std::endl;
-		--jit_end;
-		std::cout << *jit_end << std::endl;
-		--jit_end;
-//		ft::list<int>::iterator jit_begin = j.begin();
-//		ft::list<int>::iterator jit_end = j.end();
-//		while (jit_begin != jit_end)
-//		{
-//			std::cout << *jit_begin << std::endl;
-//			++jit_begin;
-//		}
+		ft::list<int>::iterator jit_begin = k.begin();
+		ft::list<int>::iterator jit_end = k.end();
+		while (jit_begin != jit_end)
+		{
+			std::cout << *jit_begin << std::endl;
+			++jit_begin;
+		}
 	}
 
 //	sleep(10);
