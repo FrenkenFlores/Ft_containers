@@ -98,6 +98,7 @@ ft::list<T, A>::~list() {
 		delete it_end.get_node_pointer();
 		--it_end;
 	}
+	delete it_begin.get_node_pointer();
 	this->head = NULL;
 	this->tail = NULL;
 }
