@@ -15,6 +15,24 @@ using namespace std;
 
 
 int main(int argc, char **argv) {
+	{
+		std::cout << "OPERATR+() & OPERATOR-() & OPERATOR[]" << std::endl;
+		ft::list<int> j;
+		for (int i = 0; i < 10; ++i) {
+			j.push_back(i);
+		}
+		ft::list<int>::reverse_iterator rev_it;
+		rev_it = j.rbegin() +3;
+		rev_it +2;
+		rev_it -3;
+		std::cout << *rev_it << std::endl;
+		ft::list<int>::iterator it = j.begin();
+		std::cout << it[4] << std::endl;
+		rev_it = j.rbegin();
+		std::cout << rev_it[4] << std::endl;
+	}
+
+
 //	{
 //		std::cout << "DEFAULT CONSTRUCTOR[char]: PUSH_BACK, FORWARD ITERATOR, BEGIN, END, ++OPERATOR" << std::endl;
 //		ft::list<char> j;
@@ -186,9 +204,20 @@ int main(int argc, char **argv) {
 //			++kit_begin;
 //		}
 //	}
-	{
-		std::cout << "REVERSE ITERATOR" << std::endl;
-		ft::list<int> j;
+//
+//	{
+//		std::cout << "REVERSE ITERATOR" << std::endl;
+//		ft::list<int> j;
+////		j.push_back(1);
+////		j.push_back(2);
+////		j.push_back(3);
+////		j.push_back(4);
+////		j.push_back(5);
+////		j.push_back(6);
+////		j.push_back(9);
+//
+//		ft::list<int>::reverse_iterator jit_begin = j.rbegin();
+//		ft::list<int>::reverse_iterator jit_end = j.rend();
 //		j.push_back(1);
 //		j.push_back(2);
 //		j.push_back(3);
@@ -196,77 +225,67 @@ int main(int argc, char **argv) {
 //		j.push_back(5);
 //		j.push_back(6);
 //		j.push_back(9);
-
-		ft::list<int>::reverse_iterator jit_begin = j.rbegin();
-		ft::list<int>::reverse_iterator jit_end = j.rend();
-		j.push_back(1);
-		j.push_back(2);
-		j.push_back(3);
-		j.push_back(4);
-		j.push_back(5);
-		j.push_back(6);
-		j.push_back(9);
-		std::cout << "<-RBEGIN()" << std::endl;
-		std::cout << *jit_begin << std::endl;
-		++jit_begin;
-		std::cout << *jit_begin << std::endl;
-		++jit_begin;
-		std::cout << *jit_begin << std::endl;
-		++jit_begin;
-		std::cout << *jit_begin << std::endl;
-		++jit_begin;
-		std::cout << "RBEGIN()->" << std::endl;
-		std::cout << *jit_begin << std::endl;
-		--jit_begin;
-		std::cout << *jit_begin << std::endl;
-		--jit_begin;
-		std::cout << *jit_begin << std::endl;
-		--jit_begin;
-		std::cout << *jit_begin << std::endl;
-		--jit_begin;
-		std::cout << *jit_begin << std::endl;
-		--jit_begin;
-		std::cout << *jit_begin << std::endl;
-		--jit_begin;
-		std::cout << "<-REND()" << std::endl;
-
-		std::cout << *jit_end << std::endl;
-		++jit_end;
-		std::cout << *jit_end << std::endl;
-		++jit_end;
-		std::cout << *jit_end << std::endl;
-		++jit_end;
-		std::cout << *jit_end << std::endl;
-		++jit_end;
-		std::cout << *jit_end << std::endl;
-		++jit_end;
-		std::cout << *jit_end << std::endl;
-		++jit_end;
-		std::cout << *jit_end << std::endl;
-		++jit_end;
-
-		std::cout << "END()->" << std::endl;
-		std::cout << *jit_end << std::endl;
-		--jit_end;
-		std::cout << *jit_end << std::endl;
-		--jit_end;
-		std::cout << *jit_end << std::endl;
-		--jit_end;
-		std::cout << *jit_end << std::endl;
-		--jit_end;
-		std::cout << *jit_end << std::endl;
-		--jit_end;
-		std::cout << *jit_end << std::endl;
-		--jit_end;
-
-//		ft::list<int>::iterator jit_begin = j.begin();
-//		ft::list<int>::iterator jit_end = j.end();
-//		while (jit_begin != jit_end)
-//		{
-//			std::cout << *jit_begin << std::endl;
-//			++jit_begin;
-//		}
-	}
+//		std::cout << "<-RBEGIN()" << std::endl;
+//		std::cout << *jit_begin << std::endl;
+//		++jit_begin;
+//		std::cout << *jit_begin << std::endl;
+//		++jit_begin;
+//		std::cout << *jit_begin << std::endl;
+//		++jit_begin;
+//		std::cout << *jit_begin << std::endl;
+//		++jit_begin;
+//		std::cout << "RBEGIN()->" << std::endl;
+//		std::cout << *jit_begin << std::endl;
+//		--jit_begin;
+//		std::cout << *jit_begin << std::endl;
+//		--jit_begin;
+//		std::cout << *jit_begin << std::endl;
+//		--jit_begin;
+//		std::cout << *jit_begin << std::endl;
+//		--jit_begin;
+//		std::cout << *jit_begin << std::endl;
+//		--jit_begin;
+//		std::cout << *jit_begin << std::endl;
+//		--jit_begin;
+//		std::cout << "<-REND()" << std::endl;
+//
+//		std::cout << *jit_end << std::endl;
+//		++jit_end;
+//		std::cout << *jit_end << std::endl;
+//		++jit_end;
+//		std::cout << *jit_end << std::endl;
+//		++jit_end;
+//		std::cout << *jit_end << std::endl;
+//		++jit_end;
+//		std::cout << *jit_end << std::endl;
+//		++jit_end;
+//		std::cout << *jit_end << std::endl;
+//		++jit_end;
+//		std::cout << *jit_end << std::endl;
+//		++jit_end;
+//
+//		std::cout << "END()->" << std::endl;
+//		std::cout << *jit_end << std::endl;
+//		--jit_end;
+//		std::cout << *jit_end << std::endl;
+//		--jit_end;
+//		std::cout << *jit_end << std::endl;
+//		--jit_end;
+//		std::cout << *jit_end << std::endl;
+//		--jit_end;
+//		std::cout << *jit_end << std::endl;
+//		--jit_end;
+//		std::cout << *jit_end << std::endl;
+//		--jit_end;
+//
+////		ft::list<int>::iterator jit_begin = j.begin();
+////		ft::list<int>::iterator jit_end = j.end();
+////		while (jit_begin != jit_end)
+////		{
+////			std::cout << *jit_begin << std::endl;
+////			++jit_begin;
+////		}
+//	}
 
 //	{
 //		std::cout << "ITERATOR OPERATOR[]" << std::endl;
