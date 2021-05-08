@@ -7,6 +7,7 @@
 #include "list.hpp"
 #include <vector>
 #include <string>
+#include <list>
 
 using namespace std;
 
@@ -16,6 +17,7 @@ using namespace std;
 
 int main(int argc, char **argv) {
 	{
+		std::list<int> k;
 		std::cout << "OPERATR+() & OPERATOR-() & OPERATOR[]" << std::endl;
 		ft::list<int> j;
 		for (int i = 0; i < 10; ++i) {

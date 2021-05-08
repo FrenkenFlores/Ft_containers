@@ -418,11 +418,11 @@ namespace ft {
 		const_reverse_iterator rend() const;
 		bool empty() const;
 		size_type size() const;
-//		size_type max_size() const;
-//		reference front();
-//		const_reference front() const;
-//		reference back();
-//		const_reference back() const;
+		size_type max_size() const;
+		reference front();
+		const_reference front() const;
+		reference back();
+		const_reference back() const;
 //		void assign (iterator first, iterator last);
 //		void assign (size_type n, const value_type& val);
 //		void push_front (const value_type& val);

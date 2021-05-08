@@ -441,6 +441,68 @@ int main(void) {
 				PUT_STR(KO);
 			}
 		}
+		{
+			PUT_STR(B"MAX_SIZE()");
+			ft::list<int> ft;
+			std::list<int> std;
+			if(ft.max_size() == std.max_size())
+				PUT_STR(OK);
+			else {
+				cout << LB << ft.max_size() << " != " << std.max_size() << CLEAN << std::endl;
+				PUT_STR(KO);
+			}
+		}
+
+		{
+			PUT_STR(B"FRONT()");
+			ft::list<int> ft;
+			std::list<int> std;
+			const ft::list<int> ft_const(3, 3);
+			const std::list<int> std_const(3, 3);
+
+			ft.push_back(77);
+			ft.push_back(22);
+			std.push_back(77);
+			std.push_back(22);
+
+			if(ft.front() == std.front())
+				PUT_STR(OK);
+			else {
+				cout << LB << ft.front() << " != " << std.front() << CLEAN << std::endl;
+				PUT_STR(KO);
+			}
+			if(ft_const.front() == std_const.front())
+				PUT_STR(OK);
+			else {
+				cout << LB << ft_const.front() << " != " << std_const.front() << CLEAN << std::endl;
+				PUT_STR(KO);
+			}
+		}
+		{
+			PUT_STR(B"BACK()");
+			ft::list<int> ft;
+			std::list<int> std;
+			const ft::list<int> ft_const(3, 3);
+			const std::list<int> std_const(3, 3);
+
+			ft.push_back(77);
+			ft.push_back(22);
+			std.push_back(77);
+			std.push_back(22);
+
+			if(ft.back() == std.back())
+				PUT_STR(OK);
+			else {
+				cout << LB << ft.back() << " != " << std.back() << CLEAN << std::endl;
+				PUT_STR(KO);
+			}
+			if(ft_const.back() == std_const.back())
+				PUT_STR(OK);
+			else {
+				cout << LB << ft_const.back() << " != " << std_const.back() << CLEAN << std::endl;
+				PUT_STR(KO);
+			}
+		}
 	}
 
 	return (0);

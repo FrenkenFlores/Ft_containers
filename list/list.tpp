@@ -201,21 +201,31 @@ typename ft::list<T, A>::size_type ft::list<T, A>::size() const {
 	return node_number;
 }
 
-//template <typename T, typename A>
-//typename ft::list<T, A>::size_type ft::list<T, A>::max_size() const {}
-//
-//template <typename T, typename A>
-//typename ft::list<T, A>::reference ft::list<T, A>::front() {}
-//
-//template <typename T, typename A>
-//typename ft::list<T, A>::const_reference ft::list<T, A>::front() const {}
-//
-//template <typename T, typename A>
-//typename ft::list<T, A>::reference ft::list<T, A>::back() {}
-//
-//template <typename T, typename A>
-//typename ft::list<T, A>::const_reference ft::list<T, A>::back() const {}
-//
+template <typename T, typename A>
+typename ft::list<T, A>::size_type ft::list<T, A>::max_size() const {
+	return the_allocator.max_size();
+}
+
+template <typename T, typename A>
+typename ft::list<T, A>::reference ft::list<T, A>::front() {
+	return head->next->data;
+}
+
+template <typename T, typename A>
+typename ft::list<T, A>::const_reference ft::list<T, A>::front() const {
+	return head->next->data;
+}
+
+template <typename T, typename A>
+typename ft::list<T, A>::reference ft::list<T, A>::back() {
+	return tail->data;
+}
+
+template <typename T, typename A>
+typename ft::list<T, A>::const_reference ft::list<T, A>::back() const {
+	return tail->data;
+}
+
 //template <typename T, typename A>
 //void ft::list<T, A>::assign(ft::list<T, A>::iterator first, ft::list<T, A>::iterator last) {}
 //
