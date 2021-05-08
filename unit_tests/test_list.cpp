@@ -503,6 +503,68 @@ int main(void) {
 				PUT_STR(KO);
 			}
 		}
+		{
+			PUT_STR(B"ASSIGN()");
+			ft::list<int> ft_first;
+			ft::list<int> ft_second;
+			std::list<int> std_first;
+			std::list<int> std_second;
+
+			ft_first.assign (7,100);                      // 7 ints with value 100
+			std_first.assign (7,100);                      // 7 ints with value 100
+
+			ft_second.assign (ft_first.begin(),ft_first.end()); // a copy of first
+			std_second.assign (std_first.begin(),std_first.end()); // a copy of first
+
+			int myints[]={1776,7,4};
+			ft_first.assign (myints,myints+3);            // assigning from array
+			std_first.assign (myints,myints+3);            // assigning from array
+
+			if(ft_first.size() == std_first.size())
+				PUT_STR(OK);
+			else {
+				cout << LB << ft_first.size() << " != " << std_first.size() << CLEAN << std::endl;
+				PUT_STR(KO);
+			}
+			if(ft_second.size() == std_second.size())
+				PUT_STR(OK);
+			else {
+				cout << LB << ft_second.size() << " != " << std_second.size() << CLEAN << std::endl;
+				PUT_STR(KO);
+			}
+			ft::list<int>::iterator ft_first_itb = ft_first.begin();
+			ft::list<int>::iterator ft_first_ite = ft_first.end();
+			ft::list<int>::iterator ft_second_itb = ft_second.begin();
+			ft::list<int>::iterator ft_second_ite = ft_second.end();
+			std::list<int>::iterator std_first_itb = std_first.begin();
+			std::list<int>::iterator std_first_ite = std_first.end();
+			std::list<int>::iterator std_second_itb = std_second.begin();
+			std::list<int>::iterator std_second_ite = std_second.end();
+			while (ft_first_itb != ft_first_ite && std_first_itb != std_first_ite)
+			{
+				if (*ft_first_itb == *std_first_itb)
+				{
+					PUT_STR(OK);
+				} else {
+					cout << LB << *ft_first_itb << " != " << *std_first_itb << CLEAN << std::endl;
+					PUT_STR(KO);
+				}
+				++ft_first_itb;
+				++std_first_itb;
+			}
+			while (ft_second_itb != ft_second_ite && std_second_itb != std_first_ite)
+			{
+				if (*ft_second_itb == *std_second_itb)
+				{
+					PUT_STR(OK);
+				} else {
+					cout << LB << *ft_second_itb << " != " << *std_second_itb << CLEAN << std::endl;
+					PUT_STR(KO);
+				}
+				++ft_second_itb;
+				++std_second_itb;
+			}
+		}
 	}
 
 	return (0);

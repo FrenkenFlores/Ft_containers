@@ -423,8 +423,9 @@ namespace ft {
 		const_reference front() const;
 		reference back();
 		const_reference back() const;
-//		void assign (iterator first, iterator last);
-//		void assign (size_type n, const value_type& val);
+		template <class InputIterator>
+		void assign (InputIterator first, InputIterator last, typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0);
+		void assign (size_type n, const value_type& val);
 //		void push_front (const value_type& val);
 //		void pop_front();
 		void push_back (const value_type& val);

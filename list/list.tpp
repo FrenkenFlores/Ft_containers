@@ -114,6 +114,7 @@ ft::list<T, A> & ft::list<T, A>::operator=(const ft::list<T, A> &rhs) {
 		--it_end;
 	}
 	delete it_begin.get_node_pointer();
+	node_number = 0;
 	sentinel = new node();
 	head = sentinel;
 	tail = sentinel;
@@ -198,7 +199,15 @@ bool ft::list<T, A>::empty() const {
 
 template <typename T, typename A>
 typename ft::list<T, A>::size_type ft::list<T, A>::size() const {
-	return node_number;
+	typename ft::list<T, A>::size_type i = 0;
+	const_iterator it_begin = begin();
+	const_iterator it_end = end();
+	while(it_begin != it_end)
+	{
+		i++;
+		++it_begin;
+	}
+	return i;
 }
 
 template <typename T, typename A>
@@ -226,12 +235,46 @@ typename ft::list<T, A>::const_reference ft::list<T, A>::back() const {
 	return tail->data;
 }
 
-//template <typename T, typename A>
-//void ft::list<T, A>::assign(ft::list<T, A>::iterator first, ft::list<T, A>::iterator last) {}
-//
-//template <typename T, typename A>
-//void ft::list<T,  A>::assign(typename ft::list<T, A>::size_type n, const typename ft::list<T, A>::value_type &val) {}
-//
+template <typename T, typename A>
+template <class InputIterator>
+void ft::list<T, A>::assign(InputIterator first, InputIterator last, typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type*) {
+	iterator it_begin = begin();
+	iterator it_end = end();
+	while (it_begin != it_end)
+	{
+		delete it_end.get_node_pointer();
+		--it_end;
+	}
+	delete it_begin.get_node_pointer();
+	node_number = 0;
+	sentinel = new node();
+	head = sentinel;
+	tail = sentinel;
+	while (first != last)
+	{
+		push_back(*first);
+		++first;
+	}
+}
+
+template <typename T, typename A>
+void ft::list<T,  A>::assign(typename ft::list<T, A>::size_type n, const typename ft::list<T, A>::value_type &val) {
+	iterator it_begin = begin();
+	iterator it_end = end();
+	while (it_begin != it_end)
+	{
+		delete it_end.get_node_pointer();
+		--it_end;
+	}
+	delete it_begin.get_node_pointer();
+	node_number = 0;
+	sentinel = new node();
+	head = sentinel;
+	tail = sentinel;
+	for (int i = 0; i < n; ++i)
+		push_back(val);
+}
+
 //template <typename T, typename A>
 //void ft::list<T, A>::push_front(const typename ft::list<T, A>::value_type &val) {}
 //
