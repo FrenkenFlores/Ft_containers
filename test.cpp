@@ -10,6 +10,15 @@ std::bidirectional_iterator_tag i;
 std::list<int> j;
 
 int main() {
+	{
+//		int array[] = {0, 1, 2, 3, 4};
+//		std::list<int> std(array, array + sizeof(array));
+		std::list<int> std;
+		for (int k = 0; k < 4; ++k) {
+			std.push_back(k);
+		}
+		std::cout << *(std.begin()) << "  -  " << *(std.end()) << std::endl;
+	}
 
 //	{
 //		std::list<vector<int> > l;

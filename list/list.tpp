@@ -1,5 +1,5 @@
 template <typename T, typename A>
-int ft::list<T, A>::node_number = 0;
+size_t ft::list<T, A>::node_number = 0;
 
 // default (1)
 template <typename T, typename A>
@@ -101,6 +101,7 @@ ft::list<T, A>::~list() {
 	delete it_begin.get_node_pointer();
 	this->head = NULL;
 	this->tail = NULL;
+	this->node_number = 0;
 }
 
 template <typename T, typename A>
@@ -156,9 +157,15 @@ typename ft::list<T, A>::const_iterator ft::list<T, A>::end() const {
 
 template <typename T, typename A>
 typename ft::list<T, A>::reverse_iterator ft::list<T, A>::rbegin() {
+//	std::cout << "->" << head->data << std::endl;
+//	std::cout << "->" << tail->data << std::endl;
+//	std::cout << "->" << tail->next->data << std::endl;
+
 	if (head == tail)
-		return reverse_iterator(tail);
-	return reverse_iterator(tail->next);
+		return reverse_iterator(tail->next);
+//		return reverse_iterator(tail);
+//	return reverse_iterator(tail->next);
+	return reverse_iterator(tail);
 }
 
 template <typename T, typename A>
@@ -182,12 +189,18 @@ typename ft::list<T, A>::const_reverse_iterator ft::list<T, A>::rend() const {
 	return const_reverse_iterator(head->next);
 }
 
-//template <typename T, typename A>
-//bool ft::list<T, A>::empty() const {}
-//
-//template <typename T, typename A>
-//typename ft::list<T, A>::size_type ft::list<T, A>::size() const {}
-//
+template <typename T, typename A>
+bool ft::list<T, A>::empty() const {
+	if (node_number == 0)
+		return true;
+	return false;
+}
+
+template <typename T, typename A>
+typename ft::list<T, A>::size_type ft::list<T, A>::size() const {
+	return node_number;
+}
+
 //template <typename T, typename A>
 //typename ft::list<T, A>::size_type ft::list<T, A>::max_size() const {}
 //

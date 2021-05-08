@@ -121,30 +121,30 @@ int main(void) {
 		else
 			PUT_STR(KO);
 	}
-//	{
-//		int flag = true;
-//		PUT_STR(B"DEFAULT CONSTRUCTOR[vector]");
-//		ft::list<vector<int> > ft;
-//		std::list<vector<int> > std;
-//		ft::list<vector<int> >::iterator ft_itb = ft.begin();
-//		ft::list<vector<int> >::iterator ft_ite = ft.end();
-//		std::list<vector<int> >::iterator std_itb = std.begin();
-//		std::list<vector<int> >::iterator std_ite = std.end();
-//		while (ft_itb != ft_ite && std_itb != std_ite)
-//		{
-//			if (*ft_itb != *std_itb)
-//			{
-//				flag = false;
-//				break;
-//			}
-//			++ft_itb;
-//			++std_ite;
-//		}
-//		if (flag == true)
-//			PUT_STR(OK);
-//		else
-//			PUT_STR(KO);
-//	}
+	{
+		int flag = true;
+		PUT_STR(B"DEFAULT CONSTRUCTOR[vector]");
+		ft::list<vector<int> > ft;
+		std::list<vector<int> > std;
+		ft::list<vector<int> >::iterator ft_itb = ft.begin();
+		ft::list<vector<int> >::iterator ft_ite = ft.end();
+		std::list<vector<int> >::iterator std_itb = std.begin();
+		std::list<vector<int> >::iterator std_ite = std.end();
+		while (ft_itb != ft_ite && std_itb != std_ite)
+		{
+			if (*ft_itb != *std_itb)
+			{
+				flag = false;
+				break;
+			}
+			++ft_itb;
+			++std_ite;
+		}
+		if (flag == true)
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
+	}
 	{
 		int flag = true;
 		PUT_STR(B"FILL CONSTRUCTOR");
@@ -174,8 +174,7 @@ int main(void) {
 	}
 	{
 		int flag = true;
-		PUT_STR(B"RANGE CONSTRUCTOR");
-		PUT_STR(B"RANGE CONSTRUCTOR FILL WITH ARRAY");
+		PUT_STR(B"RANGE CONSTRUCTOR[ARRAY]");
 		int array[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 		ft::list<int> ft(array, array + sizeof(array));
 		std::list<int> std(array, array + sizeof(array));
@@ -203,8 +202,7 @@ int main(void) {
 	}
 	{
 		int flag = true;
-		PUT_STR(B"RANGE CONSTRUCTOR");
-		PUT_STR(B"RANGE CONSTRUCTOR FILL WITH VECTOR");
+		PUT_STR(B"RANGE CONSTRUCTOR[VECTOR]");
 		std::vector<int> v;
 		for (int i = 0; i < 10; ++i)
 			v.push_back(i);
@@ -291,6 +289,158 @@ int main(void) {
 			PUT_STR(OK);
 		else
 			PUT_STR(KO);
+	}
+	// IF list gets filled with array the last element shows the sizeof array in some OS, in others it show garbage
+//	{
+//		PUT_STR(B"BEGIN()");
+//		int array[] = {0, 1, 2, 3};
+//		ft::list<int> ft(array, array + sizeof(array));
+//		std::list<int> std(array, array + sizeof(array));
+//		if (*(ft.begin()) == *(std.begin()))
+//			PUT_STR(OK);
+//		else {
+//			cout << LB << *(ft.begin()) << " != " << *(std.begin()) << CLEAN << std::endl;
+//			PUT_STR(KO);
+//		}
+//	}
+//	{
+//		PUT_STR(B"END()");
+//		int array[] = {0, 1, 2, 3};
+//		ft::list<int> ft(array, array + sizeof(array));
+//		std::list<int> std(array, array + sizeof(array));
+//		if (*(ft.end()) == *(std.end()))
+//			PUT_STR(OK);
+//		else
+//		{
+//			cout << LB << *(ft.end()) << " != " << *(std.end()) << CLEAN << std::endl;
+//			PUT_STR(KO);
+//		}
+//		{
+//			PUT_STR(B"RBEGIN()");
+//			int array[] = {0, 1, 2, 3};
+//			ft::list<int> ft(array, array + sizeof(array));
+//			std::list<int> std(array, array + sizeof(array));
+//			if (*(ft.rbegin()) == *(std.rbegin()))
+//				PUT_STR(OK);
+//			else {
+//				cout << LB << *(ft.rbegin()) << " != " << *(std.rbegin()) << CLEAN << std::endl;
+//				PUT_STR(KO);
+//			}
+//		}
+//		{
+//			PUT_STR(B"REND()");
+//			int array[] = {0, 1, 2, 3};
+//			ft::list<int> ft(array, array + sizeof(array));
+//			std::list<int> std(array, array + sizeof(array));
+//			if (*(ft.rend()) == *(std.rend()))
+//				PUT_STR(OK);
+//			else {
+//				cout << LB << *(ft.rend()) << " != " << *(std.rend()) << CLEAN << std::endl;
+//				PUT_STR(KO);
+//			}
+//		}
+	{
+		PUT_STR(B"BEGIN()");
+		ft::list<int> ft;
+		std::list<int> std;
+		for (int i = 0; i < 10; ++i) {
+			ft.push_back(i);
+			std.push_back(i);
+		}
+		if (*(ft.begin()) == *(std.begin()))
+			PUT_STR(OK);
+		else {
+			cout << LB << *(ft.begin()) << " != " << *(std.begin()) << CLEAN << std::endl;
+			PUT_STR(KO);
+		}
+	}
+	{
+		PUT_STR(B"END()");
+		ft::list<int> ft;
+		std::list<int> std;
+		for (int i = 0; i < 10; ++i) {
+			ft.push_back(i);
+			std.push_back(i);
+		}
+		if (*(ft.end()) == *(std.end()))
+			PUT_STR(OK);
+		else
+		{
+			cout << LB << *(ft.end()) << " != " << *(std.end()) << CLEAN << std::endl;
+			PUT_STR(KO);
+		}
+		{
+			PUT_STR(B"RBEGIN()");
+			ft::list<int> ft;
+			std::list<int> std;
+			for (int i = 0; i < 10; ++i) {
+				ft.push_back(i);
+				std.push_back(i);
+			}
+			if (*(ft.rbegin()) == *(std.rbegin()))
+				PUT_STR(OK);
+			else {
+				cout << LB << *(ft.rbegin()) << " != " << *(std.rbegin()) << CLEAN << std::endl;
+				PUT_STR(KO);
+			}
+		}
+		{
+			PUT_STR(B"REND()");
+			ft::list<int> ft;
+			std::list<int> std;
+			for (int i = 0; i < 10; ++i) {
+				ft.push_back(i);
+				std.push_back(i);
+			}
+			if (*(ft.rend()) == *(std.rend()))
+				PUT_STR(OK);
+			else {
+				cout << LB << *(ft.rend()) << " != " << *(std.rend()) << CLEAN << std::endl;
+				PUT_STR(KO);
+			}
+		}
+		{
+			PUT_STR(B"EMPTY()");
+			ft::list<int> ft;
+			std::list<int> std;
+			if (ft.empty() == std.empty())
+				PUT_STR(OK);
+			else {
+				cout << LB << ft.empty() << " != " << std.empty() << CLEAN << std::endl;
+				PUT_STR(KO);
+			}
+			for (int i = 0; i < 10; ++i) {
+				ft.push_back(i);
+				std.push_back(i);
+			}
+			if (ft.empty() == std.empty())
+				PUT_STR(OK);
+			else {
+				cout << LB << ft.empty() << " != " << std.empty() << CLEAN << std::endl;
+				PUT_STR(KO);
+			}
+		}
+		{
+			PUT_STR(B"SIZE()");
+			ft::list<int> ft;
+			std::list<int> std;
+			if (ft.size() == std.size())
+				PUT_STR(OK);
+			else {
+				cout << LB << ft.size() << " != " << std.size() << CLEAN << std::endl;
+				PUT_STR(KO);
+			}
+			for (int i = 0; i < 10; ++i) {
+				ft.push_back(i);
+				std.push_back(i);
+			}
+			if (ft.size() == std.size())
+				PUT_STR(OK);
+			else {
+				cout << LB << ft.size() << " != " << std.size() << CLEAN << std::endl;
+				PUT_STR(KO);
+			}
+		}
 	}
 
 	return (0);

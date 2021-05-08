@@ -12,6 +12,7 @@
 #define B "\e[0;34m"
 #define G "\e[0;32m"
 #define R "\e[0;31m"
+#define LB "\e[0;36m"
 
 #define CLEAN "\e[0;0m"
 #define PUT_STR(STR) std::cout << STR CLEAN << std::endl

@@ -165,7 +165,7 @@ namespace ft {
 //				std::cout << "Node been created" <<std::endl;
 			}
 			node() {
-				this->data = node_number;
+//				this->data = node_number;
 				this->next = NULL;
 				this->prev = NULL;
 //				std::cout << "Sentinel node been created" <<std::endl;
@@ -177,7 +177,7 @@ namespace ft {
 		node *sentinel;
 		node *head;
 		node *tail;
-		static int node_number;
+		static size_t node_number;
 	public:
 		struct iterator {
 		public:
@@ -416,8 +416,8 @@ namespace ft {
 		const_reverse_iterator rbegin() const;
 		reverse_iterator rend();
 		const_reverse_iterator rend() const;
-//		bool empty() const;
-//		size_type size() const;
+		bool empty() const;
+		size_type size() const;
 //		size_type max_size() const;
 //		reference front();
 //		const_reference front() const;
