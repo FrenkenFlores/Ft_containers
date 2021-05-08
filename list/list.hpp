@@ -162,13 +162,13 @@ namespace ft {
 				this->data = data;
 				this->next = next;
 				this->prev = prev;
-				std::cout << "Node been created" <<std::endl;
+//				std::cout << "Node been created" <<std::endl;
 			}
 			node() {
 				this->data = node_number;
 				this->next = NULL;
 				this->prev = NULL;
-				std::cout << "Sentinel node been created" <<std::endl;
+//				std::cout << "Sentinel node been created" <<std::endl;
 			}
 			T	data;
 			node *next;
