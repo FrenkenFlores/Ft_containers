@@ -61,25 +61,6 @@ ft::list<T, A>::list (const list& x) {
 	}
 }
 
-template <typename T, typename A>
-void ft::list<T, A>::push_back (const value_type& val) {
-	node *tmp = new node(val, NULL, NULL);
-	if (!head->next && !tail->next) {			// list's first node after sentinel node
-		tmp->prev = tail;						//
-		tmp->next = head;
-		tail->next = tmp;
-		tail = tail->next;
-	}
-	else {										// node chain
-		tmp->prev = tail;						// tail is the last node
-		tmp->next = head;						// head = sentinel, circular list
-		tail->next = tmp;						// adding new node
-		tail = tail->next;						// moving to the added node, that way the last node will be the added one
-		head->prev = tail;						// it = end(); --it; in case when we move backword from the end of the list
-	}
-	node_number++;
-}
-
 //template <typename T, typename A>
 //ft::list<T, A>::list() {}
 //
@@ -258,7 +239,7 @@ void ft::list<T, A>::assign(InputIterator first, InputIterator last, typename ft
 }
 
 template <typename T, typename A>
-void ft::list<T,  A>::assign(typename ft::list<T, A>::size_type n, const typename ft::list<T, A>::value_type &val) {
+void ft::list<T,  A>::assign(size_type n, const value_type &val) {
 	iterator it_begin = begin();
 	iterator it_end = end();
 	while (it_begin != it_end)
@@ -275,15 +256,49 @@ void ft::list<T,  A>::assign(typename ft::list<T, A>::size_type n, const typenam
 		push_back(val);
 }
 
-//template <typename T, typename A>
-//void ft::list<T, A>::push_front(const typename ft::list<T, A>::value_type &val) {}
-//
+template <typename T, typename A>
+void ft::list<T, A>::push_front(const value_type &val) {
+	node *tmp = new node(val, NULL, NULL);
+	if (head->next == tail->next) {			// list's first node after sentinel node
+		tmp->prev = head;						//
+		tmp->next = tail;
+		head->next = tmp;
+		tail->prev = tmp;
+		tail = tail->prev;
+	}
+	else {										// node chain
+		tmp->prev = head;						// head is the sentinel node
+		tmp->next = head->next;
+		head->next->prev = tmp;
+		head->next = tmp;
+		head->prev = tail;
+	}
+	node_number++;
+}
+
 //template <typename T, typename A>
 //void ft::list<T, A>::pop_front() {}
 //
-//template <typename T, typename A>
-//void ft::list<T, A>::push_back(const typename ft::list<T, A>::value_type &val) {}
-//
+
+template <typename T, typename A>
+void ft::list<T, A>::push_back (const value_type& val) {
+	node *tmp = new node(val, NULL, NULL);
+	if (head->next == tail->next) {			// list's first node after sentinel node
+		tmp->prev = tail;						//
+		tmp->next = head;
+		tail->next = tmp;
+		tail = tail->next;
+	}
+	else {										// node chain
+		tmp->prev = tail;						// tail is the last node
+		tmp->next = head;						// head = sentinel, circular list
+		tail->next = tmp;						// adding new node
+		tail = tail->next;						// moving to the added node, that way the last node will be the added one
+		head->prev = tail;						// it = end(); --it; in case when we move backward from the end of the list
+	}
+	node_number++;
+}
+
 //template <typename T, typename A>
 //void ft::list<T, A>::pop_back() {}
 //

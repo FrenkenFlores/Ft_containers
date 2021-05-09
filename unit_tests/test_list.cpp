@@ -364,208 +364,279 @@ int main(void) {
 		}
 		if (*(ft.end()) == *(std.end()))
 			PUT_STR(OK);
-		else
-		{
+		else {
 			cout << LB << *(ft.end()) << " != " << *(std.end()) << CLEAN << std::endl;
 			PUT_STR(KO);
 		}
-		{
-			PUT_STR(B"RBEGIN()");
-			ft::list<int> ft;
-			std::list<int> std;
-			for (int i = 0; i < 10; ++i) {
-				ft.push_back(i);
-				std.push_back(i);
-			}
-			if (*(ft.rbegin()) == *(std.rbegin()))
-				PUT_STR(OK);
-			else {
-				cout << LB << *(ft.rbegin()) << " != " << *(std.rbegin()) << CLEAN << std::endl;
-				PUT_STR(KO);
-			}
+	}
+	{
+		PUT_STR(B"RBEGIN()");
+		ft::list<int> ft;
+		std::list<int> std;
+		for (int i = 0; i < 10; ++i) {
+			ft.push_back(i);
+			std.push_back(i);
 		}
-		{
-			PUT_STR(B"REND()");
-			ft::list<int> ft;
-			std::list<int> std;
-			for (int i = 0; i < 10; ++i) {
-				ft.push_back(i);
-				std.push_back(i);
-			}
-			if (*(ft.rend()) == *(std.rend()))
-				PUT_STR(OK);
-			else {
-				cout << LB << *(ft.rend()) << " != " << *(std.rend()) << CLEAN << std::endl;
-				PUT_STR(KO);
-			}
+		if (*(ft.rbegin()) == *(std.rbegin()))
+			PUT_STR(OK);
+		else {
+			cout << LB << *(ft.rbegin()) << " != " << *(std.rbegin()) << CLEAN << std::endl;
+			PUT_STR(KO);
 		}
-		{
-			PUT_STR(B"EMPTY()");
-			ft::list<int> ft;
-			std::list<int> std;
-			if (ft.empty() == std.empty())
-				PUT_STR(OK);
-			else {
-				cout << LB << ft.empty() << " != " << std.empty() << CLEAN << std::endl;
-				PUT_STR(KO);
-			}
-			for (int i = 0; i < 10; ++i) {
-				ft.push_back(i);
-				std.push_back(i);
-			}
-			if (ft.empty() == std.empty())
-				PUT_STR(OK);
-			else {
-				cout << LB << ft.empty() << " != " << std.empty() << CLEAN << std::endl;
-				PUT_STR(KO);
-			}
+	}
+	{
+		PUT_STR(B"REND()");
+		ft::list<int> ft;
+		std::list<int> std;
+		for (int i = 0; i < 10; ++i) {
+			ft.push_back(i);
+			std.push_back(i);
 		}
-		{
-			PUT_STR(B"SIZE()");
-			ft::list<int> ft;
-			std::list<int> std;
-			if (ft.size() == std.size())
-				PUT_STR(OK);
-			else {
-				cout << LB << ft.size() << " != " << std.size() << CLEAN << std::endl;
-				PUT_STR(KO);
-			}
-			for (int i = 0; i < 10; ++i) {
-				ft.push_back(i);
-				std.push_back(i);
-			}
-			if (ft.size() == std.size())
-				PUT_STR(OK);
-			else {
-				cout << LB << ft.size() << " != " << std.size() << CLEAN << std::endl;
-				PUT_STR(KO);
-			}
+		if (*(ft.rend()) == *(std.rend()))
+			PUT_STR(OK);
+		else {
+			cout << LB << *(ft.rend()) << " != " << *(std.rend()) << CLEAN << std::endl;
+			PUT_STR(KO);
 		}
-		{
-			PUT_STR(B"MAX_SIZE()");
-			ft::list<int> ft;
-			std::list<int> std;
-			if(ft.max_size() == std.max_size())
-				PUT_STR(OK);
-			else {
-				cout << LB << ft.max_size() << " != " << std.max_size() << CLEAN << std::endl;
-				PUT_STR(KO);
-			}
+	}
+	{
+		PUT_STR(B"EMPTY()");
+		ft::list<int> ft;
+		std::list<int> std;
+		if (ft.empty() == std.empty())
+			PUT_STR(OK);
+		else {
+			cout << LB << ft.empty() << " != " << std.empty() << CLEAN << std::endl;
+			PUT_STR(KO);
 		}
-
-		{
-			PUT_STR(B"FRONT()");
-			ft::list<int> ft;
-			std::list<int> std;
-			const ft::list<int> ft_const(3, 3);
-			const std::list<int> std_const(3, 3);
-
-			ft.push_back(77);
-			ft.push_back(22);
-			std.push_back(77);
-			std.push_back(22);
-
-			if(ft.front() == std.front())
-				PUT_STR(OK);
-			else {
-				cout << LB << ft.front() << " != " << std.front() << CLEAN << std::endl;
-				PUT_STR(KO);
-			}
-			if(ft_const.front() == std_const.front())
-				PUT_STR(OK);
-			else {
-				cout << LB << ft_const.front() << " != " << std_const.front() << CLEAN << std::endl;
-				PUT_STR(KO);
-			}
+		for (int i = 0; i < 10; ++i) {
+			ft.push_back(i);
+			std.push_back(i);
 		}
-		{
-			PUT_STR(B"BACK()");
-			ft::list<int> ft;
-			std::list<int> std;
-			const ft::list<int> ft_const(3, 3);
-			const std::list<int> std_const(3, 3);
-
-			ft.push_back(77);
-			ft.push_back(22);
-			std.push_back(77);
-			std.push_back(22);
-
-			if(ft.back() == std.back())
-				PUT_STR(OK);
-			else {
-				cout << LB << ft.back() << " != " << std.back() << CLEAN << std::endl;
-				PUT_STR(KO);
-			}
-			if(ft_const.back() == std_const.back())
-				PUT_STR(OK);
-			else {
-				cout << LB << ft_const.back() << " != " << std_const.back() << CLEAN << std::endl;
-				PUT_STR(KO);
-			}
+		if (ft.empty() == std.empty())
+			PUT_STR(OK);
+		else {
+			cout << LB << ft.empty() << " != " << std.empty() << CLEAN << std::endl;
+			PUT_STR(KO);
 		}
-		{
-			PUT_STR(B"ASSIGN()");
-			ft::list<int> ft_first;
-			ft::list<int> ft_second;
-			std::list<int> std_first;
-			std::list<int> std_second;
-
-			ft_first.assign (7,100);                      // 7 ints with value 100
-			std_first.assign (7,100);                      // 7 ints with value 100
-
-			ft_second.assign (ft_first.begin(),ft_first.end()); // a copy of first
-			std_second.assign (std_first.begin(),std_first.end()); // a copy of first
-
-			int myints[]={1776,7,4};
-			ft_first.assign (myints,myints+3);            // assigning from array
-			std_first.assign (myints,myints+3);            // assigning from array
-
-			if(ft_first.size() == std_first.size())
-				PUT_STR(OK);
-			else {
-				cout << LB << ft_first.size() << " != " << std_first.size() << CLEAN << std::endl;
-				PUT_STR(KO);
-			}
-			if(ft_second.size() == std_second.size())
-				PUT_STR(OK);
-			else {
-				cout << LB << ft_second.size() << " != " << std_second.size() << CLEAN << std::endl;
-				PUT_STR(KO);
-			}
-			ft::list<int>::iterator ft_first_itb = ft_first.begin();
-			ft::list<int>::iterator ft_first_ite = ft_first.end();
-			ft::list<int>::iterator ft_second_itb = ft_second.begin();
-			ft::list<int>::iterator ft_second_ite = ft_second.end();
-			std::list<int>::iterator std_first_itb = std_first.begin();
-			std::list<int>::iterator std_first_ite = std_first.end();
-			std::list<int>::iterator std_second_itb = std_second.begin();
-			std::list<int>::iterator std_second_ite = std_second.end();
-			while (ft_first_itb != ft_first_ite && std_first_itb != std_first_ite)
-			{
-				if (*ft_first_itb == *std_first_itb)
-				{
-					PUT_STR(OK);
-				} else {
-					cout << LB << *ft_first_itb << " != " << *std_first_itb << CLEAN << std::endl;
-					PUT_STR(KO);
-				}
-				++ft_first_itb;
-				++std_first_itb;
-			}
-			while (ft_second_itb != ft_second_ite && std_second_itb != std_first_ite)
-			{
-				if (*ft_second_itb == *std_second_itb)
-				{
-					PUT_STR(OK);
-				} else {
-					cout << LB << *ft_second_itb << " != " << *std_second_itb << CLEAN << std::endl;
-					PUT_STR(KO);
-				}
-				++ft_second_itb;
-				++std_second_itb;
-			}
+	}
+	{
+		PUT_STR(B"SIZE()");
+		ft::list<int> ft;
+		std::list<int> std;
+		if (ft.size() == std.size())
+			PUT_STR(OK);
+		else {
+			cout << LB << ft.size() << " != " << std.size() << CLEAN << std::endl;
+			PUT_STR(KO);
+		}
+		for (int i = 0; i < 10; ++i) {
+			ft.push_back(i);
+			std.push_back(i);
+		}
+		if (ft.size() == std.size())
+			PUT_STR(OK);
+		else {
+			cout << LB << ft.size() << " != " << std.size() << CLEAN << std::endl;
+			PUT_STR(KO);
+		}
+	}
+	{
+		PUT_STR(B"MAX_SIZE()");
+		ft::list<int> ft;
+		std::list<int> std;
+		if(ft.max_size() == std.max_size())
+			PUT_STR(OK);
+		else {
+			cout << LB << ft.max_size() << " != " << std.max_size() << CLEAN << std::endl;
+			PUT_STR(KO);
 		}
 	}
 
+	{
+		PUT_STR(B"FRONT()");
+		ft::list<int> ft;
+		std::list<int> std;
+		const ft::list<int> ft_const(3, 3);
+		const std::list<int> std_const(3, 3);
+
+		ft.push_back(77);
+		ft.push_back(22);
+		std.push_back(77);
+		std.push_back(22);
+
+		if(ft.front() == std.front())
+			PUT_STR(OK);
+		else {
+			cout << LB << ft.front() << " != " << std.front() << CLEAN << std::endl;
+			PUT_STR(KO);
+		}
+		if(ft_const.front() == std_const.front())
+			PUT_STR(OK);
+		else {
+			cout << LB << ft_const.front() << " != " << std_const.front() << CLEAN << std::endl;
+			PUT_STR(KO);
+		}
+	}
+	{
+		PUT_STR(B"BACK()");
+		ft::list<int> ft;
+		std::list<int> std;
+		const ft::list<int> ft_const(3, 3);
+		const std::list<int> std_const(3, 3);
+
+		ft.push_back(77);
+		ft.push_back(22);
+		std.push_back(77);
+		std.push_back(22);
+
+		if(ft.back() == std.back())
+			PUT_STR(OK);
+		else {
+			cout << LB << ft.back() << " != " << std.back() << CLEAN << std::endl;
+			PUT_STR(KO);
+		}
+		if(ft_const.back() == std_const.back())
+			PUT_STR(OK);
+		else {
+			cout << LB << ft_const.back() << " != " << std_const.back() << CLEAN << std::endl;
+			PUT_STR(KO);
+		}
+	}
+	{
+		PUT_STR(B"ASSIGN()");
+		bool flag = true;
+		ft::list<int> ft_first;
+		ft::list<int> ft_second;
+		std::list<int> std_first;
+		std::list<int> std_second;
+
+		ft_first.assign (7,100);                      // 7 ints with value 100
+		std_first.assign (7,100);                      // 7 ints with value 100
+
+		ft_second.assign (ft_first.begin(),ft_first.end()); // a copy of first
+		std_second.assign (std_first.begin(),std_first.end()); // a copy of first
+
+		int myints[]={1776,7,4};
+		ft_first.assign (myints,myints+3);            // assigning from array
+		std_first.assign (myints,myints+3);            // assigning from array
+
+		if(ft_first.size() == std_first.size())
+			PUT_STR(OK);
+		else {
+			cout << LB << ft_first.size() << " != " << std_first.size() << CLEAN << std::endl;
+			PUT_STR(KO);
+		}
+		if(ft_second.size() == std_second.size())
+			PUT_STR(OK);
+		else {
+			cout << LB << ft_second.size() << " != " << std_second.size() << CLEAN << std::endl;
+			PUT_STR(KO);
+		}
+		ft::list<int>::iterator ft_first_itb = ft_first.begin();
+		ft::list<int>::iterator ft_first_ite = ft_first.end();
+		ft::list<int>::iterator ft_second_itb = ft_second.begin();
+		ft::list<int>::iterator ft_second_ite = ft_second.end();
+		std::list<int>::iterator std_first_itb = std_first.begin();
+		std::list<int>::iterator std_first_ite = std_first.end();
+		std::list<int>::iterator std_second_itb = std_second.begin();
+		std::list<int>::iterator std_second_ite = std_second.end();
+		while (ft_first_itb != ft_first_ite && std_first_itb != std_first_ite)
+		{
+			if (*ft_first_itb == *std_first_itb)
+			{
+				flag = true;
+			} else {
+				flag = false;
+				cout << LB << *ft_first_itb << " != " << *std_first_itb << CLEAN << std::endl;
+				break;
+			}
+			++ft_first_itb;
+			++std_first_itb;
+		}
+		if (flag == true)
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
+		while (ft_second_itb != ft_second_ite && std_second_itb != std_first_ite)
+		{
+			if (*ft_second_itb == *std_second_itb)
+			{
+				flag = true;
+			} else {
+				flag = false;
+				cout << LB << *ft_second_itb << " != " << *std_second_itb << CLEAN << std::endl;
+				break;
+			}
+			++ft_second_itb;
+			++std_second_itb;
+		}
+		if (flag == true)
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
+	}
+	{
+		PUT_STR(B"PUSH_FRONT()");
+		bool flag = true;
+		ft::list<int> ft;
+		std::list<int> std;
+		for (int i = 0; i < 10; ++i) {
+			ft.push_front(i);
+			std.push_front(i);
+		}
+		ft::list<int>::iterator ft_itb = ft.begin();
+		std::list<int>::iterator std_itb = std.begin();
+		ft::list<int>::iterator ft_ite = ft.end();
+		std::list<int>::iterator std_ite = std.end();
+		while (std_itb != std_ite)
+		{
+			if (*ft_itb != *std_itb)
+			{
+				flag = false;
+				cout << LB << *ft_itb << " != " << *std_itb << CLEAN << std::endl;
+				break;
+			} else {
+				flag = true;
+			}
+			++ft_itb;
+			++std_itb;
+		}
+		if (flag == true)
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
+	}
+	{
+		PUT_STR(B"PUSH_BACK()");
+		bool flag = true;
+		ft::list<int> ft;
+		std::list<int> std;
+		for (int i = 0; i < 10; ++i) {
+			ft.push_back(i);
+			std.push_back(i);
+		}
+		ft::list<int>::iterator ft_itb = ft.begin();
+		std::list<int>::iterator std_itb = std.begin();
+		ft::list<int>::iterator ft_ite = ft.end();
+		std::list<int>::iterator std_ite = std.end();
+		while (std_itb != std_ite)
+		{
+			if (*ft_itb != *std_itb)
+			{
+				flag = false;
+				cout << LB << *ft_itb << " != " << *std_itb << CLEAN << std::endl;
+				break;
+			} else {
+				flag = true;
+			}
+			++ft_itb;
+			++std_itb;
+		}
+		if (flag == true)
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
+	}
 	return (0);
 }
