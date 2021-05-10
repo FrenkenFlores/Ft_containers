@@ -608,6 +608,41 @@ int main(void) {
 			PUT_STR(KO);
 	}
 	{
+		PUT_STR(B"POP_FRONT()");
+		bool flag = true;
+		ft::list<int> ft;
+		std::list<int> std;
+		for (int i = 0; i < 10; ++i) {
+			ft.push_front(i);
+			std.push_front(i);
+		}
+		for (int i = 0; i < 10; ++i) {
+			ft.pop_front();
+			std.pop_front();
+		}
+		ft::list<int>::iterator ft_itb = ft.begin();
+		std::list<int>::iterator std_itb = std.begin();
+		ft::list<int>::iterator ft_ite = ft.end();
+		std::list<int>::iterator std_ite = std.end();
+		while (std_itb != std_ite)
+		{
+			if (*ft_itb != *std_itb)
+			{
+				flag = false;
+				cout << LB << *ft_itb << " != " << *std_itb << CLEAN << std::endl;
+				break;
+			} else {
+				flag = true;
+			}
+			++ft_itb;
+			++std_itb;
+		}
+		if (flag == true)
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
+	}
+	{
 		PUT_STR(B"PUSH_BACK()");
 		bool flag = true;
 		ft::list<int> ft;
@@ -615,6 +650,41 @@ int main(void) {
 		for (int i = 0; i < 10; ++i) {
 			ft.push_back(i);
 			std.push_back(i);
+		}
+		ft::list<int>::iterator ft_itb = ft.begin();
+		std::list<int>::iterator std_itb = std.begin();
+		ft::list<int>::iterator ft_ite = ft.end();
+		std::list<int>::iterator std_ite = std.end();
+		while (std_itb != std_ite)
+		{
+			if (*ft_itb != *std_itb)
+			{
+				flag = false;
+				cout << LB << *ft_itb << " != " << *std_itb << CLEAN << std::endl;
+				break;
+			} else {
+				flag = true;
+			}
+			++ft_itb;
+			++std_itb;
+		}
+		if (flag == true)
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
+	}
+	{
+		PUT_STR(B"POP_BACK()");
+		bool flag = true;
+		ft::list<int> ft;
+		std::list<int> std;
+		for (int i = 0; i < 10; ++i) {
+			ft.push_front(i);
+			std.push_front(i);
+		}
+		for (int i = 0; i < 10; ++i) {
+			ft.pop_back();
+			std.pop_back();
 		}
 		ft::list<int>::iterator ft_itb = ft.begin();
 		std::list<int>::iterator std_itb = std.begin();

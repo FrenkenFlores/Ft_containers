@@ -427,9 +427,9 @@ namespace ft {
 		void assign (InputIterator first, InputIterator last, typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0);
 		void assign (size_type n, const value_type& val);
 		void push_front (const value_type& val);
-//		void pop_front();
+		void pop_front();
 		void push_back (const value_type& val);
-//		void pop_back();
+		void pop_back();
 //		iterator insert (iterator position, const value_type& val);
 //		void insert (iterator position, size_type n, const value_type& val);
 //		void insert (iterator position, iterator first, iterator last);

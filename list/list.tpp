@@ -70,6 +70,8 @@ ft::list<T, A>::list (const list& x) {
 //template <typename T, typename A>
 //ft::list<T, A>::list(const allocator_type &alloc) {}
 //
+
+// destructor
 template <typename T, typename A>
 ft::list<T, A>::~list() {
 	iterator it_begin = begin();
@@ -276,9 +278,17 @@ void ft::list<T, A>::push_front(const value_type &val) {
 	node_number++;
 }
 
-//template <typename T, typename A>
-//void ft::list<T, A>::pop_front() {}
-//
+template <typename T, typename A>
+void ft::list<T, A>::pop_front() {
+	node *tmp = head->next;
+	head->next->next->prev = head->next->prev;
+	head->next = head->next->next;
+	if (head->next == head->prev)			// for the last node
+		tail = head;
+	delete tmp;
+	node_number--;
+}
+
 
 template <typename T, typename A>
 void ft::list<T, A>::push_back (const value_type& val) {
@@ -299,9 +309,18 @@ void ft::list<T, A>::push_back (const value_type& val) {
 	node_number++;
 }
 
-//template <typename T, typename A>
-//void ft::list<T, A>::pop_back() {}
-//
+template <typename T, typename A>
+void ft::list<T, A>::pop_back() {
+	node *tmp = tail;
+	tail->prev->next = tail->next;
+	tail->next->next = tail->prev;
+	tail = tail->prev;
+	if (head->next == head->prev)			// for the last node
+		tail = head;
+	delete tmp;
+	node_number--;
+}
+
 //template <typename T, typename A>
 //typename ft::list<T, A>::iterator ft::list<T, A>::insert(typename ft::list<T, A>::iterator position, const typename ft::list<T, A>::value_type &val) {}
 //
