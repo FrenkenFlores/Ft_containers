@@ -429,10 +429,10 @@ namespace ft {
 		void push_back (const value_type& val);
 		void pop_back();
 
+		iterator insert (iterator position, const value_type& val);
+		void insert (iterator position, size_type n, const value_type& val);
 		template <class InputIterator>
-		iterator insert (InputIterator position, const value_type& val);
-//		void insert (iterator position, size_type n, const value_type& val);
-//		void insert (iterator position, iterator first, iterator last);
+		void insert (typename ft::list<T, A>::iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0);
 //		iterator erase (iterator position);
 //		iterator erase (iterator first, iterator last);
 //		void swap (list& x);

@@ -323,21 +323,33 @@ void ft::list<T, A>::pop_back() {
 
 //single element (1)
 template <typename T, typename A>
-template <class InputIterator>
-typename ft::list<T, A>::iterator ft::list<T, A>::insert(InputIterator position, const value_type &val) {
+typename ft::list<T, A>::iterator ft::list<T, A>::insert(typename ft::list<T, A>::iterator position, const value_type &val) {
 	node *ptr = position.get_node_pointer();
 	node *tmp = new node(val, ptr, ptr->prev);
 	ptr->prev->next = tmp;
+	ptr->prev = tmp;
 	node_number++;
 	return (iterator(tmp));
 }
 
-//template <typename T, typename A>
-//void ft::list<T, A>::insert(typename ft::list<T, A>::iterator position, typename ft::list<T, A>::size_type n, const typename ft::list<T, A>::value_type &val) {}
-//
-//template <typename T, typename A>
-//void ft::list<T, A>::insert(typename ft::list<T, A>::iterator position, typename ft::list<T, A>::iterator first, typename ft::list<T, A>::iterator last) {}
-//
+//fill (2)
+template <typename T, typename A>
+void ft::list<T, A>::insert(typename ft::list<T, A>::iterator position, typename ft::list<T, A>::size_type n, const typename ft::list<T, A>::value_type &val) {
+	for (size_t i = 0; i < n; ++i) {
+		insert(position, val);
+	}
+}
+
+//range (3)
+template <typename T, typename A>
+template <class InputIterator>
+void ft::list<T, A>::insert(typename ft::list<T, A>::iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type*) {
+	while (first != last) {
+		insert(position, *first);
+		++first;
+	}
+}
+
 //template <typename T, typename A>
 //typename ft::list<T, A>::iterator ft::list<T, A>::erase(typename ft::list<T, A>::iterator position) {}
 //
