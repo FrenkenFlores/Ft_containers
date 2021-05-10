@@ -1,8 +1,36 @@
 #include "unit_tests.hpp"
 using namespace std;
+
+
+void check_flag(bool flag) {
+	if (flag == true)
+		PUT_STR(OK);
+	else
+		PUT_STR(KO);
+}
+
+template <typename T>
+void check_value(typename ft::list<T>::iterator &ft_itb, typename ft::list<T>::iterator &ft_ite, typename std::list<T>::iterator &std_itb, typename std::list<T>::iterator &std_ite, bool &flag) {
+	while (ft_itb != ft_ite && std_itb != std_ite)
+	{
+		if (*ft_itb != *std_itb)
+		{
+			flag = false;
+			cout << LB << *ft_itb << " != " << *std_itb << CLEAN << std::endl;
+			break;
+		} else {
+			flag = true;
+		}
+		++ft_itb;
+		++std_ite;
+	}
+}
+
+
+
 int main(void) {
 	{
-		int flag = true;
+		bool flag = true;
 		PUT_STR(B"DEFAULT CONSTRUCTOR[int]");
 		ft::list<int> ft;
 		std::list<int> std;
@@ -10,23 +38,25 @@ int main(void) {
 		ft::list<int>::iterator ft_ite = ft.end();
 		std::list<int>::iterator std_itb = std.begin();
 		std::list<int>::iterator std_ite = std.end();
-		while (ft_itb != ft_ite && std_itb != std_ite)
-		{
-			if (*ft_itb != *std_itb)
-			{
-				flag = false;
-				break;
-			}
-			++ft_itb;
-			++std_ite;
-		}
-		if (flag == true)
-			PUT_STR(OK);
-		else
-			PUT_STR(KO);
+		check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
+//		while (ft_itb != ft_ite && std_itb != std_ite)
+//		{
+//			if (*ft_itb != *std_itb)
+//			{
+//				flag = false;
+//				break;
+//			}
+//			++ft_itb;
+//			++std_ite;
+//		}
+		check_flag(flag);
+//		if (flag == true)
+//			PUT_STR(OK);
+//		else
+//			PUT_STR(KO);
 	}
 	{
-		int flag = true;
+		bool flag = true;
 		PUT_STR(B"DEFAULT CONSTRUCTOR[float]");
 		ft::list<float> ft;
 		std::list<float> std;
@@ -34,23 +64,25 @@ int main(void) {
 		ft::list<float>::iterator ft_ite = ft.end();
 		std::list<float>::iterator std_itb = std.begin();
 		std::list<float>::iterator std_ite = std.end();
-		while (ft_itb != ft_ite && std_itb != std_ite)
-		{
-			if (*ft_itb != *std_itb)
-			{
-				flag = false;
-				break;
-			}
-			++ft_itb;
-			++std_ite;
-		}
-		if (flag == true)
-			PUT_STR(OK);
-		else
-			PUT_STR(KO);
+		check_value<float>(ft_itb, ft_ite, std_itb, std_ite, flag);
+//		while (ft_itb != ft_ite && std_itb != std_ite)
+//		{
+//			if (*ft_itb != *std_itb)
+//			{
+//				flag = false;
+//				break;
+//			}
+//			++ft_itb;
+//			++std_ite;
+//		}
+		check_flag(flag);
+//		if (flag == true)
+//			PUT_STR(OK);
+//		else
+//			PUT_STR(KO);
 	}
 	{
-		int flag = true;
+		bool flag = true;
 		PUT_STR(B"DEFAULT CONSTRUCTOR[double]");
 		ft::list<double> ft;
 		std::list<double> std;
@@ -58,23 +90,25 @@ int main(void) {
 		ft::list<double>::iterator ft_ite = ft.end();
 		std::list<double>::iterator std_itb = std.begin();
 		std::list<double>::iterator std_ite = std.end();
-		while (ft_itb != ft_ite && std_itb != std_ite)
-		{
-			if (*ft_itb != *std_itb)
-			{
-				flag = false;
-				break;
-			}
-			++ft_itb;
-			++std_ite;
-		}
-		if (flag == true)
-			PUT_STR(OK);
-		else
-			PUT_STR(KO);
+		check_value<double>(ft_itb, ft_ite, std_itb, std_ite, flag);
+//		while (ft_itb != ft_ite && std_itb != std_ite)
+//		{
+//			if (*ft_itb != *std_itb)
+//			{
+//				flag = false;
+//				break;
+//			}
+//			++ft_itb;
+//			++std_ite;
+//		}
+		check_flag(flag);
+//		if (flag == true)
+//			PUT_STR(OK);
+//		else
+//			PUT_STR(KO);
 	}
 	{
-		int flag = true;
+		bool flag = true;
 		PUT_STR(B"DEFAULT CONSTRUCTOR[char]");
 		ft::list<char> ft;
 		std::list<char> std;
@@ -82,23 +116,25 @@ int main(void) {
 		ft::list<char>::iterator ft_ite = ft.end();
 		std::list<char>::iterator std_itb = std.begin();
 		std::list<char>::iterator std_ite = std.end();
-		while (ft_itb != ft_ite && std_itb != std_ite)
-		{
-			if (*ft_itb != *std_itb)
-			{
-				flag = false;
-				break;
-			}
-			++ft_itb;
-			++std_ite;
-		}
-		if (flag == true)
-			PUT_STR(OK);
-		else
-			PUT_STR(KO);
+		check_value<char>(ft_itb, ft_ite, std_itb, std_ite, flag);
+//		while (ft_itb != ft_ite && std_itb != std_ite)
+//		{
+//			if (*ft_itb != *std_itb)
+//			{
+//				flag = false;
+//				break;
+//			}
+//			++ft_itb;
+//			++std_ite;
+//		}
+		check_flag(flag);
+//		if (flag == true)
+//			PUT_STR(OK);
+//		else
+//			PUT_STR(KO);
 	}
 	{
-		int flag = true;
+		bool flag = true;
 		PUT_STR(B"DEFAULT CONSTRUCTOR[string]");
 		ft::list<string> ft;
 		std::list<string> std;
@@ -106,23 +142,25 @@ int main(void) {
 		ft::list<string>::iterator ft_ite = ft.end();
 		std::list<string>::iterator std_itb = std.begin();
 		std::list<string>::iterator std_ite = std.end();
-		while (ft_itb != ft_ite && std_itb != std_ite)
-		{
-			if (*ft_itb != *std_itb)
-			{
-				flag = false;
-				break;
-			}
-			++ft_itb;
-			++std_ite;
-		}
-		if (flag == true)
-			PUT_STR(OK);
-		else
-			PUT_STR(KO);
+		check_value<string>(ft_itb, ft_ite, std_itb, std_ite, flag);
+//		while (ft_itb != ft_ite && std_itb != std_ite)
+//		{
+//			if (*ft_itb != *std_itb)
+//			{
+//				flag = false;
+//				break;
+//			}
+//			++ft_itb;
+//			++std_ite;
+//		}
+		check_flag(flag);
+//		if (flag == true)
+//			PUT_STR(OK);
+//		else
+//			PUT_STR(KO);
 	}
 	{
-		int flag = true;
+		bool flag = true;
 		PUT_STR(B"DEFAULT CONSTRUCTOR[vector]");
 		ft::list<vector<int> > ft;
 		std::list<vector<int> > std;
@@ -130,6 +168,7 @@ int main(void) {
 		ft::list<vector<int> >::iterator ft_ite = ft.end();
 		std::list<vector<int> >::iterator std_itb = std.begin();
 		std::list<vector<int> >::iterator std_ite = std.end();
+//		check_value<vector<int> >(ft_itb, ft_ite, std_itb, std_ite, flag);
 		while (ft_itb != ft_ite && std_itb != std_ite)
 		{
 			if (*ft_itb != *std_itb)
@@ -140,13 +179,14 @@ int main(void) {
 			++ft_itb;
 			++std_ite;
 		}
-		if (flag == true)
-			PUT_STR(OK);
-		else
-			PUT_STR(KO);
+		check_flag(flag);
+//		if (flag == true)
+//			PUT_STR(OK);
+//		else
+//			PUT_STR(KO);
 	}
 	{
-		int flag = true;
+		bool flag = true;
 		PUT_STR(B"FILL CONSTRUCTOR");
 		ft::list<int> ft(10, 42);
 		std::list<int> std(10, 42);
@@ -154,26 +194,28 @@ int main(void) {
 		ft::list<int>::iterator ft_ite = ft.end();
 		std::list<int>::iterator std_itb = std.begin();
 		std::list<int>::iterator std_ite = std.end();
-		while (ft_itb != ft_ite && std_itb != std_ite)
-		{
-			if (*ft_itb != *std_itb)
-			{
-				std::cout << *ft_itb << " != " << *std_itb << std::endl;
-				flag = false;
-				break;
-			}
-			else
-				flag = true;
-			++ft_itb;
-			++std_itb;
-		}
-		if (flag == true)
-			PUT_STR(OK);
-		else
-			PUT_STR(KO);
+//		while (ft_itb != ft_ite && std_itb != std_ite)
+//		{
+//			if (*ft_itb != *std_itb)
+//			{
+//				std::cout << *ft_itb << " != " << *std_itb << std::endl;
+//				flag = false;
+//				break;
+//			}
+//			else
+//				flag = true;
+//			++ft_itb;
+//			++std_itb;
+//		}
+		check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
+		check_flag(flag);
+//		if (flag == true)
+//			PUT_STR(OK);
+//		else
+//			PUT_STR(KO);
 	}
 	{
-		int flag = true;
+		bool flag = true;
 		PUT_STR(B"RANGE CONSTRUCTOR[ARRAY]");
 		int array[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 		ft::list<int> ft(array, array + sizeof(array));
@@ -182,26 +224,28 @@ int main(void) {
 		ft::list<int>::iterator ft_ite = ft.end();
 		std::list<int>::iterator std_itb = std.begin();
 		std::list<int>::iterator std_ite = std.end();
-		while (ft_itb != ft_ite && std_itb != std_ite)
-		{
-			if (*ft_itb != *std_itb)
-			{
-				std::cout << *ft_itb << " != " << *std_itb << std::endl;
-				flag = false;
-				break;
-			}
-			else
-				flag = true;
-			++ft_itb;
-			++std_itb;
-		}
-		if (flag == true)
-			PUT_STR(OK);
-		else
-			PUT_STR(KO);
+//		while (ft_itb != ft_ite && std_itb != std_ite)
+//		{
+//			if (*ft_itb != *std_itb)
+//			{
+//				std::cout << *ft_itb << " != " << *std_itb << std::endl;
+//				flag = false;
+//				break;
+//			}
+//			else
+//				flag = true;
+//			++ft_itb;
+//			++std_itb;
+//		}
+		check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
+		check_flag(flag);
+//		if (flag == true)
+//			PUT_STR(OK);
+//		else
+//			PUT_STR(KO);
 	}
 	{
-		int flag = true;
+		bool flag = true;
 		PUT_STR(B"RANGE CONSTRUCTOR[VECTOR]");
 		std::vector<int> v;
 		for (int i = 0; i < 10; ++i)
@@ -212,26 +256,28 @@ int main(void) {
 		ft::list<int>::iterator ft_ite = ft.end();
 		std::list<int>::iterator std_itb = std.begin();
 		std::list<int>::iterator std_ite = std.end();
-		while (ft_itb != ft_ite && std_itb != std_ite)
-		{
-			if (*ft_itb != *std_itb)
-			{
-				std::cout << *ft_itb << " != " << *std_itb << std::endl;
-				flag = false;
-				break;
-			}
-			else
-				flag = true;
-			++ft_itb;
-			++std_itb;
-		}
-		if (flag == true)
-			PUT_STR(OK);
-		else
-			PUT_STR(KO);
+//		while (ft_itb != ft_ite && std_itb != std_ite)
+//		{
+//			if (*ft_itb != *std_itb)
+//			{
+//				std::cout << *ft_itb << " != " << *std_itb << std::endl;
+//				flag = false;
+//				break;
+//			}
+//			else
+//				flag = true;
+//			++ft_itb;
+//			++std_itb;
+//		}
+		check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
+		check_flag(flag);
+//		if (flag == true)
+//			PUT_STR(OK);
+//		else
+//			PUT_STR(KO);
 	}
 	{
-		int flag = true;
+		bool flag = true;
 		PUT_STR(B"OPERATOR()=");
 		ft::list<int> ft_src(10, 42);
 		ft::list<int> ft;
@@ -243,26 +289,28 @@ int main(void) {
 		ft::list<int>::iterator ft_ite = ft.end();
 		std::list<int>::iterator std_itb = std.begin();
 		std::list<int>::iterator std_ite = std.end();
-		while (ft_itb != ft_ite && std_itb != std_ite)
-		{
-			if (*ft_itb != *std_itb)
-			{
-				std::cout << *ft_itb << " != " << *std_itb << std::endl;
-				flag = false;
-				break;
-			}
-			else
-				flag = true;
-			++ft_itb;
-			++std_itb;
-		}
-		if (flag == true)
-			PUT_STR(OK);
-		else
-			PUT_STR(KO);
+//		while (ft_itb != ft_ite && std_itb != std_ite)
+//		{
+//			if (*ft_itb != *std_itb)
+//			{
+//				std::cout << *ft_itb << " != " << *std_itb << std::endl;
+//				flag = false;
+//				break;
+//			}
+//			else
+//				flag = true;
+//			++ft_itb;
+//			++std_itb;
+//		}
+		check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
+		check_flag(flag);
+//		if (flag == true)
+//			PUT_STR(OK);
+//		else
+//			PUT_STR(KO);
 	}
 	{
-		int flag = true;
+		bool flag = true;
 		PUT_STR(B"COPY CONSTRUCTOR");
 		ft::list<int> ft_src(10, 42);
 		std::list<int> std_src(10, 42);
@@ -272,23 +320,25 @@ int main(void) {
 		ft::list<int>::iterator ft_ite = ft.end();
 		std::list<int>::iterator std_itb = std.begin();
 		std::list<int>::iterator std_ite = std.end();
-		while (ft_itb != ft_ite && std_itb != std_ite)
-		{
-			if (*ft_itb != *std_itb)
-			{
-				std::cout << *ft_itb << " != " << *std_itb << std::endl;
-				flag = false;
-				break;
-			}
-			else
-				flag = true;
-			++ft_itb;
-			++std_itb;
-		}
-		if (flag == true)
-			PUT_STR(OK);
-		else
-			PUT_STR(KO);
+//		while (ft_itb != ft_ite && std_itb != std_ite)
+//		{
+//			if (*ft_itb != *std_itb)
+//			{
+//				std::cout << *ft_itb << " != " << *std_itb << std::endl;
+//				flag = false;
+//				break;
+//			}
+//			else
+//				flag = true;
+//			++ft_itb;
+//			++std_itb;
+//		}
+		check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
+		check_flag(flag);
+//		if (flag == true)
+//			PUT_STR(OK);
+//		else
+//			PUT_STR(KO);
 	}
 	// IF list gets filled with array the last element shows the sizeof array in some OS, in others it show garbage
 //	{
@@ -541,40 +591,44 @@ int main(void) {
 		std::list<int>::iterator std_first_ite = std_first.end();
 		std::list<int>::iterator std_second_itb = std_second.begin();
 		std::list<int>::iterator std_second_ite = std_second.end();
-		while (ft_first_itb != ft_first_ite && std_first_itb != std_first_ite)
-		{
-			if (*ft_first_itb == *std_first_itb)
-			{
-				flag = true;
-			} else {
-				flag = false;
-				cout << LB << *ft_first_itb << " != " << *std_first_itb << CLEAN << std::endl;
-				break;
-			}
-			++ft_first_itb;
-			++std_first_itb;
-		}
-		if (flag == true)
-			PUT_STR(OK);
-		else
-			PUT_STR(KO);
-		while (ft_second_itb != ft_second_ite && std_second_itb != std_first_ite)
-		{
-			if (*ft_second_itb == *std_second_itb)
-			{
-				flag = true;
-			} else {
-				flag = false;
-				cout << LB << *ft_second_itb << " != " << *std_second_itb << CLEAN << std::endl;
-				break;
-			}
-			++ft_second_itb;
-			++std_second_itb;
-		}
-		if (flag == true)
-			PUT_STR(OK);
-		else
-			PUT_STR(KO);
+//		while (ft_first_itb != ft_first_ite && std_first_itb != std_first_ite)
+//		{
+//			if (*ft_first_itb == *std_first_itb)
+//			{
+//				flag = true;
+//			} else {
+//				flag = false;
+//				cout << LB << *ft_first_itb << " != " << *std_first_itb << CLEAN << std::endl;
+//				break;
+//			}
+//			++ft_first_itb;
+//			++std_first_itb;
+//		}
+		check_value<int>(ft_first_itb, ft_first_ite, std_first_itb, std_first_ite, flag);
+		check_flag(flag);
+//		if (flag == true)
+//			PUT_STR(OK);
+//		else
+//			PUT_STR(KO);
+//		while (ft_second_itb != ft_second_ite && std_second_itb != std_first_ite)
+//		{
+//			if (*ft_second_itb == *std_second_itb)
+//			{
+//				flag = true;
+//			} else {
+//				flag = false;
+//				cout << LB << *ft_second_itb << " != " << *std_second_itb << CLEAN << std::endl;
+//				break;
+//			}
+//			++ft_second_itb;
+//			++std_second_itb;
+//		}
+		check_value<int>(ft_second_itb, ft_second_ite, std_second_itb, std_second_ite, flag);
+		check_flag(flag);
+//		if (flag == true)
+//			PUT_STR(OK);
+//		else
+//			PUT_STR(KO);
 	}
 	{
 		PUT_STR(B"PUSH_FRONT()");
@@ -589,23 +643,25 @@ int main(void) {
 		std::list<int>::iterator std_itb = std.begin();
 		ft::list<int>::iterator ft_ite = ft.end();
 		std::list<int>::iterator std_ite = std.end();
-		while (std_itb != std_ite)
-		{
-			if (*ft_itb != *std_itb)
-			{
-				flag = false;
-				cout << LB << *ft_itb << " != " << *std_itb << CLEAN << std::endl;
-				break;
-			} else {
-				flag = true;
-			}
-			++ft_itb;
-			++std_itb;
-		}
-		if (flag == true)
-			PUT_STR(OK);
-		else
-			PUT_STR(KO);
+//		while (std_itb != std_ite && ft_itb != ft_ite)
+//		{
+//			if (*ft_itb != *std_itb && ft_itb != ft_ite)
+//			{
+//				flag = false;
+//				cout << LB << *ft_itb << " != " << *std_itb << CLEAN << std::endl;
+//				break;
+//			} else {
+//				flag = true;
+//			}
+//			++ft_itb;
+//			++std_itb;
+//		}
+		check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
+		check_flag(flag);
+//		if (flag == true)
+//			PUT_STR(OK);
+//		else
+//			PUT_STR(KO);
 	}
 	{
 		PUT_STR(B"POP_FRONT()");
@@ -624,23 +680,25 @@ int main(void) {
 		std::list<int>::iterator std_itb = std.begin();
 		ft::list<int>::iterator ft_ite = ft.end();
 		std::list<int>::iterator std_ite = std.end();
-		while (std_itb != std_ite)
-		{
-			if (*ft_itb != *std_itb)
-			{
-				flag = false;
-				cout << LB << *ft_itb << " != " << *std_itb << CLEAN << std::endl;
-				break;
-			} else {
-				flag = true;
-			}
-			++ft_itb;
-			++std_itb;
-		}
-		if (flag == true)
-			PUT_STR(OK);
-		else
-			PUT_STR(KO);
+//		while (std_itb != std_ite && ft_itb != ft_ite)
+//		{
+//			if (*ft_itb != *std_itb && ft_itb != ft_ite)
+//			{
+//				flag = false;
+//				cout << LB << *ft_itb << " != " << *std_itb << CLEAN << std::endl;
+//				break;
+//			} else {
+//				flag = true;
+//			}
+//			++ft_itb;
+//			++std_itb;
+//		}
+		check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
+		check_flag(flag);
+//		if (flag == true)
+//			PUT_STR(OK);
+//		else
+//			PUT_STR(KO);
 	}
 	{
 		PUT_STR(B"PUSH_BACK()");
@@ -655,23 +713,25 @@ int main(void) {
 		std::list<int>::iterator std_itb = std.begin();
 		ft::list<int>::iterator ft_ite = ft.end();
 		std::list<int>::iterator std_ite = std.end();
-		while (std_itb != std_ite)
-		{
-			if (*ft_itb != *std_itb)
-			{
-				flag = false;
-				cout << LB << *ft_itb << " != " << *std_itb << CLEAN << std::endl;
-				break;
-			} else {
-				flag = true;
-			}
-			++ft_itb;
-			++std_itb;
-		}
-		if (flag == true)
-			PUT_STR(OK);
-		else
-			PUT_STR(KO);
+//		while (std_itb != std_ite)
+//		{
+//			if (*ft_itb != *std_itb && ft_itb != ft_ite)
+//			{
+//				flag = false;
+//				cout << LB << *ft_itb << " != " << *std_itb << CLEAN << std::endl;
+//				break;
+//			} else {
+//				flag = true;
+//			}
+//			++ft_itb;
+//			++std_itb;
+//		}
+		check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
+		check_flag(flag);
+//		if (flag == true)
+//			PUT_STR(OK);
+//		else
+//			PUT_STR(KO);
 	}
 	{
 		PUT_STR(B"POP_BACK()");
@@ -690,23 +750,93 @@ int main(void) {
 		std::list<int>::iterator std_itb = std.begin();
 		ft::list<int>::iterator ft_ite = ft.end();
 		std::list<int>::iterator std_ite = std.end();
-		while (std_itb != std_ite)
-		{
-			if (*ft_itb != *std_itb)
+//		while (std_itb != std_ite && ft_itb != ft_ite)
+//		{
+//			if (*ft_itb != *std_itb)
+//			{
+//				flag = false;
+//				cout << LB << *ft_itb << " != " << *std_itb << CLEAN << std::endl;
+//				break;
+//			} else {
+//				flag = true;
+//			}
+//			++ft_itb;
+//			++std_itb;
+//		}
+		check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
+		check_flag(flag);
+//		if (flag == true)
+//			PUT_STR(OK);
+//		else
+//			PUT_STR(KO);
+	}
+	{
+		PUT_STR(B"INSERT()");
+		bool flag = true;
+		ft::list<int> ft;
+		std::list<int> std;
+		for (int i = 0; i < 10; ++i) {
+			ft.push_front(i);
+			std.push_front(i);
+		}
+		ft::list<int>::iterator ft_itb = ft.begin();
+		std::list<int>::iterator std_itb = std.begin();
+		ft::list<int>::iterator ft_ite = ft.end();
+		std::list<int>::iterator std_ite = std.end();
+		for (int i = 0; i < 5; ++i) {
+			++ft_itb;
+			++std_itb;
+		}
+		for (int i = 0; i < 3; ++i) {
+			ft::list<int>::iterator ft_j = ft.insert(ft_itb, 42);
+			std::list<int>::iterator std_j = std.insert(std_itb, 42);
+			if (*ft_j != *std_j)
 			{
 				flag = false;
-				cout << LB << *ft_itb << " != " << *std_itb << CLEAN << std::endl;
+				cout << LB << *ft_j << " != " << *std_j << CLEAN << std::endl;
 				break;
-			} else {
+			} else
+			{
 				flag = true;
 			}
 			++ft_itb;
 			++std_itb;
 		}
-		if (flag == true)
-			PUT_STR(OK);
-		else
-			PUT_STR(KO);
+		check_flag(flag);
+//		if (flag == true)
+//			PUT_STR(OK);
+//		else
+//			PUT_STR(KO);
+		ft_itb = ft.begin();
+		std_itb = std.begin();
+		check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
+//		while (std_itb != std_ite && ft_itb != ft_ite)
+//		{
+////			std::cout << *ft_itb << "==" << *std_itb << std::endl;
+//			if (*ft_itb != *std_itb)
+//			{
+//				flag = false;
+//				cout << LB << *ft_itb << " != " << *std_itb << CLEAN << std::endl;
+//				break;
+//			} else {
+//				flag = true;
+//			}
+//			++ft_itb;
+//			++std_itb;
+//		}
+		check_flag(flag);
+//		if (flag == true)
+//			PUT_STR(OK);
+//		else
+//			PUT_STR(KO);
+		if (ft.size() != std.size())
+		{
+			flag = false;
+			cout << LB << ft.size() << " != " << std.size() << CLEAN << std::endl;
+		} else {
+			flag = true;
+		}
+		check_flag(flag);
 	}
 	return (0);
 }

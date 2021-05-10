@@ -162,13 +162,11 @@ namespace ft {
 				this->data = data;
 				this->next = next;
 				this->prev = prev;
-//				std::cout << "Node been created" <<std::endl;
 			}
 			node() {
 //				this->data = node_number;
 				this->next = NULL;
 				this->prev = NULL;
-//				std::cout << "Sentinel node been created" <<std::endl;
 			}
 			T	data;
 			node *next;
@@ -430,7 +428,9 @@ namespace ft {
 		void pop_front();
 		void push_back (const value_type& val);
 		void pop_back();
-//		iterator insert (iterator position, const value_type& val);
+
+		template <class InputIterator>
+		iterator insert (InputIterator position, const value_type& val);
 //		void insert (iterator position, size_type n, const value_type& val);
 //		void insert (iterator position, iterator first, iterator last);
 //		iterator erase (iterator position);

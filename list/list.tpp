@@ -321,9 +321,17 @@ void ft::list<T, A>::pop_back() {
 	node_number--;
 }
 
-//template <typename T, typename A>
-//typename ft::list<T, A>::iterator ft::list<T, A>::insert(typename ft::list<T, A>::iterator position, const typename ft::list<T, A>::value_type &val) {}
-//
+//single element (1)
+template <typename T, typename A>
+template <class InputIterator>
+typename ft::list<T, A>::iterator ft::list<T, A>::insert(InputIterator position, const value_type &val) {
+	node *ptr = position.get_node_pointer();
+	node *tmp = new node(val, ptr, ptr->prev);
+	ptr->prev->next = tmp;
+	node_number++;
+	return (iterator(tmp));
+}
+
 //template <typename T, typename A>
 //void ft::list<T, A>::insert(typename ft::list<T, A>::iterator position, typename ft::list<T, A>::size_type n, const typename ft::list<T, A>::value_type &val) {}
 //

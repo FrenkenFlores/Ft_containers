@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../list/list.hpp"
+#include <type_traits>
 #include <list>
 #include <vector>
 
@@ -16,3 +17,11 @@
 
 #define CLEAN "\e[0;0m"
 #define PUT_STR(STR) std::cout << STR CLEAN << std::endl
+
+
+//
+//template <typename T>
+//void check_value(typename ft::list<T>::iterator &ft_itb, typename ft::list<T>::iterator &ft_ite, typename std::list<T>::iterator &std_itb, typename std::list<T>::iterator &std_ite, bool &flag);
+//
+//template <typename T, typename std::enable_if<!std::numeric_limits<T>::is_specialized>::type> >
+//void check_value(typename ft::list<T>::iterator &ft_itb, typename ft::list<T>::iterator &ft_ite, typename std::list<T>::iterator &std_itb, typename std::list<T>::iterator &std_ite, bool &flag);
