@@ -15,7 +15,7 @@ ft::list<T, A>::list (size_type n, const value_type& val, const allocator_type& 
 	sentinel = new node();
 	head = sentinel;
 	tail = sentinel;
-	for (size_t i = 0; i < n; i++)
+	for (size_type i = 0; i < n; i++)
 		push_back(val);
 };
 
@@ -71,21 +71,31 @@ ft::list<T, A>::list (const list& x) {
 //ft::list<T, A>::list(const allocator_type &alloc) {}
 //
 
+//// destructor
+//template <typename T, typename A>
+//ft::list<T, A>::~list() {
+//	iterator it_begin = begin();
+//	iterator it_end = end();
+//	while (it_begin != it_end)
+//	{
+//		delete it_end.get_node_pointer();
+//		--it_end;
+//	}
+//	delete it_begin.get_node_pointer();
+//	this->head = NULL;
+//	this->tail = NULL;
+//	this->node_number = 0;
+//}
+
 // destructor
 template <typename T, typename A>
 ft::list<T, A>::~list() {
-	iterator it_begin = begin();
-	iterator it_end = end();
-	while (it_begin != it_end)
-	{
-		delete it_end.get_node_pointer();
-		--it_end;
-	}
-	delete it_begin.get_node_pointer();
+	clear();
+	delete head;
 	this->head = NULL;
 	this->tail = NULL;
-	this->node_number = 0;
 }
+
 
 template <typename T, typename A>
 ft::list<T, A> & ft::list<T, A>::operator=(const ft::list<T, A> &rhs) {
@@ -312,8 +322,8 @@ void ft::list<T, A>::push_back (const value_type& val) {
 template <typename T, typename A>
 void ft::list<T, A>::pop_back() {
 	node *tmp = tail;
+	tail->next->prev = tail->prev;
 	tail->prev->next = tail->next;
-	tail->next->next = tail->prev;
 	tail = tail->prev;
 	if (head->next == head->prev)			// for the last node
 		tail = head;
@@ -335,7 +345,7 @@ typename ft::list<T, A>::iterator ft::list<T, A>::insert(typename ft::list<T, A>
 //fill (2)
 template <typename T, typename A>
 void ft::list<T, A>::insert(typename ft::list<T, A>::iterator position, typename ft::list<T, A>::size_type n, const typename ft::list<T, A>::value_type &val) {
-	for (size_t i = 0; i < n; ++i) {
+	for (size_type i = 0; i < n; ++i) {
 		insert(position, val);
 	}
 }
@@ -356,28 +366,8 @@ typename ft::list<T, A>::iterator ft::list<T, A>::erase(typename ft::list<T, A>:
 	node *tmp = position.get_node_pointer();
 	node *prev = position.get_node_pointer()->prev;
 	node *next = position.get_node_pointer()->next;
-//	std::cout << prev->prev->data << ": prev->prev->data" << std::endl;
-//	std::cout << prev->data  << ": prev->data" << std::endl;
-//	std::cout << prev->next->data  << ": prev->next->data" << std::endl;
-//	std::cout << tmp->prev->data  << ": tmp->prev->data" << std::endl;
-//	std::cout << tmp->data  << ": tmp->data" << std::endl;
-//	std::cout << tmp->next->data  << ": tmp->next->data" << std::endl;
-//	std::cout << next->prev->data  << ": next->prev->data" << std::endl;
-//	std::cout << next->data  << ": next->data" << std::endl;
-//	std::cout << next->next->data  << ": next->next->data" << std::endl;
-//	std::cout << "-------------" << std::endl;
 	prev->next = position.get_node_pointer()->next;
 	next->prev = position.get_node_pointer()->prev;
-//	std::cout << prev->prev->data << ": prev->prev->data" << std::endl;
-//	std::cout << prev->data  << ": prev->data" << std::endl;
-//	std::cout << prev->next->data  << ": prev->next->data" << std::endl;
-//	std::cout << tmp->prev->data  << ": tmp->prev->data" << std::endl;
-//	std::cout << tmp->data  << ": tmp->data" << std::endl;
-//	std::cout << tmp->next->data  << ": tmp->next->data" << std::endl;
-//	std::cout << next->prev->data  << ": next->prev->data" << std::endl;
-//	std::cout << next->data  << ": next->data" << std::endl;
-//	std::cout << next->next->data  << ": next->next->data" << std::endl;
-
 	delete tmp;
 	node_number--;
 	return (iterator(prev));
@@ -393,15 +383,40 @@ typename ft::list<T, A>::iterator ft::list<T, A>::erase(typename ft::list<T, A>:
 	return (it);
 }
 
-//template <typename T, typename A>
-//void ft::list<T, A>::swap(list<T, A> &x) {}
-//
-//template <typename T, typename A>
-//void ft::list<T, A>::resize(typename ft::list<T, A>::size_type n, typename ft::list<T, A>::value_type val) {}
-//
-//template <typename T, typename A>
-//void ft::list<T, A>::clear() {}
-//
+template <typename T, typename A>
+void ft::list<T, A>::swap(list<T, A> &x) {
+	list tmp = x;
+	x = *this;
+	*this = tmp;
+}
+
+template <typename T, typename A>
+void ft::list<T, A>::resize(typename ft::list<T, A>::size_type n, typename ft::list<T, A>::value_type val) {
+	size_type size = this->size();
+	if (size < n) {
+		while (size < n) {
+			push_back(val);
+			size++;
+		}
+	}
+	else {
+		while (size > n) {
+			pop_back();
+			size--;
+		}
+	}
+}
+
+template <typename T, typename A>
+void ft::list<T, A>::clear() {
+	while (head != tail)
+	{
+		delete tail;
+		tail = tail->prev;
+	}
+	this->node_number = 0;
+}
+
 //template <typename T, typename A>
 //void ft::list<T, A>::splice(typename ft::list<T, A>::iterator position, ft::list<T, A> &x) {}
 //

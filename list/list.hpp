@@ -435,9 +435,9 @@ namespace ft {
 		void insert (typename ft::list<T, A>::iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type* = 0);
 		iterator erase (iterator position);
 		iterator erase (iterator first, iterator last);
-//		void swap (list& x);
-//		void resize (size_type n, value_type val = value_type());
-//		void clear();
+		void swap (list& x);
+		void resize (size_type n, value_type val = value_type());
+		void clear();
 //		void splice (iterator position, list& x);
 //		void splice (iterator position, list& x, iterator i);
 //		void splice (iterator position, list& x, iterator first, iterator last);

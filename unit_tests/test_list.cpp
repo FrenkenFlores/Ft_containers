@@ -62,6 +62,17 @@ void check_value(typename ft::list<T>::iterator ft_itb, typename ft::list<T>::it
 	}
 }
 
+template <typename T>
+void check_size(ft::list<T> ft, std::list<T> std, bool &flag) {
+	if (ft.size() != std.size())
+	{
+		flag = false;
+		cout << LB << ft.size() << " != " << std.size() << CLEAN << std::endl;
+	} else {
+		flag = true;
+	}
+}
+
 
 
 int main(void) {
@@ -750,37 +761,38 @@ int main(void) {
 		bool flag = true;
 		ft::list<int> ft;
 		std::list<int> std;
+		ft::list<int>::iterator ft_itb;
+		std::list<int>::iterator std_itb;
+		ft::list<int>::iterator ft_ite;
+		std::list<int>::iterator std_ite;
 		for (int i = 0; i < 10; ++i) {
 			ft.push_front(i);
 			std.push_front(i);
 		}
-		for (int i = 0; i < 10; ++i) {
+		for (int i = 0; i < 5; ++i) {
 			ft.pop_front();
 			std.pop_front();
 		}
-		ft::list<int>::iterator ft_itb = ft.begin();
-		std::list<int>::iterator std_itb = std.begin();
-		ft::list<int>::iterator ft_ite = ft.end();
-		std::list<int>::iterator std_ite = std.end();
-//		while (std_itb != std_ite && ft_itb != ft_ite)
-//		{
-//			if (*ft_itb != *std_itb && ft_itb != ft_ite)
-//			{
-//				flag = false;
-//				cout << LB << *ft_itb << " != " << *std_itb << CLEAN << std::endl;
-//				break;
-//			} else {
-//				flag = true;
-//			}
-//			++ft_itb;
-//			++std_itb;
-//		}
+		ft_itb = ft.begin();
+		std_itb = std.begin();
+		ft_ite = ft.end();
+		std_ite = std.end();
 		check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
 		check_flag(flag);
-//		if (flag == true)
-//			PUT_STR(OK);
-//		else
-//			PUT_STR(KO);
+		check_size(ft, std, flag);
+		check_flag(flag);
+		for (int i = 0; i < 3; ++i) {
+			ft.pop_front();
+			std.pop_front();
+		}
+		ft_itb = ft.begin();
+		std_itb = std.begin();
+		ft_ite = ft.end();
+		std_ite = std.end();
+		check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
+		check_flag(flag);
+		check_size(ft, std, flag);
+		check_flag(flag);
 	}
 #endif
 #ifdef T25
@@ -824,37 +836,38 @@ int main(void) {
 		bool flag = true;
 		ft::list<int> ft;
 		std::list<int> std;
+		ft::list<int>::iterator ft_itb;
+		std::list<int>::iterator std_itb;
+		ft::list<int>::iterator ft_ite;
+		std::list<int>::iterator std_ite;
 		for (int i = 0; i < 10; ++i) {
 			ft.push_front(i);
 			std.push_front(i);
 		}
-		for (int i = 0; i < 10; ++i) {
+		for (int i = 0; i < 5; ++i) {
 			ft.pop_back();
 			std.pop_back();
 		}
-		ft::list<int>::iterator ft_itb = ft.begin();
-		std::list<int>::iterator std_itb = std.begin();
-		ft::list<int>::iterator ft_ite = ft.end();
-		std::list<int>::iterator std_ite = std.end();
-//		while (std_itb != std_ite && ft_itb != ft_ite)
-//		{
-//			if (*ft_itb != *std_itb)
-//			{
-//				flag = false;
-//				cout << LB << *ft_itb << " != " << *std_itb << CLEAN << std::endl;
-//				break;
-//			} else {
-//				flag = true;
-//			}
-//			++ft_itb;
-//			++std_itb;
-//		}
+		ft_itb = ft.begin();
+		std_itb = std.begin();
+		ft_ite = ft.end();
+		std_ite = std.end();
 		check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
 		check_flag(flag);
-//		if (flag == true)
-//			PUT_STR(OK);
-//		else
-//			PUT_STR(KO);
+		check_size(ft, std, flag);
+		check_flag(flag);
+		for (int i = 0; i < 3; ++i) {
+			ft.pop_back();
+			std.pop_back();
+		}
+		ft_itb = ft.begin();
+		std_itb = std.begin();
+		ft_ite = ft.end();
+		std_ite = std.end();
+		check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
+		check_flag(flag);
+		check_size(ft, std, flag);
+		check_flag(flag);
 	}
 #endif
 #ifdef T27
@@ -896,13 +909,14 @@ int main(void) {
 			std_itb = std.begin();
 			check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
 			check_flag(flag);
-			if (ft.size() != std.size())
-			{
-				flag = false;
-				cout << LB << ft.size() << " != " << std.size() << CLEAN << std::endl;
-			} else {
-				flag = true;
-			}
+			check_size(ft, std, flag);
+//			if (ft.size() != std.size())
+//			{
+//				flag = false;
+//				cout << LB << ft.size() << " != " << std.size() << CLEAN << std::endl;
+//			} else {
+//				flag = true;
+//			}
 			check_flag(flag);
 		}
 		{
@@ -928,13 +942,14 @@ int main(void) {
 			std_itb = std.begin();
 			check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
 			check_flag(flag);
-			if (ft.size() != std.size())
-			{
-				flag = false;
-				cout << LB << ft.size() << " != " << std.size() << CLEAN << std::endl;
-			} else {
-				flag = true;
-			}
+			check_size(ft, std, flag);
+//			if (ft.size() != std.size())
+//			{
+//				flag = false;
+//				cout << LB << ft.size() << " != " << std.size() << CLEAN << std::endl;
+//			} else {
+//				flag = true;
+//			}
 			check_flag(flag);
 		}
 		{
@@ -963,13 +978,14 @@ int main(void) {
 			std_ite = std.end();
 			check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
 			check_flag(flag);
-			if (ft.size() != std.size())
-			{
-				flag = false;
-				cout << LB << ft.size() << " != " << std.size() << CLEAN << std::endl;
-			} else {
-				flag = true;
-			}
+			check_size(ft, std, flag);
+//			if (ft.size() != std.size())
+//			{
+//				flag = false;
+//				cout << LB << ft.size() << " != " << std.size() << CLEAN << std::endl;
+//			} else {
+//				flag = true;
+//			}
 			check_flag(flag);
 		}
 	}
@@ -1015,13 +1031,14 @@ int main(void) {
 			std_ite = std.end();
 			check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
 			check_flag(flag);
-			if (ft.size() != std.size())
-			{
-				flag = false;
-				cout << LB << ft.size() << " != " << std.size() << CLEAN << std::endl;
-			} else {
-				flag = true;
-			}
+			check_size(ft, std, flag);
+//			if (ft.size() != std.size())
+//			{
+//				flag = false;
+//				cout << LB << ft.size() << " != " << std.size() << CLEAN << std::endl;
+//			} else {
+//				flag = true;
+//			}
 			check_flag(flag);
 		}
 		{
@@ -1059,16 +1076,147 @@ int main(void) {
 			std::list<int>::iterator std_ite = std.end();
 			check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
 			check_flag(flag);
-			if (ft.size() != std.size())
-			{
-				flag = false;
-				cout << LB << ft.size() << " != " << std.size() << CLEAN << std::endl;
-			} else {
-				flag = true;
-			}
+			check_size(ft, std, flag);
+//			if (ft.size() != std.size())
+//			{
+//				flag = false;
+//				cout << LB << ft.size() << " != " << std.size() << CLEAN << std::endl;
+//			} else {
+//				flag = true;
+//			}
 			check_flag(flag);
 		}
 	}
+#endif
+#ifdef T29
+	{
+		bool flag = true;
+		PUT_STR(B"SWAP()");
+		ft::list<int> ft_first (3,100);   // three ints with a value of 100
+		ft::list<int> ft_second (5,200);  // five ints with a value of 200
+		std::list<int> std_first (3,100);   // three ints with a value of 100
+		std::list<int> std_second (5,200);  // five ints with a value of 200
+
+		ft_first.swap(ft_second);
+		std_first.swap(std_second);
+
+		ft::list<int>::iterator ft_first_itb = ft_first.begin();
+		std::list<int>::iterator std_first_itb = std_first.begin();
+		ft::list<int>::iterator ft_first_ite = ft_first.end();
+		std::list<int>::iterator std_first_ite = std_first.end();
+
+		ft::list<int>::iterator ft_second_itb = ft_second.begin();
+		std::list<int>::iterator std_second_itb = std_second.begin();
+		ft::list<int>::iterator ft_second_ite = ft_second.end();
+		std::list<int>::iterator std_second_ite = std_second.end();
+
+		check_value<int>(ft_first_itb, ft_first_ite, std_first_itb, std_first_ite, flag);
+		check_flag(flag);
+		check_value<int>(ft_second_itb, ft_second_ite, std_second_itb, std_second_ite, flag);
+		check_flag(flag);
+		check_size(ft_first, std_first, flag);
+		check_flag(flag);
+		check_size(ft_second, std_second, flag);
+		check_flag(flag);
+	}
+#endif
+#ifdef T30
+	{
+		PUT_STR(B"RESIZE()");
+		bool flag = true;
+		ft::list<int> ft;
+		std::list<int> std;
+		ft::list<int>::iterator ft_itb;
+		std::list<int>::iterator std_itb;
+		ft::list<int>::iterator ft_ite;
+		std::list<int>::iterator std_ite;
+		for (int i = 0; i < 10; ++i) {
+			ft.push_front(i);
+			std.push_front(i);
+		}
+		ft.resize(8);
+		std.resize(8);
+		ft_itb = ft.begin();
+		std_itb = std.begin();
+		ft_ite = ft.end();
+		std_ite = std.end();
+		check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
+		check_flag(flag);
+		check_size(ft, std, flag);
+		check_flag(flag);
+
+		ft.resize(5, 42);
+		std.resize(5, 42);
+		ft_itb = ft.begin();
+		std_itb = std.begin();
+		ft_ite = ft.end();
+		std_ite = std.end();
+		check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
+		check_flag(flag);
+		check_size(ft, std, flag);
+		check_flag(flag);
+
+		ft.resize(20);
+		std.resize(20);
+		ft_itb = ft.begin();
+		std_itb = std.begin();
+		ft_ite = ft.end();
+		std_ite = std.end();
+		check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
+		check_flag(flag);
+		check_size(ft, std, flag);
+		check_flag(flag);
+	}
+#endif
+#ifdef T31
+	{
+		PUT_STR(B"CLEAR()");
+		bool flag = true;
+		ft::list<int> ft;
+		std::list<int> std;
+		ft::list<int>::iterator ft_itb;
+		std::list<int>::iterator std_itb;
+		ft::list<int>::iterator ft_ite;
+		std::list<int>::iterator std_ite;
+		for (int i = 0; i < 10; ++i) {
+			ft.push_front(i);
+			std.push_front(i);
+		}
+		ft.clear();
+		std.clear();
+		ft_itb = ft.begin();
+		std_itb = std.begin();
+		ft_ite = ft.end();
+		std_ite = std.end();
+//		std::cout << *std_itb << std::endl;
+//		std::cout << *ft_itb << std::endl;
+		check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
+		check_flag(flag);
+		check_size(ft, std, flag);
+		check_flag(flag);
+
+		for (int i = 0; i < 10; ++i) {
+			ft.push_front(i);
+			std.push_front(i);
+		}
+		ft_itb = ft.begin();
+		std_itb = std.begin();
+		ft_ite = ft.end();
+		std_ite = std.end();
+		check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
+		check_flag(flag);
+		check_size(ft, std, flag);
+		check_flag(flag);
+	}
+
+
+#endif
+#ifdef T32
+
+
+#endif
+#ifdef T33
+
 #endif
 	return (0);
 }
