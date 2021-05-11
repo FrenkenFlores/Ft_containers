@@ -971,6 +971,90 @@ int main(void) {
 	}
 #endif
 #ifdef T28
+	{
+		{
+			PUT_STR(B"ERASE()[single element]");
+			bool flag = true;
+			ft::list<int> ft;
+			std::list<int> std;
+			for (int i = 0; i < 10; ++i) {
+				ft.push_front(i);
+				std.push_front(i);
+			}
+			ft::list<int>::iterator ft_itb = ft.begin();
+			std::list<int>::iterator std_itb = std.begin();
+			ft::list<int>::iterator ft_ite = ft.end();
+			std::list<int>::iterator std_ite = std.end();
+			for (int i = 0; i < 5; ++i) {
+				++ft_itb;
+				++std_itb;
+			}
+			for (int i = 0; i < 4; ++i) {
+				ft.erase(ft_itb);
+				std.erase(std_itb);
+				++ft_itb;
+				++std_itb;
+			}
+			ft_itb = ft.begin();
+			std_itb = std.begin();
+			ft_ite = ft.end();
+			std_ite = std.end();
+			check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
+			check_flag(flag);
+			if (ft.size() != std.size())
+			{
+				flag = false;
+				cout << LB << ft.size() << " != " << std.size() << CLEAN << std::endl;
+			} else {
+				flag = true;
+			}
+			check_flag(flag);
+		}
+		{
+			PUT_STR(B"ERASE()[range]");
+			bool flag = true;
+			ft::list<int> ft;
+			std::list<int> std;
+			for (int i = 0; i < 10; ++i) {
+				ft.push_front(i);
+				std.push_front(i);
+			}
+			ft::list<int>::iterator ft_itb1 = ft.begin();
+			std::list<int>::iterator std_itb1 = std.begin();
+			ft::list<int>::iterator ft_ite1 = ft.end();
+			std::list<int>::iterator std_ite1 = std.end();
+			ft::list<int>::iterator ft_itb2 = ft.begin();
+			std::list<int>::iterator std_itb2 = std.begin();
+			ft::list<int>::iterator ft_ite2 = ft.end();
+			std::list<int>::iterator std_ite2 = std.end();
+			for (int i = 0; i < 2; ++i) {
+				++ft_itb1;
+				++std_itb1;
+				++ft_itb2;
+				++std_itb2;
+			}
+			for (int i = 0; i < 6; ++i) {
+				++ft_itb2;
+				++std_itb2;
+			}
+			ft.erase(ft_itb1, ft_itb2);
+			std.erase(std_itb1, std_itb2);
+			ft::list<int>::iterator ft_itb = ft.begin();
+			std::list<int>::iterator std_itb = std.begin();
+			ft::list<int>::iterator ft_ite = ft.end();
+			std::list<int>::iterator std_ite = std.end();
+			check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
+			check_flag(flag);
+			if (ft.size() != std.size())
+			{
+				flag = false;
+				cout << LB << ft.size() << " != " << std.size() << CLEAN << std::endl;
+			} else {
+				flag = true;
+			}
+			check_flag(flag);
+		}
+	}
 #endif
 	return (0);
 }

@@ -350,12 +350,27 @@ void ft::list<T, A>::insert(typename ft::list<T, A>::iterator position, InputIte
 	}
 }
 
-//template <typename T, typename A>
-//typename ft::list<T, A>::iterator ft::list<T, A>::erase(typename ft::list<T, A>::iterator position) {}
-//
-//template <typename T, typename A>
-//typename ft::list<T, A>::iterator ft::list<T, A>::erase(typename ft::list<T, A>::iterator first, typename ft::list<T, A>::iterator last) {}
-//
+template <typename T, typename A>
+typename ft::list<T, A>::iterator ft::list<T, A>::erase(typename ft::list<T, A>::iterator position) {
+	node *tmp = position.get_node_pointer();
+	tmp->next->prev = tmp->prev;
+	tmp->prev->next = tmp->next;
+	node *ptr = tmp->prev;
+	delete tmp;
+	node_number--;
+	return (iterator(ptr));
+}
+
+template <typename T, typename A>
+typename ft::list<T, A>::iterator ft::list<T, A>::erase(typename ft::list<T, A>::iterator first, typename ft::list<T, A>::iterator last) {
+	iterator it;
+	while (first != last) {
+		it = erase(first);
+		++first;
+	}
+	return (it);
+}
+
 //template <typename T, typename A>
 //void ft::list<T, A>::swap(list<T, A> &x) {}
 //
