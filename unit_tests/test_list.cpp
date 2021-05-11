@@ -28,6 +28,10 @@
 #define T26	//POP_BACK()
 #define T27	//INSERT()[single element]
 #define T28	//
+#define T29	//
+#define T30	//
+#define T31	//
+
 
 
 using namespace std;
@@ -989,10 +993,20 @@ int main(void) {
 				++ft_itb;
 				++std_itb;
 			}
-			for (int i = 0; i < 4; ++i) {
+//			for (int i = 0; i < 3; ++i) {				//strange error occurred: segfault, check ft_itb value before and afrer std.erase()
+//				ft.erase(ft_itb);
+//				std.erase(std_itb);
+//				check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
+//				check_flag(flag);
+//				++ft_itb;
+//				++std_itb;
+//			}
+			for (int i = 0; i < 3; ++i) {
 				ft.erase(ft_itb);
-				std.erase(std_itb);
 				++ft_itb;
+			}
+			for (int i = 0; i < 3; ++i) {
+				std.erase(std_itb);
 				++std_itb;
 			}
 			ft_itb = ft.begin();

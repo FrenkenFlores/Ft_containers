@@ -352,13 +352,35 @@ void ft::list<T, A>::insert(typename ft::list<T, A>::iterator position, InputIte
 
 template <typename T, typename A>
 typename ft::list<T, A>::iterator ft::list<T, A>::erase(typename ft::list<T, A>::iterator position) {
+//	std::cout << *position << ": position" << std::endl;
 	node *tmp = position.get_node_pointer();
-	tmp->next->prev = tmp->prev;
-	tmp->prev->next = tmp->next;
-	node *ptr = tmp->prev;
+	node *prev = position.get_node_pointer()->prev;
+	node *next = position.get_node_pointer()->next;
+//	std::cout << prev->prev->data << ": prev->prev->data" << std::endl;
+//	std::cout << prev->data  << ": prev->data" << std::endl;
+//	std::cout << prev->next->data  << ": prev->next->data" << std::endl;
+//	std::cout << tmp->prev->data  << ": tmp->prev->data" << std::endl;
+//	std::cout << tmp->data  << ": tmp->data" << std::endl;
+//	std::cout << tmp->next->data  << ": tmp->next->data" << std::endl;
+//	std::cout << next->prev->data  << ": next->prev->data" << std::endl;
+//	std::cout << next->data  << ": next->data" << std::endl;
+//	std::cout << next->next->data  << ": next->next->data" << std::endl;
+//	std::cout << "-------------" << std::endl;
+	prev->next = position.get_node_pointer()->next;
+	next->prev = position.get_node_pointer()->prev;
+//	std::cout << prev->prev->data << ": prev->prev->data" << std::endl;
+//	std::cout << prev->data  << ": prev->data" << std::endl;
+//	std::cout << prev->next->data  << ": prev->next->data" << std::endl;
+//	std::cout << tmp->prev->data  << ": tmp->prev->data" << std::endl;
+//	std::cout << tmp->data  << ": tmp->data" << std::endl;
+//	std::cout << tmp->next->data  << ": tmp->next->data" << std::endl;
+//	std::cout << next->prev->data  << ": next->prev->data" << std::endl;
+//	std::cout << next->data  << ": next->data" << std::endl;
+//	std::cout << next->next->data  << ": next->next->data" << std::endl;
+
 	delete tmp;
 	node_number--;
-	return (iterator(ptr));
+	return (iterator(prev));
 }
 
 template <typename T, typename A>
