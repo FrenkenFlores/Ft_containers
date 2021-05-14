@@ -457,8 +457,9 @@ namespace ft {
 		void splice (iterator position, list& x);
 		void splice (iterator position, list& x, iterator i);
 		void splice (iterator position, list& x, iterator first, iterator last);
-//		void remove (const value_type& val);
-//		void remove_if (T pred);
+		void remove (const value_type& val);
+		template <class Predicate>
+		void remove_if (Predicate pred);
 //		void unique();
 //		void unique (T binary_pred);
 //		void merge (list& x);

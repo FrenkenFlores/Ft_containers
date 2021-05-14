@@ -454,12 +454,35 @@ void ft::list<T, A>::splice(typename ft::list<T, A>::iterator position, ft::list
 	}
 }
 
-//template <typename T, typename A>
-//void ft::list<T, A>::remove(const typename ft::list<T, A>::value_type &val) {}
-//
-//template <typename T, typename A>
-//void ft::list<T, A>::remove_if(T pred) {}
-//
+template <typename T, typename A>
+void ft::list<T, A>::remove(const typename ft::list<T, A>::value_type &val) {
+	node *tmp = tail;
+	while (tmp != head) {
+		if (tmp->data == val) {
+			tmp->detach_node();
+			delete tmp;
+			tmp = tail;
+			continue;
+		}
+		tmp = tmp->prev;
+	}
+}
+
+template <typename T, typename A>
+template <class Predicate>
+void ft::list<T, A>::remove_if(Predicate pred) {
+	node *tmp = tail;
+	while (tmp != head) {
+		if ((pred)(tmp->data)) {
+			tmp->detach_node();
+			delete tmp;
+			tmp = tail;
+			continue;
+		}
+		tmp = tmp->prev;
+	}
+}
+
 //template <typename T, typename A>
 //void ft::list<T, A>::unique() {}
 //

@@ -31,9 +31,9 @@
 #define T29	//
 #define T30	//
 #define T31	//
-#define T32	//
-#define T33	//
-#define T34	//
+#define T32	//SPLICE()
+#define T33	//REMOVE()
+#define T34	//REMOVE_IF()
 #define T35	//
 #define T36	//
 #define T37	//
@@ -83,6 +83,14 @@ void check_size(ft::list<T> ft, std::list<T> std, bool &flag) {
 	}
 }
 
+// funcstion for remove_if testing
+// a predicate implemented as a function:
+bool single_digit (const int& value) { return (value<10); }
+
+// a predicate implemented as a class:
+struct is_odd {
+	bool operator() (const int& value) { return (value%2)==1; }
+};
 
 
 int main(void) {
@@ -1432,7 +1440,77 @@ int main(void) {
 
 #endif
 #ifdef T33
+	{
+		PUT_STR(B"REMOVE()");
+		bool flag = true;
+		int myints[]= {17,89,7,89,14,89};
+		ft::list<int> ft_mylist (myints,myints+5);
+		std::list<int> std_mylist (myints,myints+5);
+		ft::list<int>::iterator ft_itb;
+		std::list<int>::iterator std_itb;
+		ft::list<int>::iterator ft_ite;
+		std::list<int>::iterator std_ite;
 
+		ft_mylist.remove(89);
+		std_mylist.remove(89);
+
+		ft_itb = ft_mylist.begin();
+		std_itb = std_mylist.begin();
+		ft_ite = ft_mylist.end();
+		std_ite = std_mylist.end();
+
+		check_size(ft_mylist, std_mylist, flag);
+		check_flag(flag);
+		check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
+		check_flag(flag);
+	}
+
+#endif
+#ifdef T34
+	{
+		PUT_STR(B"REMOVE_IF()");
+		bool flag = true;
+		int myints[]= {17,89,7,89,14,89};
+		ft::list<int> ft_mylist (myints,myints+5);
+		std::list<int> std_mylist (myints,myints+5);
+		ft::list<int>::iterator ft_itb;
+		std::list<int>::iterator std_itb;
+		ft::list<int>::iterator ft_ite;
+		std::list<int>::iterator std_ite;
+
+		ft_mylist.remove_if(single_digit);
+		std_mylist.remove_if(single_digit);
+
+		ft_itb = ft_mylist.begin();
+		std_itb = std_mylist.begin();
+		ft_ite = ft_mylist.end();
+		std_ite = std_mylist.end();
+
+		check_size(ft_mylist, std_mylist, flag);
+		check_flag(flag);
+		check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
+		check_flag(flag);
+
+		ft_mylist.remove_if(is_odd());
+		std_mylist.remove_if(is_odd());
+		ft_itb = ft_mylist.begin();
+		std_itb = std_mylist.begin();
+		ft_ite = ft_mylist.end();
+		std_ite = std_mylist.end();
+
+		check_size(ft_mylist, std_mylist, flag);
+		check_flag(flag);
+		check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
+		check_flag(flag);
+	}
+#endif
+#ifdef T35
+
+#endif
+#ifdef T36
+
+#endif
+#ifdef T37
 
 #endif
 	return (0);
