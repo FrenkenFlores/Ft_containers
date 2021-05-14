@@ -438,8 +438,8 @@ namespace ft {
 		void swap (list& x);
 		void resize (size_type n, value_type val = value_type());
 		void clear();
-//		void splice (iterator position, list& x);
-//		void splice (iterator position, list& x, iterator i);
+		void splice (iterator position, list& x);
+		void splice (iterator position, list& x, iterator i);
 //		void splice (iterator position, list& x, iterator first, iterator last);
 //		void remove (const value_type& val);
 //		void remove_if (T pred);

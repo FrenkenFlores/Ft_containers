@@ -417,15 +417,58 @@ void ft::list<T, A>::clear() {
 	this->node_number = 0;
 }
 
-//template <typename T, typename A>
-//void ft::list<T, A>::splice(typename ft::list<T, A>::iterator position, ft::list<T, A> &x) {}
-//
-//template <typename T, typename A>
-//void ft::list<T, A>::splice(typename ft::list<T, A>::iterator position, ft::list<T, A> &x, typename ft::list<T, A>::iterator i) {}
-//
+//entire list (1)
+template <typename T, typename A>
+void ft::list<T, A>::splice(typename ft::list<T, A>::iterator position, ft::list<T, A> &x) {
+//	for (int j = 0; j < x.size(); ++j) {
+//		splice(position, x, x.begin());
+//	}
+	iterator j;
+	while (j != x.end()) {
+		j = x.begin();
+		std::cout << *j;
+		splice(position, x, x.begin());
+	}
+//	x.clear();
+
+
+
+
+//	iterator it_b = x.begin();
+//	iterator it_e = x.end();
+//	while (it_b != it_e) {
+//		insert(position, *it_b);
+//		x.pop_front();
+//		++it_b;
+//	}
+}
+
+//single element (2)
+template <typename T, typename A>
+void ft::list<T, A>::splice(typename ft::list<T, A>::iterator position, ft::list<T, A> &x, typename ft::list<T, A>::iterator i) {
+
+	node *ptr = position.get_node_pointer();
+	node *tmp = i.get_node_pointer();
+
+	tmp->prev->next = tmp->next;
+	tmp->next->prev = tmp->prev;
+
+	tmp->prev = ptr->prev;
+	tmp->next = ptr;
+
+	ptr->prev->next = tmp;
+	ptr->prev = tmp;
+
+	if (head == tail)
+		tail = tmp;
+	if (tmp->next == head)
+		tail = tmp;
+}
+
+////element range (3)
 //template <typename T, typename A>
 //void ft::list<T, A>::splice(typename ft::list<T, A>::iterator position, ft::list<T, A> &x, typename ft::list<T, A>::iterator first, typename ft::list<T, A>::iterator last) {}
-//
+
 //template <typename T, typename A>
 //void ft::list<T, A>::remove(const typename ft::list<T, A>::value_type &val) {}
 //

@@ -31,6 +31,16 @@
 #define T29	//
 #define T30	//
 #define T31	//
+#define T32	//
+#define T33	//
+#define T34	//
+#define T35	//
+#define T36	//
+#define T37	//
+#define T38	//
+#define T39	//
+#define T40	//
+
 
 
 
@@ -54,7 +64,7 @@ void check_value(typename ft::list<T>::iterator ft_itb, typename ft::list<T>::it
 			cout << LB << *ft_itb << " != " << *std_itb << CLEAN << std::endl;
 			break;
 		} else {
-//			cout << P << *ft_itb << " == " << *std_itb << CLEAN << std::endl;
+			cout << P << *ft_itb << " == " << *std_itb << CLEAN << std::endl;
 			flag = true;
 		}
 		++ft_itb;
@@ -1208,14 +1218,210 @@ int main(void) {
 		check_size(ft, std, flag);
 		check_flag(flag);
 	}
-
-
 #endif
 #ifdef T32
+	{
 
+		{
+			PUT_STR(B"SPLICE()");
+			ft::list<int> ft_mylist1, ft_mylist2;
+			std::list<int> std_mylist1, std_mylist2;
+			ft::list<int>::iterator it_ft;
+			std::list<int>::iterator it_std;
+
+
+			ft::list<int>::iterator ft1_itb;
+			std::list<int>::iterator std1_itb;
+			ft::list<int>::iterator ft1_ite;
+			std::list<int>::iterator std1_ite;
+
+			ft::list<int>::iterator ft2_itb;
+			std::list<int>::iterator std2_itb;
+			ft::list<int>::iterator ft2_ite;
+			std::list<int>::iterator std2_ite;
+
+			bool flag = true;
+
+			// set some initial values:
+			for (int i=1; i<=4; ++i)
+				ft_mylist1.push_back(i);      // mylist1: 1 2 3 4
+			// set some initial values:
+			for (int i=1; i<=4; ++i)
+				std_mylist1.push_back(i);      // mylist1: 1 2 3 4
+
+			for (int i=1; i<=3; ++i)
+				ft_mylist2.push_back(i*10);   // mylist2: 10 20 30
+			for (int i=1; i<=3; ++i)
+				std_mylist2.push_back(i*10);   // mylist2: 10 20 30
+
+			it_ft = ft_mylist1.begin();
+			++it_ft;                         // points to 2
+			it_std = std_mylist1.begin();
+			++it_std;                         // points to 2
+
+
+			ft_mylist1.splice (it_ft, ft_mylist2); // mylist1: 1 10 20 30 2 3 4
+			// mylist2 (empty)
+			// "it" still points to 2 (the 5th element)
+			std_mylist1.splice (it_std, std_mylist2); // mylist1: 1 10 20 30 2 3 4
+			// mylist2 (empty)
+			// "it" still points to 2 (the 5th element)
+
+
+
+			ft_mylist2.splice (ft_mylist2.begin(),ft_mylist1, it_ft);
+			// mylist1: 1 10 20 30 3 4
+			// mylist2: 2
+			// "it" is now invalid.
+			it_ft = ft_mylist1.begin();
+			for (int i = 0; i < 3; ++i) {
+				++it_ft;
+			}
+
+			std_mylist2.splice (std_mylist2.begin(),std_mylist1, it_std);
+			// mylist1: 1 10 20 30 3 4
+			// mylist2: 2
+			// "it" is now invalid.
+			it_std = std_mylist1.begin();
+			for (int i = 0; i < 3; ++i) {
+				++it_std;
+			}
+
+			ft1_itb = ft_mylist1.begin();
+			std1_itb = std_mylist1.begin();
+			ft1_ite = ft_mylist1.end();
+			std1_ite = std_mylist1.end();
+
+			ft2_itb = ft_mylist2.begin();
+			std2_itb = std_mylist2.begin();
+			ft2_ite = ft_mylist2.end();
+			std2_ite = std_mylist2.end();
+			check_value<int>(ft1_itb, ft1_ite, std1_itb, std1_ite, flag);
+			check_flag(flag);
+			check_size(ft_mylist1, std_mylist1, flag);
+			check_flag(flag);
+			check_value<int>(ft2_itb, ft2_ite, std2_itb, std2_ite, flag);
+			check_flag(flag);
+			check_size(ft_mylist2, std_mylist2, flag);
+			check_flag(flag);
+
+
+
+//				mylist1.splice ( mylist1.begin(), mylist1, it, mylist1.end());
+//				// mylist1: 30 3 4 1 10 20
+//
+//				std::cout << "mylist1 contains:";
+//				for (it=mylist1.begin(); it!=mylist1.end(); ++it)
+//					std::cout << ' ' << *it;
+//				std::cout << '\n';
+//
+//				std::cout << "mylist2 contains:";
+//				for (it=mylist2.begin(); it!=mylist2.end(); ++it)
+//					std::cout << ' ' << *it;
+//				std::cout << '\n';
+		}
+		{
+			PUT_STR(B"SPLICE()[entire list]");
+			bool flag = true;
+			ft::list<int> ft;
+			std::list<int> std;
+			int arr[5] = {10, 20, 30, 40, 50};
+			ft::list<int> ft_fill(arr, arr + sizeof(arr));
+			std::list<int> std_fill(arr, arr + sizeof(arr));
+			ft::list<int>::iterator ft_itb;
+			std::list<int>::iterator std_itb;
+			ft::list<int>::iterator ft_ite;
+			std::list<int>::iterator std_ite;
+			for (int i = 0; i < 10; ++i) {
+				ft.push_front(i);
+				std.push_front(i);
+			}
+			ft_itb = ft.begin();
+			std_itb = std.begin();
+			ft_ite = ft.end();
+			std_ite = std.end();
+			for (int i = 0; i < 4; ++i) {
+				++ft_itb;
+				++std_itb;
+			}
+			ft.splice(ft_itb, ft_fill);
+			std.splice(std_itb, std_fill);
+			ft_itb = ft.begin();
+			std_itb = std.begin();
+			ft_ite = ft.end();
+			std_ite = std.end();
+			check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
+			check_flag(flag);
+			check_size(ft, std, flag);
+			check_flag(flag);
+
+			ft_itb = ft_fill.begin();
+			std_itb = std_fill.begin();
+			ft_ite = ft_fill.end();
+			std_ite = std_fill.end();
+			check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
+			check_flag(flag);
+			check_size(ft_fill, std_fill, flag);
+			check_flag(flag);
+		}
+		{
+			PUT_STR(B"SPLICE()[single element]");
+			bool flag = true;
+			ft::list<int> ft;
+			std::list<int> std;
+			int arr[] = {10, 20, 30, 40, 50};
+			ft::list<int> ft_fill(arr, arr + sizeof(arr));
+			std::list<int> std_fill(arr, arr + sizeof(arr));
+			ft::list<int>::iterator ft_itb;
+			std::list<int>::iterator std_itb;
+			ft::list<int>::iterator ft_ite;
+			std::list<int>::iterator std_ite;
+			ft::list<int>::iterator ft_it_fill;
+			std::list<int>::iterator std_it_fill;
+
+			for (int i = 0; i < 10; ++i) {
+				ft.push_back(i);
+				std.push_back(i);
+			}
+			ft_itb = ft.begin();
+			std_itb = std.begin();
+			ft_ite = ft.end();
+			std_ite = std.end();
+			for(int i = 0; i < 4; ++i)
+			{
+				++ft_itb;
+				++std_itb;
+			}
+			ft_it_fill = ft_fill.begin();
+			std_it_fill = std_fill.begin();
+			ft.splice(ft_itb, ft_fill, ft_it_fill);
+			std.splice(std_itb, std_fill, std_it_fill);
+
+			ft_itb = ft.begin();
+			std_itb = std.begin();
+			ft_ite = ft.end();
+			std_ite = std.end();
+			check_size(ft, std, flag);
+			check_flag(flag);
+			check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
+			check_flag(flag);
+
+			ft_itb = ft_fill.begin();
+			std_itb = std_fill.begin();
+			ft_ite = ft_fill.end();
+			std_ite = std_fill.end();
+			check_size(ft_fill, std_fill, flag);
+			check_flag(flag);
+			check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
+			check_flag(flag);
+
+		}
+
+	}
 
 #endif
 #ifdef T33
+
 
 #endif
 	return (0);
