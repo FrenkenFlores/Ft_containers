@@ -420,27 +420,7 @@ void ft::list<T, A>::clear() {
 //entire list (1)
 template <typename T, typename A>
 void ft::list<T, A>::splice(typename ft::list<T, A>::iterator position, ft::list<T, A> &x) {
-//	for (int j = 0; j < x.size(); ++j) {
-//		splice(position, x, x.begin());
-//	}
-	iterator j;
-	while (j != x.end()) {
-		j = x.begin();
-		std::cout << *j;
-		splice(position, x, x.begin());
-	}
-//	x.clear();
-
-
-
-
-//	iterator it_b = x.begin();
-//	iterator it_e = x.end();
-//	while (it_b != it_e) {
-//		insert(position, *it_b);
-//		x.pop_front();
-//		++it_b;
-//	}
+	this->splice(position, x, x.begin(), x.end());
 }
 
 //single element (2)
@@ -450,24 +430,29 @@ void ft::list<T, A>::splice(typename ft::list<T, A>::iterator position, ft::list
 	node *ptr = position.get_node_pointer();
 	node *tmp = i.get_node_pointer();
 
-	tmp->prev->next = tmp->next;
-	tmp->next->prev = tmp->prev;
-
-	tmp->prev = ptr->prev;
-	tmp->next = ptr;
-
-	ptr->prev->next = tmp;
-	ptr->prev = tmp;
-
-	if (head == tail)
-		tail = tmp;
-	if (tmp->next == head)
+	tmp->detach_node();
+	ptr->insert_before(tmp);
+	if (head == tail || tmp->next == head)	//in case if the list is empty or the node is that last one, make tail the node that been added
 		tail = tmp;
 }
 
-////element range (3)
-//template <typename T, typename A>
-//void ft::list<T, A>::splice(typename ft::list<T, A>::iterator position, ft::list<T, A> &x, typename ft::list<T, A>::iterator first, typename ft::list<T, A>::iterator last) {}
+//element range (3)
+template <typename T, typename A>
+void ft::list<T, A>::splice(typename ft::list<T, A>::iterator position, ft::list<T, A> &x, typename ft::list<T, A>::iterator first, typename ft::list<T, A>::iterator last) {
+	node *ptr = position.get_node_pointer();
+	node *tmp;
+	while(first != last)
+	{
+		tmp = first.get_node_pointer();
+		++first;
+		if (tmp == x.get_tail())
+			x.set_tail(x.get_tail()->prev);
+		tmp->detach_node();
+		ptr->insert_before(tmp);
+		if (head == tail || tmp->next == head)
+			tail = tmp;
+	}
+}
 
 //template <typename T, typename A>
 //void ft::list<T, A>::remove(const typename ft::list<T, A>::value_type &val) {}
@@ -495,3 +480,14 @@ void ft::list<T, A>::splice(typename ft::list<T, A>::iterator position, ft::list
 //
 //template <typename T, typename A>
 //void ft::list<T, A>::reverse() {}
+
+template <typename T, typename A>
+void  ft::list<T, A>::set_tail(node *tail) {
+	this->tail = tail;
+}
+
+template <typename T, typename A>
+typename ft::list<T, A>::node *ft::list<T, A>::get_tail() const {
+	return tail;
+}
+

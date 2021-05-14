@@ -168,6 +168,22 @@ namespace ft {
 				this->next = NULL;
 				this->prev = NULL;
 			}
+			void insert_before(node *tmp) {
+				tmp->prev = this->prev;
+				tmp->next = this;
+				this->prev->next = tmp;
+				this->prev = tmp;
+			}
+			void insert_after(node *tmp) {
+				tmp->prev = this;
+				tmp->next = this->next;
+				this->next->prev = tmp;
+				this->next = tmp;
+			}
+			void detach_node() {
+				this->prev->next = this->next;
+				this->next->prev = this->prev;
+			}
 			T	data;
 			node *next;
 			node *prev;
@@ -440,7 +456,7 @@ namespace ft {
 		void clear();
 		void splice (iterator position, list& x);
 		void splice (iterator position, list& x, iterator i);
-//		void splice (iterator position, list& x, iterator first, iterator last);
+		void splice (iterator position, list& x, iterator first, iterator last);
 //		void remove (const value_type& val);
 //		void remove_if (T pred);
 //		void unique();
@@ -450,6 +466,8 @@ namespace ft {
 //		void sort();
 //		void sort (void (*f)(T, T));
 //		void reverse();
+		void set_tail(node *tail);
+		node *get_tail() const;
 	protected:
 		A	the_allocator;
 	};

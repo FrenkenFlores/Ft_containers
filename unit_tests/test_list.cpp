@@ -64,7 +64,7 @@ void check_value(typename ft::list<T>::iterator ft_itb, typename ft::list<T>::it
 			cout << LB << *ft_itb << " != " << *std_itb << CLEAN << std::endl;
 			break;
 		} else {
-			cout << P << *ft_itb << " == " << *std_itb << CLEAN << std::endl;
+//			cout << P << *ft_itb << " == " << *std_itb << CLEAN << std::endl;
 			flag = true;
 		}
 		++ft_itb;
@@ -1306,19 +1306,31 @@ int main(void) {
 			check_flag(flag);
 
 
+			it_ft = ft_mylist1.begin();
+			it_std = std_mylist1.begin();
+			for (int i = 0; i < 3; ++i) {
+				++it_ft;
+				++it_std;
+			}
+			ft_mylist1.splice ( ft_mylist1.begin(), ft_mylist1, it_ft, ft_mylist1.end());
+			std_mylist1.splice ( std_mylist1.begin(), std_mylist1, it_std, std_mylist1.end());
 
-//				mylist1.splice ( mylist1.begin(), mylist1, it, mylist1.end());
-//				// mylist1: 30 3 4 1 10 20
-//
-//				std::cout << "mylist1 contains:";
-//				for (it=mylist1.begin(); it!=mylist1.end(); ++it)
-//					std::cout << ' ' << *it;
-//				std::cout << '\n';
-//
-//				std::cout << "mylist2 contains:";
-//				for (it=mylist2.begin(); it!=mylist2.end(); ++it)
-//					std::cout << ' ' << *it;
-//				std::cout << '\n';
+			ft1_itb = ft_mylist1.begin();
+			std1_itb = std_mylist1.begin();
+			ft1_ite = ft_mylist1.end();
+			std1_ite = std_mylist1.end();
+			ft2_itb = ft_mylist2.begin();
+			std2_itb = std_mylist2.begin();
+			ft2_ite = ft_mylist2.end();
+			std2_ite = std_mylist2.end();
+			check_value<int>(ft1_itb, ft1_ite, std1_itb, std1_ite, flag);
+			check_flag(flag);
+			check_size(ft_mylist1, std_mylist1, flag);
+			check_flag(flag);
+			check_value<int>(ft2_itb, ft2_ite, std2_itb, std2_ite, flag);
+			check_flag(flag);
+			check_size(ft_mylist2, std_mylist2, flag);
+			check_flag(flag);
 		}
 		{
 			PUT_STR(B"SPLICE()[entire list]");
@@ -1414,7 +1426,6 @@ int main(void) {
 			check_flag(flag);
 			check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
 			check_flag(flag);
-
 		}
 
 	}
