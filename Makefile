@@ -1,5 +1,5 @@
 .PHONY: all clean fclean re test
-CC = clang++
-CFLAGS = -Wall -Werror -Wextra
+test:
+	cd ./unit_tests && bash test_list.sh
 
 
