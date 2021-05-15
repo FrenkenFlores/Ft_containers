@@ -483,21 +483,102 @@ void ft::list<T, A>::remove_if(Predicate pred) {
 	}
 }
 
-//template <typename T, typename A>
-//void ft::list<T, A>::unique() {}
-//
-//template <typename T, typename A>
-//void ft::list<T, A>::unique(T binary_pred) {}
-//
+template <typename T, typename A>
+void ft::list<T, A>::unique() {
+	node *first = head;
+	node *last = tail;
+	while (first != last) {
+		if (first->data == first->next->data){
+			first->detach_node();
+			delete first;
+			first = head;
+			continue;
+		}
+		first = first->next;
+	}
+}
+
+template <typename T, typename A>
+template <class BinaryPredicate>
+void ft::list<T, A>::unique(BinaryPredicate binary_pred) {
+	node *first = head;
+	node *last = tail;
+	while (first != last) {
+		if ((binary_pred)(first->data, first->prev->data)){
+			first->detach_node();
+			delete first;
+			first = head;
+			continue;
+		}
+		first = first->next;
+	}
+}
+
 //template <typename T, typename A>
 //void ft::list<T, A>::merge(ft::list<T, A> &x) {}
 //
 //template <typename T, typename A>
 //void ft::list<T, A>::merge(ft::list<T, A> &x, void (*f)(T, T)) {}
-//
+
+//Bubble sort
 //template <typename T, typename A>
-//void ft::list<T, A>::sort() {}
-//
+//void ft::list<T, A>::sort() {
+//	node *first = head;
+//	node *last = tail;
+//	node *ptr_next;
+//	node *ptr;
+//	while (first != last) {
+////		std::cout << "X1\n";
+//		ptr = head;
+//		while (ptr != last) {
+////			std::cout << "X2\n";
+//			if (ptr->data > ptr->next->data){
+////				std::cout << "X3\n";
+//				if (ptr->next == tail)
+//					tail = ptr;
+//				ptr_next = ptr->next;
+//				ptr->detach_node();
+//				ptr_next->insert_after(ptr);
+//				ptr = ptr_next;
+//				continue;
+//			}
+//			ptr = ptr->next;
+//		}
+//		first = first->next;
+//	}
+//}
+
+
+//Bubble sort
+template <typename T, typename A>
+void ft::list<T, A>::sort() {
+	node *first = head;
+	node *last = tail;
+	node *ptr_next;
+	node *ptr;
+	while (first != last) {
+//		std::cout << "X1\n";
+		ptr = head;
+		while (ptr != last) {
+//			std::cout << "X2\n";
+			if (ptr->data > ptr->next->data){
+//				std::cout << "X3\n";
+				if (ptr->next == tail)
+					tail = ptr;
+				ptr_next = ptr->next;
+				ptr->detach_node();
+				ptr_next->insert_after(ptr);
+				ptr = ptr_next;
+				continue;
+			}
+			ptr = ptr->next;
+		}
+		first = first->next;
+	}
+}
+
+
+
 //template <typename T, typename A>
 //void ft::list<T, A>::sort(void (*f)(T, T)) {}
 //

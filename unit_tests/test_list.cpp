@@ -27,16 +27,16 @@
 #define T25	//PUSH_BACK()
 #define T26	//POP_BACK()
 #define T27	//INSERT()[single element]
-#define T28	//
-#define T29	//
-#define T30	//
-#define T31	//
+#define T28	//ERASE()
+#define T29	//SWAP()
+#define T30	//RESIZE()
+#define T31	//CLEAR()
 #define T32	//SPLICE()
 #define T33	//REMOVE()
 #define T34	//REMOVE_IF()
-#define T35	//
+//#define T35	//UNIQUE()
 #define T36	//
-#define T37	//
+#define T37	//SORT()
 #define T38	//
 #define T39	//
 #define T40	//
@@ -62,9 +62,9 @@ void check_value(typename ft::list<T>::iterator ft_itb, typename ft::list<T>::it
 		{
 			flag = false;
 			cout << LB << *ft_itb << " != " << *std_itb << CLEAN << std::endl;
-			break;
+//			break;
 		} else {
-//			cout << P << *ft_itb << " == " << *std_itb << CLEAN << std::endl;
+			cout << P << *ft_itb << " == " << *std_itb << CLEAN << std::endl;
 			flag = true;
 		}
 		++ft_itb;
@@ -83,13 +83,24 @@ void check_size(ft::list<T> ft, std::list<T> std, bool &flag) {
 	}
 }
 
-// funcstion for remove_if testing
+// function for remove_if testing
 // a predicate implemented as a function:
 bool single_digit (const int& value) { return (value<10); }
-
+// function for remove_if testing
 // a predicate implemented as a class:
 struct is_odd {
 	bool operator() (const int& value) { return (value%2)==1; }
+};
+
+// function for unique testing
+// a binary predicate implemented as a function:
+bool same_integral_part (double first, double second)
+{ return ( int(first)==int(second) ); }
+// function for unique testing
+// a binary predicate implemented as a class:
+struct is_near {
+	bool operator() (double first, double second)
+	{ return (fabs(first-second)<5.0); }
 };
 
 
@@ -1505,13 +1516,108 @@ int main(void) {
 	}
 #endif
 #ifdef T35
+	{
+		{
+			PUT_STR(B"UNIQUE()");
+			bool flag = true;
+			double mydoubles[] = {1, 2, 2, 2, 3, 4, 5, 5, 6};
+			ft::list<double> ft_mylist(mydoubles, mydoubles + 8);
+			std::list<double> std_mylist(mydoubles, mydoubles + 8);
+			ft::list<double>::iterator ft_itb;
+			std::list<double>::iterator std_itb;
+			ft::list<double>::iterator ft_ite;
+			std::list<double>::iterator std_ite;
 
+			ft_mylist.unique();
+			std_mylist.unique();
+
+			ft_itb = ft_mylist.begin();
+			std_itb = std_mylist.begin();
+			ft_ite = ft_mylist.end();
+			std_ite = std_mylist.end();
+
+			check_size(ft_mylist, std_mylist, flag);
+			check_flag(flag);
+			check_value<double>(ft_itb, ft_ite, std_itb, std_ite, flag);
+			check_flag(flag);
+		}
+		{
+			PUT_STR(B"UNIQUE( void (*f) (T) ");
+			bool flag = true;
+			double mydoubles[]={ 12.15,  2.72, 73.0,  12.77,  3.14,
+								 12.77, 73.35, 72.25, 15.3,  72.25 };
+			ft::list<double> ft_mylist (mydoubles,mydoubles+10);
+			std::list<double> std_mylist (mydoubles,mydoubles+10);
+			ft::list<double>::iterator ft_itb;
+			std::list<double>::iterator std_itb;
+			ft::list<double>::iterator ft_ite;
+			std::list<double>::iterator std_ite;
+
+
+			ft_mylist.sort();
+			std_mylist.sort();
+			//  2.72,  3.14, 12.15, 12.77, 12.77,
+			// 15.3,  72.25, 72.25, 73.0,  73.35
+			ft_mylist.unique(same_integral_part);
+			std_mylist.unique(same_integral_part);
+
+			ft_itb = ft_mylist.begin();
+			std_itb = std_mylist.begin();
+			ft_ite = ft_mylist.end();
+			std_ite = std_mylist.end();
+
+			check_size(ft_mylist, std_mylist, flag);
+			check_flag(flag);
+			check_value<double>(ft_itb, ft_ite, std_itb, std_ite, flag);
+			check_flag(flag);
+
+			ft_mylist.unique(is_near());
+			std_mylist.unique(is_near());
+
+			ft_itb = ft_mylist.begin();
+			std_itb = std_mylist.begin();
+			ft_ite = ft_mylist.end();
+			std_ite = std_mylist.end();
+
+			check_size(ft_mylist, std_mylist, flag);
+			check_flag(flag);
+			check_value<double>(ft_itb, ft_ite, std_itb, std_ite, flag);
+			check_flag(flag);
+		}
+	}
 #endif
 #ifdef T36
 
 #endif
 #ifdef T37
+	{
+		PUT_STR(B"SORT()");
+		bool flag = true;
+		double mydoubles[]={ 12.15,  2.72, 73.0,  12.77,  3.14,
+							 12.77, 73.35, 72.25, 15.3,  72.25 };
+		ft::list<double> ft_mylist (mydoubles,mydoubles+10);
+		std::list<double> std_mylist (mydoubles,mydoubles+10);
+		ft::list<double>::iterator ft_itb;
+		std::list<double>::iterator std_itb;
+		ft::list<double>::iterator ft_ite;
+		std::list<double>::iterator std_ite;
 
+
+		ft_mylist.sort();
+		std_mylist.sort();
+		//  2.72,  3.14, 12.15, 12.77, 12.77,
+		// 15.3,  72.25, 72.25, 73.0,  73.35
+
+		ft_itb = ft_mylist.begin();
+		std_itb = std_mylist.begin();
+		ft_ite = ft_mylist.end();
+		std_ite = std_mylist.end();
+
+		check_size(ft_mylist, std_mylist, flag);
+		check_flag(flag);
+		check_value<double>(ft_itb, ft_ite, std_itb, std_ite, flag);
+		check_flag(flag);
+	}
 #endif
 	return (0);
 }

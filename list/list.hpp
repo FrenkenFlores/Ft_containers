@@ -460,11 +460,12 @@ namespace ft {
 		void remove (const value_type& val);
 		template <class Predicate>
 		void remove_if (Predicate pred);
-//		void unique();
-//		void unique (T binary_pred);
+		void unique();
+		template <class BinaryPredicate>
+		void unique (BinaryPredicate binary_pred);
 //		void merge (list& x);
 //		void merge (list& x, void (*f)(T, T));
-//		void sort();
+		void sort();
 //		void sort (void (*f)(T, T));
 //		void reverse();
 		void set_tail(node *tail);
