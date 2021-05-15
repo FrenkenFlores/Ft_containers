@@ -483,34 +483,72 @@ void ft::list<T, A>::remove_if(Predicate pred) {
 	}
 }
 
+
 template <typename T, typename A>
 void ft::list<T, A>::unique() {
-	node *first = head;
-	node *last = tail;
+
+	node *first = tail;
+	node *last = head;
 	while (first != last) {
-		if (first->data == first->next->data){
+		if (abs((first->data - first->prev->data)) < std::numeric_limits<T>::epsilon()){   //same as first->data == first->next->data
+			if (first == tail)
+				tail = first->prev;
 			first->detach_node();
 			delete first;
-			first = head;
+			first = tail;
 			continue;
 		}
-		first = first->next;
+		first = first->prev;
 	}
 }
+
+
+//template <typename T, typename A>
+//void ft::list<T, A>::unique() {
+//	node *first = head;
+//	node *last = tail;
+//	while (first != last) {
+//		if (first->data == first->next->data){
+//			first->detach_node();
+//			delete first;
+//			first = head;
+//			continue;
+//		}
+//		first = first->next;
+//	}
+//}
+
+//template <typename T, typename A>
+//template <class BinaryPredicate>
+//void ft::list<T, A>::unique(BinaryPredicate binary_pred) {
+//	node *first = head->next;
+//	node *last = tail;
+//	while (first != last) {
+//		if ((binary_pred)(first->data, first->prev->data)){
+//			first->detach_node();																//same as first->data == first->next->data
+//			delete first;
+//			first = head->next;
+//			continue;
+//		}
+//		first = first->next;
+//	}
+//}
 
 template <typename T, typename A>
 template <class BinaryPredicate>
 void ft::list<T, A>::unique(BinaryPredicate binary_pred) {
-	node *first = head;
-	node *last = tail;
+	node *first = tail;
+	node *last = head;
 	while (first != last) {
 		if ((binary_pred)(first->data, first->prev->data)){
-			first->detach_node();
+			if (first == tail)
+				tail = first->prev;
+			first->detach_node();																//same as first->data == first->next->data
 			delete first;
-			first = head;
+			first = tail;
 			continue;
 		}
-		first = first->next;
+		first = first->prev;
 	}
 }
 
@@ -520,49 +558,17 @@ void ft::list<T, A>::unique(BinaryPredicate binary_pred) {
 //template <typename T, typename A>
 //void ft::list<T, A>::merge(ft::list<T, A> &x, void (*f)(T, T)) {}
 
-//Bubble sort
-//template <typename T, typename A>
-//void ft::list<T, A>::sort() {
-//	node *first = head;
-//	node *last = tail;
-//	node *ptr_next;
-//	node *ptr;
-//	while (first != last) {
-////		std::cout << "X1\n";
-//		ptr = head;
-//		while (ptr != last) {
-////			std::cout << "X2\n";
-//			if (ptr->data > ptr->next->data){
-////				std::cout << "X3\n";
-//				if (ptr->next == tail)
-//					tail = ptr;
-//				ptr_next = ptr->next;
-//				ptr->detach_node();
-//				ptr_next->insert_after(ptr);
-//				ptr = ptr_next;
-//				continue;
-//			}
-//			ptr = ptr->next;
-//		}
-//		first = first->next;
-//	}
-//}
-
-
-//Bubble sort
+//Bubble sort(changes the nodes)
 template <typename T, typename A>
 void ft::list<T, A>::sort() {
-	node *first = head;
+	node *first = head->next;
 	node *last = tail;
 	node *ptr_next;
 	node *ptr;
 	while (first != last) {
-//		std::cout << "X1\n";
-		ptr = head;
+		ptr = head->next;
 		while (ptr != last) {
-//			std::cout << "X2\n";
 			if (ptr->data > ptr->next->data){
-//				std::cout << "X3\n";
 				if (ptr->next == tail)
 					tail = ptr;
 				ptr_next = ptr->next;
@@ -577,6 +583,53 @@ void ft::list<T, A>::sort() {
 	}
 }
 
+
+////Bubble sort(changes the data of the node)
+//template <typename T, typename A>
+//void ft::list<T, A>::sort() {
+//	node *first = head;
+//	node *last = tail;
+//	value_type tmp;
+//	node *ptr;
+//	while (first != last) {
+//		ptr = head;
+//		while (ptr != last) {
+//			if (ptr->data > ptr->next->data){
+//				tmp = ptr->data;
+//				ptr->data = ptr->next->data;
+//				ptr->next->data = tmp;
+//			}
+//			ptr = ptr->next;
+//		}
+//		first = first->next;
+//	}
+//}
+
+
+template <typename T, typename A>
+template<typename Compare>
+void ft::list<T, A>::sort(Compare comp) {
+	node *first = head->next;
+	node *last = tail;
+	node *ptr_next;
+	node *ptr;
+	while (first != last) {
+		ptr = head->next;
+		while (ptr != last) {
+			if ((comp)(ptr->data, ptr->next->data)){
+				if (ptr->next == tail)
+					tail = ptr;
+				ptr_next = ptr->next;
+				ptr->detach_node();
+				ptr_next->insert_after(ptr);
+				ptr = ptr_next;
+				continue;
+			}
+			ptr = ptr->next;
+		}
+		first = first->next;
+	}
+}
 
 
 //template <typename T, typename A>

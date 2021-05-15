@@ -6,6 +6,7 @@
 #include <cstddef>
 #include <type_traits>
 #include <limits>
+//#include <math.h>
 
 //list iterator
 //namespace ft {
@@ -466,7 +467,8 @@ namespace ft {
 //		void merge (list& x);
 //		void merge (list& x, void (*f)(T, T));
 		void sort();
-//		void sort (void (*f)(T, T));
+		template<typename Compare>
+		void sort (Compare comp);
 //		void reverse();
 		void set_tail(node *tail);
 		node *get_tail() const;
