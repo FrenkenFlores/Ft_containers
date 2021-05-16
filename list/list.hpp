@@ -184,6 +184,20 @@ namespace ft {
 				this->prev->next = this->next;
 				this->next->prev = this->prev;
 			}
+			void swap_node(node *tmp) {
+				node *_next = this->next;
+				node *_prev = this->prev;
+
+				this->next = tmp->next;
+				this->prev = tmp->prev;
+				tmp->prev->next = this;
+				tmp->next->prev = this;
+
+				tmp->next = _next;
+				tmp->prev = _prev;
+				_next->prev = tmp;
+				_prev->next = tmp;
+			}
 			T	data;
 			node *next;
 			node *prev;

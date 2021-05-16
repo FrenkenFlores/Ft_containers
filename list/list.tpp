@@ -565,6 +565,32 @@ void ft::list<T, A>::merge(ft::list<T, A> &x, Condition cond) {
 	sort(cond);
 }
 
+////Bubble sort(changes the nodes)
+//template <typename T, typename A>
+//void ft::list<T, A>::sort() {
+//	node *first = head->next;
+//	node *last = tail;
+//	node *ptr_next;
+//	node *ptr;
+//	while (first != last) {
+//		ptr = head->next;
+//		while (ptr != last) {
+//			if (ptr->data > ptr->next->data){
+//				if (ptr->next == tail)
+//					tail = ptr;
+//				ptr_next = ptr->next;
+//				ptr->detach_node();
+//				ptr_next->insert_after(ptr);
+//				ptr = ptr_next;
+//				continue;
+//			}
+//			ptr = ptr->next;
+//		}
+//		first = first->next;
+//	}
+//}
+
+
 //Bubble sort(changes the nodes)
 template <typename T, typename A>
 void ft::list<T, A>::sort() {
@@ -644,7 +670,21 @@ void ft::list<T, A>::sort(Condition cond) {
 
 template <typename T, typename A>
 void ft::list<T, A>::reverse() {
-	
+	node *last = tail;
+	node *first = head->next;
+	node *tmp;
+	node *ptr = tail;
+	while (first != last) {
+		first->swap_node(last);
+		tmp = first;
+		first = last;
+		last = tmp;
+		first = first->next;
+		last = last->prev;
+
+	}
+	tail = head->prev;
+	head = ptr->prev;
 }
 
 template <typename T, typename A>

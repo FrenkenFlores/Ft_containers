@@ -61,9 +61,9 @@ void check_value(typename ft::list<T>::iterator ft_itb, typename ft::list<T>::it
 		{
 			flag = false;
 			cout << LB << *ft_itb << " != " << *std_itb << CLEAN << std::endl;
-//			break;
+			break;
 		} else {
-			cout << P << *ft_itb << " == " << *std_itb << CLEAN << std::endl;
+//			cout << P << *ft_itb << " == " << *std_itb << CLEAN << std::endl;
 			flag = true;
 		}
 		++ft_itb;
