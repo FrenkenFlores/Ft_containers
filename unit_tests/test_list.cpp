@@ -35,11 +35,10 @@
 #define T33	//REMOVE()
 #define T34	//REMOVE_IF()
 #define T35	//UNIQUE()
-#define T36	//
+#define T36	//MERGE()
 #define T37	//SORT()
-#define T38	//
-#define T39	//
-#define T40	//
+#define T38	//REVERSE()
+
 
 
 
@@ -62,9 +61,9 @@ void check_value(typename ft::list<T>::iterator ft_itb, typename ft::list<T>::it
 		{
 			flag = false;
 			cout << LB << *ft_itb << " != " << *std_itb << CLEAN << std::endl;
-			break;
+//			break;
 		} else {
-//			cout << P << *ft_itb << " == " << *std_itb << CLEAN << std::endl;
+			cout << P << *ft_itb << " == " << *std_itb << CLEAN << std::endl;
 			flag = true;
 		}
 		++ft_itb;
@@ -103,6 +102,11 @@ struct is_near {
 	{ return (fabs(first-second)<5.0); }
 };
 
+//function for merge testting
+// compare only integral part:
+template <typename T>
+bool greater_than (T first, T second)
+{ return ( first > second ); }
 
 int main(void) {
 #ifdef T1
@@ -1587,7 +1591,90 @@ int main(void) {
 	}
 #endif
 #ifdef T36
+	{
+		PUT_STR(B"MERGE()");
+		bool flag = true;
+		std::list<double> std_first, std_second;
+		ft::list<double> ft_first, ft_second;
+		ft::list<double>::iterator ft_itb;
+		std::list<double>::iterator std_itb;
+		ft::list<double>::iterator ft_ite;
+		std::list<double>::iterator std_ite;
 
+		std_first.push_back (3.1);
+		std_first.push_back (2.2);
+		std_first.push_back (2.9);
+
+		std_second.push_back (3.7);
+		std_second.push_back (7.1);
+		std_second.push_back (1.4);
+
+		ft_first.push_back (3.1);
+		ft_first.push_back (2.2);
+		ft_first.push_back (2.9);
+
+		ft_second.push_back (3.7);
+		ft_second.push_back (7.1);
+		ft_second.push_back (1.4);
+
+		std_first.sort();
+		std_second.sort();
+		ft_first.sort();
+		ft_second.sort();
+
+		std_first.merge(std_second);
+		ft_first.merge(ft_second);
+
+		ft_itb = ft_first.begin();
+		std_itb = std_first.begin();
+		ft_ite = ft_first.end();
+		std_ite = std_first.end();
+
+		check_size(ft_first, std_first, flag);
+		check_flag(flag);
+		check_value<double>(ft_itb, ft_ite, std_itb, std_ite, flag);
+		check_flag(flag);
+
+		ft_itb = ft_second.begin();
+		std_itb = std_second.begin();
+		ft_ite = ft_second.end();
+		std_ite = std_second.end();
+
+		check_size(ft_second, std_second, flag);
+		check_flag(flag);
+		check_value<double>(ft_itb, ft_ite, std_itb, std_ite, flag);
+		check_flag(flag);
+
+		std_second.push_back (1.1);
+		ft_second.push_back (1.1);
+
+//		std_first.merge(std_second);
+//		ft_first.merge(ft_second);
+
+		std_first.merge(std_second,greater_than<double>);
+		ft_first.merge(ft_second,greater_than<double>);
+
+		ft_itb = ft_first.begin();
+		std_itb = std_first.begin();
+		ft_ite = ft_first.end();
+		std_ite = std_first.end();
+
+		check_size(ft_first, std_first, flag);
+		check_flag(flag);
+		check_value<double>(ft_itb, ft_ite, std_itb, std_ite, flag);
+		check_flag(flag);
+
+		ft_itb = ft_second.begin();
+		std_itb = std_second.begin();
+		ft_ite = ft_second.end();
+		std_ite = std_second.end();
+
+		check_size(ft_second, std_second, flag);
+		check_flag(flag);
+		check_value<double>(ft_itb, ft_ite, std_itb, std_ite, flag);
+		check_flag(flag);
+
+	}
 #endif
 #ifdef T37
 	{
@@ -1616,6 +1703,33 @@ int main(void) {
 		check_size(ft_mylist, std_mylist, flag);
 		check_flag(flag);
 		check_value<double>(ft_itb, ft_ite, std_itb, std_ite, flag);
+		check_flag(flag);
+	}
+#endif
+#ifdef T38
+	{
+		PUT_STR(B"REVERSE()");
+		std::list<int> mylist;
+		bool flag = true;
+		ft::list<int> ft_mylist;
+		std::list<int> std_mylist;
+		ft::list<int>::iterator ft_itb;
+		std::list<int>::iterator std_itb;
+		ft::list<int>::iterator ft_ite;
+		std::list<int>::iterator std_ite;
+		for (int i=1; i<10; ++i) ft_mylist.push_back(i);
+		for (int i=1; i<10; ++i) std_mylist.push_back(i);
+		ft_mylist.reverse();
+		std_mylist.reverse();
+
+		ft_itb = ft_mylist.begin();
+		std_itb = std_mylist.begin();
+		ft_ite = ft_mylist.end();
+		std_ite = std_mylist.end();
+
+		check_size(ft_mylist, std_mylist, flag);
+		check_flag(flag);
+		check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
 		check_flag(flag);
 	}
 #endif

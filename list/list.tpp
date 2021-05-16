@@ -552,11 +552,18 @@ void ft::list<T, A>::unique(BinaryPredicate binary_pred) {
 	}
 }
 
-//template <typename T, typename A>
-//void ft::list<T, A>::merge(ft::list<T, A> &x) {}
-//
-//template <typename T, typename A>
-//void ft::list<T, A>::merge(ft::list<T, A> &x, void (*f)(T, T)) {}
+template <typename T, typename A>
+void ft::list<T, A>::merge(ft::list<T, A> &x) {
+	splice(begin(), x, x.begin(), x.end());
+	sort();
+}
+
+template <typename T, typename A>
+template<typename Condition>
+void ft::list<T, A>::merge(ft::list<T, A> &x, Condition cond) {
+	splice(begin(), x, x.begin(), x.end());
+	sort(cond);
+}
 
 //Bubble sort(changes the nodes)
 template <typename T, typename A>
@@ -607,8 +614,8 @@ void ft::list<T, A>::sort() {
 
 
 template <typename T, typename A>
-template<typename Compare>
-void ft::list<T, A>::sort(Compare comp) {
+template<typename Condition>
+void ft::list<T, A>::sort(Condition cond) {
 	node *first = head->next;
 	node *last = tail;
 	node *ptr_next;
@@ -616,7 +623,7 @@ void ft::list<T, A>::sort(Compare comp) {
 	while (first != last) {
 		ptr = head->next;
 		while (ptr != last) {
-			if ((comp)(ptr->data, ptr->next->data)){
+			if ((cond)(ptr->data, ptr->next->data)){
 				if (ptr->next == tail)
 					tail = ptr;
 				ptr_next = ptr->next;
@@ -634,9 +641,11 @@ void ft::list<T, A>::sort(Compare comp) {
 
 //template <typename T, typename A>
 //void ft::list<T, A>::sort(void (*f)(T, T)) {}
-//
-//template <typename T, typename A>
-//void ft::list<T, A>::reverse() {}
+
+template <typename T, typename A>
+void ft::list<T, A>::reverse() {
+	
+}
 
 template <typename T, typename A>
 void  ft::list<T, A>::set_tail(node *tail) {

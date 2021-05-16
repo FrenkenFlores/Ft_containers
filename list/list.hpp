@@ -6,7 +6,6 @@
 #include <cstddef>
 #include <type_traits>
 #include <limits>
-//#include <math.h>
 
 //list iterator
 //namespace ft {
@@ -464,12 +463,13 @@ namespace ft {
 		void unique();
 		template <class BinaryPredicate>
 		void unique (BinaryPredicate binary_pred);
-//		void merge (list& x);
-//		void merge (list& x, void (*f)(T, T));
+		void merge (list& x);
+		template<typename Condition>
+		void merge (list& x, Condition cond);
 		void sort();
-		template<typename Compare>
-		void sort (Compare comp);
-//		void reverse();
+		template<typename Condition>
+		void sort (Condition cond);
+		void reverse();
 		void set_tail(node *tail);
 		node *get_tail() const;
 	protected:
