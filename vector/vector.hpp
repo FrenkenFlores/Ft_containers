@@ -8,6 +8,7 @@ namespace ft {
 	class vector {
 	private:
 		T *arr;
+		size_t _size;
 	public:
 		typedef T value_type;
 		typedef A allocator_type;
@@ -37,53 +38,54 @@ namespace ft {
 				return *this;
 			}
 			~iterator() { }
-			type_reference operator*() const{ return *m_ptr;}
-			type_pointer operator->() const { return m_ptr; }
+			reference operator*() const{ return *m_ptr;}
+			pointer operator->() const { return m_ptr; }
 			void operator++() { m_ptr++; }
 			void operator--() { m_ptr--; }
 			bool operator==(const iterator & rhs) { return m_ptr == rhs.m_ptr; }
 			bool operator!=(const iterator & rhs) { return m_ptr != rhs.m_ptr; }
-			type_reference operator[](const int & index) { return *(m_ptr + index); }
+			reference operator[](const int & index) { return *(m_ptr + index); }
 		};
+
+		explicit vector (const allocator_type& alloc = allocator_type()) : arr(nullptr), _size(0) { }
+		explicit vector (size_type n, const value_type& val = value_type(),
+		const allocator_type& alloc = allocator_type()) {
+			arr = new value_type[n];
+			_size = sizeof(arr);
+			for(size_t i = 0; i < n; ++i)
+				arr[i] = val;
+		}
+
+
+		template <class InputIterator>
+		vector (InputIterator first, InputIterator last,
+		const allocator_type& alloc = allocator_type()) {
+			iterator tmp = first;
+			size_type i = 0;
+			while (tmp != last) {
+				tmp++;
+				i++;
+			}
+			arr = new value_type[i];
+			tmp = first;
+			i = 0;
+			while (tmp != last) {
+				arr[i] = *tmp;
+				tmp++;
+				i++;
+			}
+		}
+
+		vector (const vector& x) {
+			for (int i = 0; i < x._size(); i++)
+				this[i] = x[i];
+		}
+
+
+		iterator begin() { return arr; }
+		iterator end() { return arr + sizeof(arr); }
+		size_type size() { return sizeof(arr); }
 	};
-
-	explicit vector (const allocator_type& alloc = allocator_type()) { arr = NULL; }
-	explicit vector (size_type n, const value_type& val = value_type(),
-	const allocator_type& alloc = allocator_type()) {
-		arr = new value_type[n];
-		for(size_t i = 0; i < n; ++i)
-			arr[i] = val;
-	}
-
-
-	template <class InputIterator>
-	vector (InputIterator first, InputIterator last,
-	const allocator_type& alloc = allocator_type()) {
-		iterator tmp = first;
-		size_type i = 0;
-		while (tmp != last) {
-			tmp++;
-			i++;
-		}
-		arr = new value_type[i];
-		tmp = first;
-		i = 0;
-		while (tmp != last) {
-			arr[i] = *tmp;
-			tmp++;
-			i++;
-		}
-	}
-
-	vector (const vector& x) {
-		for (int i = 0; i < x.size(); i++)
-			this[i] = x[i];
-	}
-
-
-
-
-
 
 }
 
