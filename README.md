@@ -65,3 +65,23 @@ https://stackoverflow.com/questions/21860674/implementing-begin-and-end-for-doub
 
 
 https://stackoverflow.com/questions/45847787/how-to-differentiate-fill-constructor-and-range-constructor-in-c11
+
+[about allocators]
+https://habr.com/ru/post/505632/
+
+https://habr.com/ru/post/274827/
+
+http://nfrechette.github.io/2015/05/21/linear_allocator/
+
+https://www.youtube.com/watch?v=LIb3L4vKZ7U
+
+https://www.youtube.com/watch?v=kSWfushlvB8&t=642s
+
+[about allocators]
+
+
+[about iterators]
+https://www.cplusplus.com/reference/iterator/iterator/
+https://www.cplusplus.com/reference/iterator/
+
+[about iterators]

@@ -1,6 +1,8 @@
 #pragma once
 
 #include "../list/list.hpp"
+#include "../vector/vector.hpp"
+
 #include <type_traits>
 #include <list>
 #include <vector>
