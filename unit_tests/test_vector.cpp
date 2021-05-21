@@ -1,7 +1,7 @@
 #include "unit_tests.hpp"
 #define T1 // constructors
 #define T2 // operator=()
-#define T3	//
+#define T3	// begin(), end(), rbegin(), rend()
 //#define T4
 //#define T5
 //#define T6
@@ -50,7 +50,7 @@ void check_value(ft::vector<T> &x, std::vector<T> &y, bool &flag) {
 		{
 			flag = false;
 			cout << LB << *ft_itb << " != " << *std_itb << CLEAN << std::endl;
-			break;
+//			break;
 		} else {
 			cout << P << *ft_itb << " == " << *std_itb << CLEAN << std::endl;
 			flag = true;
@@ -59,6 +59,30 @@ void check_value(ft::vector<T> &x, std::vector<T> &y, bool &flag) {
 		++std_itb;
 	}
 }
+
+template <typename T>
+void check_reverse_value(ft::vector<T> &x, std::vector<T> &y, bool &flag) {
+	typename ft::vector<T>::reverse_iterator ft_itb = x.rbegin();
+	typename ft::vector<T>::reverse_iterator ft_ite = x.rend();
+	typename std::vector<T>::reverse_iterator std_itb = y.rbegin();
+	typename std::vector<T>::reverse_iterator std_ite = y.rend();
+	while (ft_itb != ft_ite && std_itb != std_ite)
+	{
+		if (*ft_itb != *std_itb)
+		{
+			flag = false;
+			cout << LB << *ft_itb << " != " << *std_itb << CLEAN << std::endl;
+//			break;
+		} else {
+			cout << P << *ft_itb << " == " << *std_itb << CLEAN << std::endl;
+			flag = true;
+		}
+		++ft_itb;
+		++std_itb;
+	}
+}
+
+
 
 template <typename T>
 void check_size(ft::vector<T> &x, std::vector<T> &y, bool &flag) {
@@ -143,7 +167,65 @@ int main(void) {
 #endif
 #ifdef T3
 	{
+		int myints[] = {16,2,77,29};
+		std::vector<int> std (myints, myints + sizeof(myints) / sizeof(int) );
+		ft::vector<int> ft (myints, myints + sizeof(myints) / sizeof(int) );
 
+
+		PUT_STR(B"BEGIN()");
+		if (*std.begin() != *ft.begin())
+		{
+			flag = false;
+			std::cout << *std.begin() << " != " << *ft.begin() << std::endl;
+		}
+		else
+			flag = true;
+		check_flag(flag);
+
+		PUT_STR(B"END()");
+		if (*std.end() != *ft.end())
+		{
+			flag = false;
+			std::cout << *ft.end() << " != " << *std.end() << std::endl;
+		}
+		else
+			flag = true;
+		check_flag(flag);
+
+		PUT_STR(B"RBEGIN()");
+		if (*std.rbegin() != *ft.rbegin())
+		{
+			flag = false;
+			std::cout << *ft.rbegin() << " != " << *std.rbegin() << std::endl;
+		}
+		else
+			flag = true;
+		check_flag(flag);
+
+		PUT_STR(B"REND()");
+		if (*std.rend() != *ft.rend())
+		{
+			flag = false;
+			std::cout << *ft.rend() << " != " << *std.rend() << std::endl;
+		}
+		else
+			flag = true;
+		check_flag(flag);
+
+//		PUT_STR(B"_________");
+//
+//		check_reverse_value(ft, std, flag);
+//		check_flag(flag);
+//
+//
+//		PUT_STR(B"=========");
+//		ft::vector<int> v(10, 42);
+//		ft::vector<int>::reverse_iterator ritb = v.rbegin();
+//		ft::vector<int>::reverse_iterator rite = v.rend();
+//		while (ritb != rite) {
+//			std::cout << *ritb << std::endl;
+//			++ritb;
+//		}
 	}
 #endif
 #ifdef T4

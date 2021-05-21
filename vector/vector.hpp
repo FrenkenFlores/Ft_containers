@@ -59,6 +59,95 @@ namespace ft {
 			bool operator!=(const iterator & rhs) { return m_ptr != rhs.m_ptr; }
 			reference operator[](const int & index) { return *(m_ptr + index); }
 		};
+
+		class const_iterator {
+		private:
+			T *m_ptr;
+		public:
+			typedef std::random_access_iterator_tag iterator_category;
+			typedef std::ptrdiff_t difference_type;
+			typedef const T value_type;
+			typedef const T* pointer;
+			typedef const T& reference;
+
+			const_iterator() : m_ptr(NULL){ }
+			const_iterator(pointer ptr) : m_ptr(ptr) { }
+			const_iterator(const const_iterator & src) {
+				*this = src;
+			}
+			const_iterator & operator=(const const_iterator & rhs) {
+				this->m_ptr = rhs.m_ptr;
+				return *this;
+			}
+			~const_iterator() { }
+			reference operator*() const{ return *m_ptr;}
+			pointer operator->() const { return m_ptr; }
+			void operator++() { m_ptr++; }
+			void operator--() { m_ptr--; }
+			bool operator==(const const_iterator & rhs) { return m_ptr == rhs.m_ptr; }
+			bool operator!=(const const_iterator & rhs) { return m_ptr != rhs.m_ptr; }
+			reference operator[](const int & index) const { return *(m_ptr + index); }
+		};
+
+		class reverse_iterator {
+		private:
+			T *m_ptr;
+		public:
+			typedef std::random_access_iterator_tag iterator_category;
+			typedef std::ptrdiff_t difference_type;
+			typedef T value_type;
+			typedef T* pointer;
+			typedef T& reference;
+
+			reverse_iterator() : m_ptr(NULL){ }
+			reverse_iterator(pointer ptr) : m_ptr(ptr) { }
+			reverse_iterator(const reverse_iterator & src) {
+				*this = src;
+			}
+			reverse_iterator & operator=(const reverse_iterator & rhs) {
+				this->m_ptr = rhs.m_ptr;
+				return *this;
+			}
+			~reverse_iterator() { }
+			reference operator*() const{ return *m_ptr;}
+			pointer operator->() const { return m_ptr; }
+			void operator++() { m_ptr--; }
+			void operator--() { m_ptr++; }
+			bool operator==(const reverse_iterator & rhs) { return m_ptr == rhs.m_ptr; }
+			bool operator!=(const reverse_iterator & rhs) { return m_ptr != rhs.m_ptr; }
+			reference operator[](const int & index) { return *(m_ptr - index); }
+		};
+
+		class const_reverse_iterator {
+		private:
+			T *m_ptr;
+		public:
+			typedef std::random_access_iterator_tag iterator_category;
+			typedef std::ptrdiff_t difference_type;
+			typedef T value_type;
+			typedef T* pointer;
+			typedef T& reference;
+
+			const_reverse_iterator() : m_ptr(NULL){ }
+			const_reverse_iterator(pointer ptr) : m_ptr(ptr) { }
+			const_reverse_iterator(const const_reverse_iterator & src) {
+				*this = src;
+			}
+			const_reverse_iterator & operator=(const const_reverse_iterator & rhs) {
+				this->m_ptr = rhs.m_ptr;
+				return *this;
+			}
+			~const_reverse_iterator() { }
+			reference operator*() const{ return *m_ptr;}
+			pointer operator->() const { return m_ptr; }
+			void operator++() { m_ptr--; }
+			void operator--() { m_ptr++; }
+			bool operator==(const const_reverse_iterator & rhs) { return m_ptr == rhs.m_ptr; }
+			bool operator!=(const const_reverse_iterator & rhs) { return m_ptr != rhs.m_ptr; }
+			reference operator[](const int & index) const { return *(m_ptr - index); }
+		};
+
+
 		//default (1)
 		explicit vector (const allocator_type& alloc = allocator_type()) : arr(nullptr), _size(0) { }
 		//fill (2)
@@ -110,9 +199,12 @@ namespace ft {
 			delete[] arr;
 			_size = 0;
 		}
-		iterator begin() const { return arr; }
-		iterator end() const { return arr + _size; }
+		iterator begin() const { return iterator(arr); }
+		iterator end() const { return iterator(arr + _size); }
+		reverse_iterator rbegin() const { return reverse_iterator(arr + _size - 1); }
+		reverse_iterator rend() const { return reverse_iterator(arr - 1); }
 		size_type size() const { return _size; }
+
 		reference operator[](const int & index) const { return *(arr + index); }
 	};
 
@@ -120,5 +212,3 @@ namespace ft {
 
 
 #endif
-
-//std::cout << "->" << i << std::endl;
