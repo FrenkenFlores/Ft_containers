@@ -59,45 +59,42 @@ namespace ft {
 			bool operator!=(const iterator & rhs) { return m_ptr != rhs.m_ptr; }
 			reference operator[](const int & index) { return *(m_ptr + index); }
 		};
-
+		//default (1)
 		explicit vector (const allocator_type& alloc = allocator_type()) : arr(nullptr), _size(0) { }
+		//fill (2)
 		explicit vector (size_type n, const value_type& val = value_type(),
 		const allocator_type& alloc = allocator_type()) {
 			arr = new value_type[n];
-			_size = sizeof(arr);
-			for(size_t i = 0; i < n; ++i)
+			_size = n;
+			for(size_t i = 0; i < _size; ++i)
 				arr[i] = val;
 		}
-
-
+		//range (3)
 		template <class InputIterator>
 		vector (InputIterator first, InputIterator last,
 		const allocator_type& alloc = allocator_type(), typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type *_if = 0) {
 			iterator tmp = first;
-			size_type i = 0;
 			while (tmp != last) {
 				++tmp;
-				i++;
+				_size++;
 			}
-			arr = new value_type[i];
-			tmp = first;
-			i = 0;
-			while (tmp != last) {
-				arr[i] = *tmp;
-				++tmp;
-				i++;
-			}
+			arr = new value_type[_size];
+			for (int i = 0; i != _size; i++)
+				arr[i] = first[i];
 		}
-
+		//copy (4)
 		vector (const vector& x) {
-//			for (int i = 0; i < x.size(); i++)
-//				this[i] = x[i];
+			iterator it_b = x.begin();
+			_size = x.size();
+			arr = new value_type[_size];
+			for (int i = 0; i < _size; i++)
+				arr[i] = it_b[i];
 		}
 
 
-		iterator begin() { return arr; }
-		iterator end() { return arr + sizeof(arr); }
-		size_type size() const { return sizeof(arr); }
+		iterator begin() const { return arr; }
+		iterator end() const { return arr + _size; }
+		size_type size() const { return _size; }
 		reference operator[](const int & index) const { return *(arr + index); }
 	};
 
@@ -105,3 +102,5 @@ namespace ft {
 
 
 #endif
+
+//std::cout << "->" << i << std::endl;
