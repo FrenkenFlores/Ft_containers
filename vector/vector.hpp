@@ -213,6 +213,15 @@ namespace ft {
 		size_type size() const { return _size; }
 
 		size_type max_size() const { return _allocator.max_size(); }
+		void resize (size_type n, value_type val = value_type()) {
+			if (n < _size) {
+				while (n < size())
+					pop_back();
+			} else {
+				while (n >= size())
+					push_back(val);
+			}
+		}
 
 
 		size_type capacity() const { return _capacity; }
@@ -233,6 +242,11 @@ namespace ft {
 			}
 		}
 
+
+		void pop_back() {
+			delete &arr[_size];
+			_size--;
+		}
 
 		reference operator[](const int & index) const { return *(arr + index); }
 	};

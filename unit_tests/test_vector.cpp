@@ -14,7 +14,7 @@
 //#define T13 // back()
 //#define T14 // assign()
 #define T15 // push_back()
-//#define T16 // pop_back()
+#define T16 // pop_back()
 //#define T17 // insert()
 //#define T18 // erase()
 //#define T19 // swap()
@@ -357,7 +357,36 @@ int main(void) {
 #endif
 #ifdef T16
 	{
+		PUT_STR(B"POP_BACK()");
+		std::vector<int> std(5, 10);
+		ft::vector<int> ft(5, 10);
+		std.pop_back();
+		ft.pop_back();
+		check_capacity(ft, std, flag);
+		check_flag(flag);
+		check_size(ft, std, flag);
+		check_flag(flag);
+		for (int i = 0; i < 10; i++)
+			std.push_back(i);
 
+		for (int i = 0; i < 10; i++)
+			ft.push_back(i);
+
+		check_value(ft, std, flag);
+		check_flag(flag);
+		check_size(ft, std, flag);
+		check_flag(flag);
+		check_capacity(ft, std, flag);
+		check_flag(flag);
+
+		ft.push_back(50);
+		std.push_back(50);
+		check_value(ft, std, flag);
+		check_flag(flag);
+		check_size(ft, std, flag);
+		check_flag(flag);
+		check_capacity(ft, std, flag);
+		check_flag(flag);
 	}
 #endif
 #ifdef T17
