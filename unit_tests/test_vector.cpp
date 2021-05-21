@@ -1,7 +1,7 @@
 #include "unit_tests.hpp"
-#define T1
-//#define T2
-//#define T3
+#define T1 // constructors
+#define T2 // operator=()
+#define T3	//
 //#define T4
 //#define T5
 //#define T6
@@ -73,10 +73,10 @@ void check_size(ft::vector<T> &x, std::vector<T> &y, bool &flag) {
 }
 
 int main(void) {
+	bool flag = true;
 #ifdef T1
 	{
 		PUT_STR(B"CONSTRUCTOR[default (1)]");
-		bool flag = true;
 		std::vector<int> std_first;                                // empty vector of ints
 		ft::vector<int> ft_first;
 		check_value(ft_first, std_first, flag);
@@ -121,7 +121,24 @@ int main(void) {
 #endif
 #ifdef T2
 	{
+		PUT_STR(B"OPERATOR=()");
+		ft::vector<int> ft_foo (3,0);
+		std::vector<int> std_foo (3,0);
+		ft::vector<int> ft_bar (5,0);
+		std::vector<int> std_bar (5,0);
 
+		ft_bar = ft_foo;
+		std_bar = std_foo;
+		check_value(ft_bar, std_bar, flag);
+		check_flag(flag);
+		check_size(ft_bar, std_bar, flag);
+		check_flag(flag);
+		ft_foo = ft::vector<int>();
+		std_foo = std::vector<int>();
+		check_value(ft_foo, std_foo, flag);
+		check_flag(flag);
+		check_size(ft_foo, std_foo, flag);
+		check_flag(flag);
 	}
 #endif
 #ifdef T3

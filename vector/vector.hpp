@@ -83,15 +83,33 @@ namespace ft {
 				arr[i] = first[i];
 		}
 		//copy (4)
-		vector (const vector& x) {
-			iterator it_b = x.begin();
-			_size = x.size();
+		vector (const vector& src) {
+			iterator it_b = src.begin();
+			_size = src.size();
 			arr = new value_type[_size];
 			for (int i = 0; i < _size; i++)
 				arr[i] = it_b[i];
 		}
 
+		~vector() {
+			clear();
+		}
 
+		//operator=()
+		vector & operator=(const vector & rhs) {
+			clear();
+			iterator it_b = rhs.begin();
+			_size = rhs.size();
+			arr = new value_type[_size];
+			for (int i = 0; i < _size; i++)
+				arr[i] = it_b[i];
+			return *this;
+		}
+
+		void clear() {
+			delete[] arr;
+			_size = 0;
+		}
 		iterator begin() const { return arr; }
 		iterator end() const { return arr + _size; }
 		size_type size() const { return _size; }
