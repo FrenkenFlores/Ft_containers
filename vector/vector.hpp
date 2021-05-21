@@ -2,8 +2,21 @@
 #define VECTOR_HPP
 
 #include <memory>
+#include <type_traits>
 
 namespace ft {
+
+//	template<bool B, class T = void>
+//	struct enable_if {};
+//
+//	template<class T>
+//	struct enable_if<true, T> { typedef T type; };
+
+
+
+
+
+
 	template <typename T, typename A = std::allocator<T> >
 	class vector {
 	private:
@@ -59,11 +72,11 @@ namespace ft {
 
 		template <class InputIterator>
 		vector (InputIterator first, InputIterator last,
-		const allocator_type& alloc = allocator_type()) {
+		const allocator_type& alloc = allocator_type(), typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type *_if = 0) {
 			iterator tmp = first;
 			size_type i = 0;
 			while (tmp != last) {
-				tmp++;
+				++tmp;
 				i++;
 			}
 			arr = new value_type[i];
@@ -71,20 +84,21 @@ namespace ft {
 			i = 0;
 			while (tmp != last) {
 				arr[i] = *tmp;
-				tmp++;
+				++tmp;
 				i++;
 			}
 		}
 
 		vector (const vector& x) {
-			for (int i = 0; i < x._size(); i++)
-				this[i] = x[i];
+//			for (int i = 0; i < x.size(); i++)
+//				this[i] = x[i];
 		}
 
 
 		iterator begin() { return arr; }
 		iterator end() { return arr + sizeof(arr); }
-		size_type size() { return sizeof(arr); }
+		size_type size() const { return sizeof(arr); }
+		reference operator[](const int & index) const { return *(arr + index); }
 	};
 
 }
