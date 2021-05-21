@@ -6,6 +6,7 @@
 #include <cstddef>
 #include <type_traits>
 #include <limits>
+#include <cmath>
 
 //list iterator
 //namespace ft {

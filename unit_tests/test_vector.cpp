@@ -2,23 +2,23 @@
 #define T1 // constructors
 #define T2 // operator=()
 #define T3	// begin(), end(), rbegin(), rend()
-//#define T4
-//#define T5
-//#define T6
-//#define T7
-//#define T8
-//#define T9
-//#define T10
-//#define T11
-//#define T12
-//#define T13
-//#define T14
-//#define T15
-//#define T16
-//#define T17
-//#define T18
-//#define T19
-//#define T20
+#define T4	// size()
+#define T5	// max_size()
+//#define T6 // resize()
+//#define T7 // capacity()
+//#define T8 // empty()
+//#define T9 // reserve()
+//#define T10 // operator[]
+//#define T11 // at()
+//#define T12 // front()
+//#define T13 // back()
+//#define T14 // assign()
+#define T15 // push_back()
+//#define T16 // pop_back()
+//#define T17 // insert()
+//#define T18 // erase()
+//#define T19 // swap()
+//#define T20 // clear()
 //#define T21
 //#define T22
 //#define T23
@@ -36,6 +36,7 @@ void check_flag(bool flag) {
 		PUT_STR(OK);
 	else
 		PUT_STR(KO);
+	flag = false;
 }
 
 template <typename T>
@@ -44,7 +45,7 @@ void check_value(ft::vector<T> &x, std::vector<T> &y, bool &flag) {
 	typename ft::vector<T>::iterator ft_ite = x.end();
 	typename std::vector<T>::iterator std_itb = y.begin();
 	typename std::vector<T>::iterator std_ite = y.end();
-	while (ft_itb != ft_ite && std_itb != std_ite)
+	while (ft_itb != ft_ite)
 	{
 		if (*ft_itb != *std_itb)
 		{
@@ -92,12 +93,24 @@ void check_size(ft::vector<T> &x, std::vector<T> &y, bool &flag) {
 		cout << LB << x.size() << " != " << y.size() << CLEAN << std::endl;
 	} else {
 		flag = true;
-		cout << LB << x.size() << " == " << y.size() << CLEAN << std::endl;
+		cout << P << x.size() << " == " << y.size() << CLEAN << std::endl;
+	}
+}
+
+template <typename T>
+void check_capacity(ft::vector<T> &x, std::vector<T> &y, bool &flag) {
+	if (x.capacity() != y.capacity())
+	{
+		flag = false;
+		cout << LB << x.capacity() << " != " << y.capacity() << CLEAN << std::endl;
+	} else {
+		flag = true;
+		cout << P << x.capacity() << " == " << y.capacity() << CLEAN << std::endl;
 	}
 }
 
 int main(void) {
-	bool flag = true;
+	bool flag = false;
 #ifdef T1
 	{
 		PUT_STR(B"CONSTRUCTOR[default (1)]");
@@ -230,12 +243,38 @@ int main(void) {
 #endif
 #ifdef T4
 	{
+		PUT_STR(B"SIZE()");
 
+		int myints[] = {16,2,77,29};
+		std::vector<int> x (myints, myints + sizeof(myints) / sizeof(int) );
+		ft::vector<int> y (myints, myints + sizeof(myints) / sizeof(int) );
+		if (x.size() != y.size())
+		{
+			flag = false;
+			cout << LB << x.size() << " != " << y.size() << CLEAN << std::endl;
+		} else {
+			flag = true;
+//			cout << LB << x.size() << " == " << y.size() << CLEAN << std::endl;
+		}
+		check_flag(flag);
 	}
 #endif
 #ifdef T5
 	{
+		PUT_STR(B"MAX_SIZE()");
 
+		int myints[] = {16,2,77,29};
+		std::vector<int> x (myints, myints + sizeof(myints) / sizeof(int) );
+		ft::vector<int> y (myints, myints + sizeof(myints) / sizeof(int) );
+		if (x.max_size() != y.max_size())
+		{
+			flag = false;
+			cout << LB << x.max_size() << " != " << y.max_size() << CLEAN << std::endl;
+		} else {
+			flag = true;
+//			cout << LB << x.max_size() << " == " << y.max_size() << CLEAN << std::endl;
+		}
+		check_flag(flag);
 	}
 #endif
 #ifdef T6
@@ -279,6 +318,49 @@ int main(void) {
 	}
 #endif
 #ifdef T14
+	{
+
+	}
+#endif
+#ifdef T15
+	{
+		PUT_STR(B"PUSH_BACK()");
+		std::vector<int> std(5, 10);
+		ft::vector<int> ft(5, 10);
+		check_capacity(ft, std, flag);
+		check_flag(flag);
+		check_size(ft, std, flag);
+		check_flag(flag);
+		for (int i = 0; i < 10; i++)
+			std.push_back(i);
+
+		for (int i = 0; i < 10; i++)
+			ft.push_back(i);
+
+		check_value(ft, std, flag);
+		check_flag(flag);
+		check_size(ft, std, flag);
+		check_flag(flag);
+		check_capacity(ft, std, flag);
+		check_flag(flag);
+
+		ft.push_back(50);
+		std.push_back(50);
+		check_value(ft, std, flag);
+		check_flag(flag);
+		check_size(ft, std, flag);
+		check_flag(flag);
+		check_capacity(ft, std, flag);
+		check_flag(flag);
+
+	}
+#endif
+#ifdef T16
+	{
+
+	}
+#endif
+#ifdef T17
 	{
 
 	}

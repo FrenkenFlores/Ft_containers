@@ -22,6 +22,8 @@ namespace ft {
 	private:
 		T *arr;
 		size_t _size;
+		size_t _capacity;
+		A _allocator;
 	public:
 		typedef T value_type;
 		typedef A allocator_type;
@@ -149,12 +151,13 @@ namespace ft {
 
 
 		//default (1)
-		explicit vector (const allocator_type& alloc = allocator_type()) : arr(nullptr), _size(0) { }
+		explicit vector (const allocator_type& alloc = allocator_type()) : arr(nullptr), _size(0), _capacity(0) { }
 		//fill (2)
 		explicit vector (size_type n, const value_type& val = value_type(),
 		const allocator_type& alloc = allocator_type()) {
 			arr = new value_type[n];
 			_size = n;
+			_capacity = n;
 			for(size_t i = 0; i < _size; ++i)
 				arr[i] = val;
 		}
@@ -166,6 +169,7 @@ namespace ft {
 			while (tmp != last) {
 				++tmp;
 				_size++;
+				_capacity++;
 			}
 			arr = new value_type[_size];
 			for (int i = 0; i != _size; i++)
@@ -175,6 +179,7 @@ namespace ft {
 		vector (const vector& src) {
 			iterator it_b = src.begin();
 			_size = src.size();
+			_capacity = src.capacity();
 			arr = new value_type[_size];
 			for (int i = 0; i < _size; i++)
 				arr[i] = it_b[i];
@@ -189,6 +194,7 @@ namespace ft {
 			clear();
 			iterator it_b = rhs.begin();
 			_size = rhs.size();
+			_capacity = rhs.capacity();
 			arr = new value_type[_size];
 			for (int i = 0; i < _size; i++)
 				arr[i] = it_b[i];
@@ -198,12 +204,35 @@ namespace ft {
 		void clear() {
 			delete[] arr;
 			_size = 0;
+			_capacity = 0;
 		}
 		iterator begin() const { return iterator(arr); }
 		iterator end() const { return iterator(arr + _size); }
 		reverse_iterator rbegin() const { return reverse_iterator(arr + _size - 1); }
 		reverse_iterator rend() const { return reverse_iterator(arr - 1); }
 		size_type size() const { return _size; }
+
+		size_type max_size() const { return _allocator.max_size(); }
+
+
+		size_type capacity() const { return _capacity; }
+
+		void push_back (const value_type& val) {
+			value_type *tmp = arr;
+			if (size() == capacity()) {
+				_capacity = _size * 2;
+				arr = new value_type[_capacity];
+				for (int i = 0; i < _size; i++)
+					arr[i] = tmp[i];
+				arr[_size] = val;
+				_size++;
+				delete [] tmp;
+			} else {
+				arr[_size] = val;
+				_size++;
+			}
+		}
+
 
 		reference operator[](const int & index) const { return *(arr + index); }
 	};
