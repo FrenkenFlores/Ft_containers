@@ -15,10 +15,10 @@
 #define T14 // assign()
 #define T15 // push_back()
 #define T16 // pop_back()
-//#define T17 // insert()
-//#define T18 // erase()
-//#define T19 // swap()
-//#define T20 // clear()
+#define T17 // insert()
+#define T18 // erase()
+#define T19 // swap()
+#define T20 // clear()
 //#define T21
 //#define T22
 //#define T23
@@ -597,6 +597,126 @@ int main(void) {
 #endif
 #ifdef T17
 	{
+		PUT_STR(B"INSERT()");
+		{
+			std::vector<int> std (3,100);
+			ft::vector<int> ft (3,100);
+
+			std::vector<int>::iterator std_it;
+			ft::vector<int>::iterator ft_it;
+
+			std_it = std.begin();
+			std_it = std.insert ( std_it , 200 );
+			ft_it = ft.begin();
+			ft_it = ft.insert ( ft_it , 200 );
+
+			std.insert (std_it,2,300);
+			ft.insert (ft_it,2,300);
+
+			check_value(ft, std, flag);
+			check_flag(flag);
+			check_size(ft, std, flag);
+			check_flag(flag);
+			check_capacity(ft, std, flag);
+			check_flag(flag);
+
+			// "it" no longer valid, get a new one:
+			std_it = std.begin();
+			ft_it = ft.begin();
+
+			std::vector<int> std_anothervector (2,400);
+			std.insert (std_it+2,std_anothervector.begin(),std_anothervector.end());
+			ft::vector<int> ft_anothervector (2,400);
+			ft.insert (ft_it+2,ft_anothervector.begin(),ft_anothervector.end());
+
+			check_value(ft, std, flag);
+			check_flag(flag);
+			check_size(ft, std, flag);
+			check_flag(flag);
+			check_capacity(ft, std, flag);
+			check_flag(flag);
+
+			int myarray [] = { 501,502,503 };
+			std.insert (std.begin(), myarray, myarray+3);
+			ft.insert (ft.begin(), myarray, myarray+3);
+			check_value(ft, std, flag);
+			check_flag(flag);
+			check_size(ft, std, flag);
+			check_flag(flag);
+			check_capacity(ft, std, flag);
+			check_flag(flag);
+
+		}
+		{
+			std::vector<int> std(6, 55);
+			ft::vector<int> ft(6, 55);
+			std::vector<int>::iterator std_it = std.begin();
+			ft::vector<int>::iterator ft_it = ft.begin();
+			for (int i = 0; i < 3; i++)
+				++std_it;
+			for (int i = 0; i < 3; i++)
+				++ft_it;
+			ft_it = ft.insert(ft_it, 42);
+			std_it = std.insert(std_it, 42);
+			if (*ft_it == *std_it) {
+//			std::cout << *ft_it << " == " << *std_it << std::endl;
+				PUT_STR(OK);
+			} else {
+//			std::cout << *ft_it << " != " << *std_it << std::endl;
+				PUT_STR(KO);
+			}
+			check_value(ft, std, flag);
+			check_flag(flag);
+			check_size(ft, std, flag);
+			check_flag(flag);
+			check_capacity(ft, std, flag);
+			check_flag(flag);
+
+			for (int i = 0; i < 10; ++i)
+				ft.push_back(i);
+			for (int i = 0; i < 10; ++i)
+				std.push_back(i);
+
+			std_it = std.begin();
+			ft_it = ft.begin();
+			for (int i = 0; i < 3; i++)
+				++std_it;
+			for (int i = 0; i < 3; i++)
+				++ft_it;
+
+			ft_it = ft.insert(ft_it, 42);
+			std_it = std.insert(std_it, 42);
+			if (*ft_it == *std_it) {
+//			std::cout << *ft_it << " == " << *std_it << std::endl;
+				PUT_STR(OK);
+			} else {
+//			std::cout << *ft_it << " != " << *std_it << std::endl;
+				PUT_STR(KO);
+			}
+			check_value(ft, std, flag);
+			check_flag(flag);
+			check_size(ft, std, flag);
+			check_flag(flag);
+			check_capacity(ft, std, flag);
+			check_flag(flag);
+		}
+	}
+#endif
+#ifdef T18
+	{
+		PUT_STR(B"ERASE()");
+
+	}
+#endif
+#ifdef T19
+	{
+		PUT_STR(B"SWAP()");
+
+	}
+#endif
+#ifdef T20
+	{
+		PUT_STR(B"CLEAR()");
 
 	}
 #endif

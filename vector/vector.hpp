@@ -307,11 +307,6 @@ class out_of_range : public std::logic_error {
 				i++;
 			}
 		}
-
-
-
-
-
 		//push_back
 		void push_back (const value_type& val) {
 			value_type *tmp = arr;
@@ -334,9 +329,54 @@ class out_of_range : public std::logic_error {
 			arr[this->size() - 1] = tmp;
 			_size--;
 		}
-
-
-
+//		single element (1)
+		iterator insert (iterator position, const value_type& val) {
+			size_t j = 0;
+			size_t i = 0;
+			iterator last = end();
+			iterator first = begin();
+			value_type *tmp = arr;
+			if (capacity() <= size()) {
+				_capacity = _capacity * 2;
+			}
+			arr = new value_type[_capacity + 1];
+			while (first != position) {
+				arr[i] = tmp[i];
+				++j;
+				++i;
+				++first;
+			}
+			arr[i++] = val;
+			while (first != last) {
+				arr[i] = tmp[i - 1];
+				++i;
+				++first;
+			}
+			_size++;
+			if (capacity() < _size)
+				_capacity++;
+			delete []tmp;
+			return (iterator(arr + j));
+		}
+//		fill (2)
+		void insert (iterator position, size_type n, const value_type& val) {
+			iterator it = position;
+			while (n != 0) {
+				it = insert(it, val);
+				++position;
+				--n;
+			}
+		}
+//		range (3)
+		template <class InputIterator>
+		void insert (iterator position, InputIterator first, InputIterator last, typename enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type *_if = 0){
+			iterator it = position;
+			while (first != last) {
+				it = insert(it, *first);
+				++first;
+				++it;
+			}
+		}
 	};
 
 }
