@@ -2,6 +2,7 @@
 #define VECTOR_HPP
 
 #include <memory>
+#include <stdexcept>
 #include <type_traits>
 
 namespace ft {
@@ -14,8 +15,11 @@ namespace ft {
 		typedef void type;
 	};
 
-
-
+class out_of_range : public std::logic_error {
+	public:
+		explicit out_of_range (const std::string& what_arg) : logic_error(what_arg) { }
+		explicit out_of_range (const char *what_arg) : logic_error(what_arg) { }
+};
 
 	template <typename T, typename A = std::allocator<T> >
 	class vector {
@@ -189,6 +193,7 @@ namespace ft {
 
 		//destructor
 		~vector() {
+			delete[] arr;
 			clear();
 		}
 
@@ -203,36 +208,71 @@ namespace ft {
 				arr[i] = it_b[i];
 			return *this;
 		}
-
+		//clear
 		void clear() {
-			delete[] arr;
 			_size = 0;
 			_capacity = 0;
 		}
+		//reserve
+		void reserve (size_type n) {
+			if (n > this->capacity()) {
+				value_type *tmp = arr;
+				arr = new value_type[n];
+				for (int i = 0; i < _size; i++)
+					arr[i] = tmp[i];
+				_capacity = n;
+				delete[] tmp;
+			}
+		}
+		//operator[]
+		reference operator[] (size_type n) { return *(arr + n); }
+		//at
+		reference at (size_type n) {
+			if (n >= size()) {
+				throw out_of_range("out of range");
+			} else {
+				return *(arr + n);
+			}
+		}
+		//front
+		reference front() {
+			return *(arr);
+		}
+		//back
+		reference back() {
+			return *(arr + size() - 1);
+		}
+		//begin
 		iterator begin() const { return iterator(arr); }
+		//end
 		iterator end() const { return iterator(arr + _size); }
+		//rbegin
 		reverse_iterator rbegin() const { return reverse_iterator(arr + _size - 1); }
+		//rend
 		reverse_iterator rend() const { return reverse_iterator(arr - 1); }
+		//size
 		size_type size() const { return _size; }
-
+		//max_size
 		size_type max_size() const { return _allocator.max_size(); }
+		//resize
 		void resize (size_type n, value_type val = value_type()) {
 			if (n < _size) {
 				while (n < size())
 					pop_back();
 			} else {
-				while (n >= size())
+				while (n > size())
 					push_back(val);
 			}
 		}
-
-
+		//capacity
 		size_type capacity() const { return _capacity; }
-
+		//empty
+		bool empty() const { return size() == 0; }
+		//push_back
 		void push_back (const value_type& val) {
 			value_type *tmp = arr;
-			if (size() == capacity()) {
-				_capacity = _size * 2;
+			if (size() >= capacity()) {
+				_capacity = size() * 2;
 				arr = new value_type[_capacity];
 				for (int i = 0; i < _size; i++)
 					arr[i] = tmp[i];
@@ -244,14 +284,15 @@ namespace ft {
 				_size++;
 			}
 		}
-
+		//pop_back
 		void pop_back() {
 			T tmp;
 			arr[this->size() - 1] = tmp;
 			_size--;
 		}
 
-		reference operator[](const int & index) const { return *(arr + index); }
+
+
 	};
 
 }

@@ -4,15 +4,15 @@
 #define T3	// begin(), end(), rbegin(), rend()
 #define T4	// size()
 #define T5	// max_size()
-//#define T6 // resize()
-//#define T7 // capacity()
-//#define T8 // empty()
-//#define T9 // reserve()
-//#define T10 // operator[]
-//#define T11 // at()
-//#define T12 // front()
-//#define T13 // back()
-//#define T14 // assign()
+#define T6 // resize()
+#define T7 // capacity()
+#define T8 // empty()
+#define T9 // reserve()
+#define T10 // operator[]
+#define T11 // at()
+#define T12 // front()
+#define T13 // back()
+#define T14 // assign()
 #define T15 // push_back()
 #define T16 // pop_back()
 //#define T17 // insert()
@@ -120,6 +120,8 @@ int main(void) {
 		check_flag(flag);
 		check_size(ft_first, std_first, flag);
 		check_flag(flag);
+		check_capacity(ft_first, std_first, flag);
+		check_flag(flag);
 
 		PUT_STR(B"CONSTRUCTOR[fill (2)]");
 		std::vector<int> std_second (4,100);                       // four ints with value 100
@@ -128,6 +130,8 @@ int main(void) {
 		check_flag(flag);
 		check_size(ft_second, std_second, flag);
 		check_flag(flag);
+		check_capacity(ft_second, std_second, flag);
+		check_flag(flag);
 
 		PUT_STR(B"CONSTRUCTOR[range (3)]");
 		std::vector<int> std_third (std_second.begin(),std_second.end());  // iterating through second
@@ -135,6 +139,8 @@ int main(void) {
 		check_value(ft_third, std_third, flag);
 		check_flag(flag);
 		check_size(ft_third, std_third, flag);
+		check_flag(flag);
+		check_capacity(ft_third, std_third, flag);
 		check_flag(flag);
 
 		// the iterator constructor can also be used to construct from arrays:
@@ -145,6 +151,8 @@ int main(void) {
 		check_flag(flag);
 		check_size(ft_fifth, std_fifth, flag);
 		check_flag(flag);
+		check_capacity(ft_fifth, std_fifth, flag);
+		check_flag(flag);
 
 		PUT_STR(B"CONSTRUCTOR[copy (4)]");
 		std::vector<int> std_fourth (std_third);                       // a copy of third
@@ -153,7 +161,8 @@ int main(void) {
 		check_flag(flag);
 		check_size(ft_fourth, std_fourth, flag);
 		check_flag(flag);
-
+		check_capacity(ft_fourth, std_fourth, flag);
+		check_flag(flag);
 	}
 #endif
 #ifdef T2
@@ -170,12 +179,15 @@ int main(void) {
 		check_flag(flag);
 		check_size(ft_bar, std_bar, flag);
 		check_flag(flag);
+		check_capacity(ft_bar, std_bar, flag);
+		check_flag(flag);
 		ft_foo = ft::vector<int>();
 		std_foo = std::vector<int>();
 		check_value(ft_foo, std_foo, flag);
 		check_flag(flag);
 		check_size(ft_foo, std_foo, flag);
 		check_flag(flag);
+		check_capacity(ft_foo, std_foo, flag);
 	}
 #endif
 #ifdef T3
@@ -279,42 +291,196 @@ int main(void) {
 #endif
 #ifdef T6
 	{
+		PUT_STR(B"RESIZE()");
+		std::vector<int> std;
+		ft::vector<int> ft;
+
+		for (int i=1;i<10;i++) std.push_back(i);
+		for (int i=1;i<10;i++) ft.push_back(i);
+
+		std.resize(5);
+		ft.resize(5);
+
+		check_value(ft, std, flag);
+		check_flag(flag);
+		check_size(ft, std, flag);
+		check_flag(flag);
+		check_capacity(ft, std, flag);
+		check_flag(flag);
+
+		std.resize(8,100);
+		ft.resize(8,100);
+		check_value(ft, std, flag);
+		check_flag(flag);
+		check_size(ft, std, flag);
+		check_flag(flag);
+		check_capacity(ft, std, flag);
+		check_flag(flag);
+
+		std.resize(12);
+		ft.resize(12);
+		check_value(ft, std, flag);
+		check_flag(flag);
+		check_size(ft, std, flag);
+		check_flag(flag);
+		check_capacity(ft, std, flag);
+		check_flag(flag);
 
 	}
 #endif
 #ifdef T7
 	{
+		PUT_STR(B"CAPACITY()");
 
+		std::vector<int> std;
+		ft::vector<int> ft;
+		for (int i=1;i<100;i++) std.push_back(i);
+		for (int i=1;i<100;i++) ft.push_back(i);
+		check_capacity(ft, std, flag);
+		check_flag(flag);
 	}
 #endif
 #ifdef T8
 	{
+		PUT_STR(B"EMPTY()");
 
+		std::vector<int> std;
+		ft::vector<int> ft;
+
+		if (std.empty() == ft.empty())
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
+
+		for (int i=1;i<100;i++) std.push_back(i);
+		for (int i=1;i<100;i++) ft.push_back(i);
+		check_capacity(ft, std, flag);
+		check_flag(flag);
+
+		if (std.empty() == ft.empty())
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
+
+		ft.clear();
+		std.clear();
+		if (std.empty() == ft.empty())
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
 	}
 #endif
 #ifdef T9
 	{
+		PUT_STR(B"RESERVE()");
 
+		std::vector<int> std;
+		ft::vector<int> ft;
+
+		std.reserve(20);
+		ft.reserve(20);
+		check_value(ft, std, flag);
+		check_flag(flag);
+		check_size(ft, std, flag);
+		check_flag(flag);
+		check_capacity(ft, std, flag);
+		check_flag(flag);
+
+		for (int i=1;i<10;i++) std.push_back(i);
+		for (int i=1;i<10;i++) ft.push_back(i);
+		check_value(ft, std, flag);
+		check_flag(flag);
+		check_size(ft, std, flag);
+		check_flag(flag);
+		check_capacity(ft, std, flag);
+		check_flag(flag);
+
+		std.reserve(1);
+		ft.reserve(1);
+		check_value(ft, std, flag);
+		check_flag(flag);
+		check_size(ft, std, flag);
+		check_flag(flag);
+		check_capacity(ft, std, flag);
+		check_flag(flag);
 	}
 #endif
 #ifdef T10
 	{
+		PUT_STR(B"OPERATOR[]");
 
+		std::vector<int> std;
+		ft::vector<int> ft;
+
+		for (int i=0;i<10;i++) std.push_back(i);
+		for (int i=0;i<10;i++) ft.push_back(i);
+
+		for (int i = 0; i < 10; ++i) {
+			if (ft[i] != std[i])
+			{
+				std::cout << ft[i] << " != " << std[i] << std::endl;
+				PUT_STR(KO);
+				break;
+			}
+			PUT_STR(OK);
+		}
 	}
 #endif
 #ifdef T11
 	{
+		PUT_STR(B"at()");
 
+		std::vector<int> std;
+		ft::vector<int> ft;
+
+		for (int i=0;i<10;i++) std.push_back(i);
+		for (int i=0;i<10;i++) ft.push_back(i);
+
+		for (int i = 0; i < 10; ++i) {
+			if (ft.at(i) != std.at(i))
+			{
+				std::cout << ft.at(i) << " != " << std.at(i) << std::endl;
+				PUT_STR(KO);
+				break;
+			}
+			PUT_STR(OK);
+		}
+		try {
+			ft.at(1000) = 0;
+		} catch (std::logic_error &e) {
+			std::cout << e.what() << std::endl;
+		}
 	}
+
 #endif
 #ifdef T12
 	{
+		PUT_STR(B"front()");
+		std::vector<int> std;
+		ft::vector<int> ft;
 
+		for (int i=0;i<10;i++) std.push_back(i);
+		for (int i=0;i<10;i++) ft.push_back(i);
+		if (ft.front() == std.front()) {
+			PUT_STR(OK);
+		} else {
+			PUT_STR(KO);
+		}
 	}
 #endif
 #ifdef T13
 	{
+		PUT_STR(B"back()");
+		std::vector<int> std;
+		ft::vector<int> ft;
 
+		for (int i=0;i<10;i++) std.push_back(i);
+		for (int i=0;i<10;i++) ft.push_back(i);
+		if (ft.back() == std.back()) {
+			PUT_STR(OK);
+		} else {
+			PUT_STR(KO);
+		}
 	}
 #endif
 #ifdef T14

@@ -7,6 +7,8 @@
 #include <list>
 #include <vector>
 #include <iostream>
+#include <stdexcept>
+
 
 #define OK "\e[0;32mOK\e[0;0m"
 #define KO "\e[0;31mKO\e[0;0m"
