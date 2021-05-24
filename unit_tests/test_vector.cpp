@@ -485,7 +485,50 @@ int main(void) {
 #endif
 #ifdef T14
 	{
+		PUT_STR(B"assign()");
+		ft::vector<int> ft_first;
+		ft::vector<int> ft_second;
+		ft::vector<int> ft_third;
 
+		std::vector<int> std_first;
+		std::vector<int> std_second;
+		std::vector<int> std_third;
+
+		ft_first.assign (7,100);             // 7 ints with a value of 100
+		std_first.assign (7,100);             // 7 ints with a value of 100
+		check_size(ft_first, std_first, flag);
+		check_flag(flag);
+		check_capacity(ft_first, std_first, flag);
+		check_flag(flag);
+		check_value(ft_first, std_first, flag);
+		check_flag(flag);
+
+		ft::vector<int>::iterator ft_it;
+		std::vector<int>::iterator std_it;
+
+		ft_it=ft_first.begin()+1;
+		std_it=std_first.begin()+1;
+
+		ft_second.assign (ft_it,ft_first.end()-1); // the 5 central values of first
+		std_second.assign (std_it,std_first.end()-1); // the 5 central values of first
+
+		check_size(ft_second, std_second, flag);
+		check_flag(flag);
+		check_capacity(ft_second, std_second, flag);
+		check_flag(flag);
+		check_value(ft_second, std_second, flag);
+		check_flag(flag);
+
+		int myints[] = {1776,7,4};
+		ft_third.assign (myints,myints+3);
+		std_third.assign (myints,myints+3);
+
+		check_size(ft_third, std_third, flag);
+		check_flag(flag);
+		check_capacity(ft_third, std_third, flag);
+		check_flag(flag);
+		check_value(ft_third, std_third, flag);
+		check_flag(flag);
 	}
 #endif
 #ifdef T15

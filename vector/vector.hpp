@@ -59,6 +59,8 @@ class out_of_range : public std::logic_error {
 			~iterator() { }
 			reference operator*() const{ return *m_ptr;}
 			pointer operator->() const { return m_ptr; }
+			iterator & operator+(const int x) { m_ptr = m_ptr + x; return *this; }
+			iterator & operator-(const int x) { m_ptr = m_ptr - x; return *this; }
 			void operator++() { m_ptr++; }
 			void operator--() { m_ptr--; }
 			bool operator==(const iterator & rhs) { return m_ptr == rhs.m_ptr; }
@@ -268,6 +270,48 @@ class out_of_range : public std::logic_error {
 		size_type capacity() const { return _capacity; }
 		//empty
 		bool empty() const { return size() == 0; }
+		//assign
+		//range (1)
+		template <class InputIterator>
+		void assign (InputIterator first, InputIterator last, typename enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type *_if = 0) {
+			delete[] arr;
+			clear();
+
+			InputIterator tmp = first;
+			size_t i = 0;
+			while (tmp != last) {
+				i++;
+				++tmp;
+			}
+			_size = i;
+			_capacity = i;
+			arr = new value_type[_size];
+			i = 0;
+			while (first != last) {
+				arr[i] = *first;
+				++first;
+				i++;
+			}
+		}
+		//fill (2)
+		void assign (size_type n, const value_type& val) {
+			delete[] arr;
+			clear();
+
+			_size = n;
+			_capacity = n;
+			arr = new value_type[n];
+			int i = 0;
+			while (i < n) {
+				arr[i] = val;
+				i++;
+			}
+		}
+
+
+
+
+
 		//push_back
 		void push_back (const value_type& val) {
 			value_type *tmp = arr;
