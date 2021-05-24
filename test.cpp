@@ -12,7 +12,7 @@ int main() {
 	}
 	std::cout << v.size() << std::endl;
 	std::cout << v.capacity() << std::endl;
-	v.clear();
+	v.erase(v.begin());
 	std::cout << v.size() << std::endl;
 	std::cout << v.capacity() << std::endl;
 	return 0;

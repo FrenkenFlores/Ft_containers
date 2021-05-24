@@ -51,9 +51,9 @@ void check_value(ft::vector<T> &x, std::vector<T> &y, bool &flag) {
 		{
 			flag = false;
 			cout << LB << *ft_itb << " != " << *std_itb << CLEAN << std::endl;
-//			break;
+			break;
 		} else {
-			cout << P << *ft_itb << " == " << *std_itb << CLEAN << std::endl;
+//			cout << P << *ft_itb << " == " << *std_itb << CLEAN << std::endl;
 			flag = true;
 		}
 		++ft_itb;
@@ -73,9 +73,9 @@ void check_reverse_value(ft::vector<T> &x, std::vector<T> &y, bool &flag) {
 		{
 			flag = false;
 			cout << LB << *ft_itb << " != " << *std_itb << CLEAN << std::endl;
-//			break;
+			break;
 		} else {
-			cout << P << *ft_itb << " == " << *std_itb << CLEAN << std::endl;
+//			cout << P << *ft_itb << " == " << *std_itb << CLEAN << std::endl;
 			flag = true;
 		}
 		++ft_itb;
@@ -93,7 +93,7 @@ void check_size(ft::vector<T> &x, std::vector<T> &y, bool &flag) {
 		cout << LB << x.size() << " != " << y.size() << CLEAN << std::endl;
 	} else {
 		flag = true;
-		cout << P << x.size() << " == " << y.size() << CLEAN << std::endl;
+//		cout << P << x.size() << " == " << y.size() << CLEAN << std::endl;
 	}
 }
 
@@ -105,7 +105,7 @@ void check_capacity(ft::vector<T> &x, std::vector<T> &y, bool &flag) {
 		cout << LB << x.capacity() << " != " << y.capacity() << CLEAN << std::endl;
 	} else {
 		flag = true;
-		cout << P << x.capacity() << " == " << y.capacity() << CLEAN << std::endl;
+//		cout << P << x.capacity() << " == " << y.capacity() << CLEAN << std::endl;
 	}
 }
 
@@ -706,17 +706,103 @@ int main(void) {
 	{
 		PUT_STR(B"ERASE()");
 
+		std::vector<int> std;
+		std::vector<int>::iterator std_it;
+		ft::vector<int> ft;
+		ft::vector<int>::iterator ft_it;
+
+
+		// set some values (from 1 to 10)
+		for (int i=1; i<=10; i++) std.push_back(i);
+		for (int i=1; i<=10; i++) ft.push_back(i);
+
+		// erase the 6th element
+		std_it = std.erase (std.begin()+5);
+		ft_it = ft.erase (ft.begin()+5);
+		check_value(ft, std, flag);
+		check_flag(flag);
+		check_size(ft, std, flag);
+		check_flag(flag);
+		check_capacity(ft, std, flag);
+		check_flag(flag);
+		if (*ft_it == *std_it) {
+//			std::cout << *ft_it << " == " << *std_it << std::endl;
+			PUT_STR(OK);
+		} else {
+			std::cout << *ft_it << " != " << *std_it << std::endl;
+			PUT_STR(KO);
+		}
+//		 erase the first 3 elements:
+		std_it = std.erase (std.begin(),std.begin()+3);
+		ft_it = ft.erase (ft.begin(),ft.begin()+3);
+		check_value(ft, std, flag);
+		check_flag(flag);
+		check_size(ft, std, flag);
+		check_flag(flag);
+		check_capacity(ft, std, flag);
+		check_flag(flag);
+
+		if (*ft_it == *std_it) {
+//			std::cout << *ft_it << " === " << *std_it << std::endl;
+			PUT_STR(OK);
+		} else {
+//			std::cout << *ft_it << " !== " << *std_it << std::endl;
+			PUT_STR(KO);
+		}
 	}
 #endif
 #ifdef T19
 	{
 		PUT_STR(B"SWAP()");
+		ft::vector<int> ft_foo (3,100);   // three ints with a value of 100
+		std::vector<int> std_foo (3,100);   // three ints with a value of 100
 
+		ft::vector<int> ft_bar (5,200);   // five ints with a value of 200
+		std::vector<int> std_bar (5,200);   // five ints with a value of 200
+
+		ft_foo.swap(ft_bar);
+		std_foo.swap(std_bar);
+		check_value(ft_foo, std_foo, flag);
+		check_flag(flag);
+		check_value(ft_bar, std_bar, flag);
+		check_flag(flag);
+		check_size(ft_foo, std_foo, flag);
+		check_flag(flag);
+		check_size(ft_bar, std_bar, flag);
+		check_flag(flag);
+		check_capacity(ft_foo, std_foo, flag);
+		check_flag(flag);
+		check_capacity(ft_bar, std_bar, flag);
+		check_flag(flag);
 	}
 #endif
 #ifdef T20
 	{
 		PUT_STR(B"CLEAR()");
+		std::vector<int> std;
+		std.push_back (100);
+		std.push_back (200);
+		std.push_back (300);
+
+		ft::vector<int> ft;
+		ft.push_back (100);
+		ft.push_back (200);
+		ft.push_back (300);
+
+		std.clear();
+		std.push_back (1101);
+		std.push_back (2202);
+
+		ft.clear();
+		ft.push_back (1101);
+		ft.push_back (2202);
+
+		check_value(ft, std, flag);
+		check_flag(flag);
+		check_size(ft, std, flag);
+		check_flag(flag);
+		check_capacity(ft, std, flag);
+		check_flag(flag);
 
 	}
 #endif

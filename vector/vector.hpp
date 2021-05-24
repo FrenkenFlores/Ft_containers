@@ -4,6 +4,7 @@
 #include <memory>
 #include <stdexcept>
 #include <type_traits>
+#include <iostream>
 
 namespace ft {
 
@@ -195,7 +196,6 @@ class out_of_range : public std::logic_error {
 
 		//destructor
 		~vector() {
-			delete[] arr;
 			clear();
 		}
 
@@ -209,11 +209,6 @@ class out_of_range : public std::logic_error {
 			for (int i = 0; i < _size; i++)
 				arr[i] = it_b[i];
 			return *this;
-		}
-		//clear
-		void clear() {
-			_size = 0;
-			_capacity = 0;
 		}
 		//reserve
 		void reserve (size_type n) {
@@ -270,8 +265,7 @@ class out_of_range : public std::logic_error {
 		size_type capacity() const { return _capacity; }
 		//empty
 		bool empty() const { return size() == 0; }
-		//assign
-		//range (1)
+		//assign[range (1)]
 		template <class InputIterator>
 		void assign (InputIterator first, InputIterator last, typename enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type *_if = 0) {
 			delete[] arr;
@@ -293,7 +287,7 @@ class out_of_range : public std::logic_error {
 				i++;
 			}
 		}
-		//fill (2)
+		//assign[fill (2)]
 		void assign (size_type n, const value_type& val) {
 			delete[] arr;
 			clear();
@@ -329,7 +323,7 @@ class out_of_range : public std::logic_error {
 			arr[this->size() - 1] = tmp;
 			_size--;
 		}
-//		single element (1)
+//		insert[single element (1)]
 		iterator insert (iterator position, const value_type& val) {
 			size_t j = 0;
 			size_t i = 0;
@@ -358,7 +352,7 @@ class out_of_range : public std::logic_error {
 			delete []tmp;
 			return (iterator(arr + j));
 		}
-//		fill (2)
+//		insert[fill (2)]
 		void insert (iterator position, size_type n, const value_type& val) {
 			iterator it = position;
 			while (n != 0) {
@@ -367,7 +361,7 @@ class out_of_range : public std::logic_error {
 				--n;
 			}
 		}
-//		range (3)
+//		insert[range (3)]
 		template <class InputIterator>
 		void insert (iterator position, InputIterator first, InputIterator last, typename enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type *_if = 0){
 			iterator it = position;
@@ -376,6 +370,65 @@ class out_of_range : public std::logic_error {
 				++first;
 				++it;
 			}
+		}
+		//erase
+		iterator erase (iterator position) {
+			size_t j = 0;
+			size_t i = 0;
+			size_t k = 0;
+			iterator last = end();
+			iterator first = begin();
+			value_type *tmp = arr;
+			arr = new value_type[_capacity];
+			while (first != last) {
+				if (first == position)
+				{
+					k = j;
+					j++;
+				}
+				arr[i] = tmp[j];
+				++j;
+				++i;
+				++first;
+			}
+			--_size;
+			delete []tmp;
+			return (iterator(arr + k));
+		}
+		iterator erase (iterator f, iterator l) {
+			size_t j = 0;
+			size_t i = 0;
+			iterator last = end();
+			iterator first = begin();
+			value_type *tmp = arr;
+			arr = new value_type[_capacity];
+			while (first != last) {
+				if (f == first) {
+					while (l != first){
+						j++;
+						++first;
+						--_size;
+					}
+				}
+				arr[i] = tmp[j];
+				++j;
+				++i;
+				++first;
+			}
+			delete []tmp;
+			return (iterator(arr));
+		}
+		//swap
+		void swap (vector& x) {
+			vector y = x;
+			x = *this;
+			*this = y;
+		}
+		//clear
+		void clear() {
+			delete[] arr;
+			arr = new value_type[_capacity];
+			_size = 0;
 		}
 	};
 
