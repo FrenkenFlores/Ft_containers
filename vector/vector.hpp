@@ -6,13 +6,13 @@
 
 namespace ft {
 
-//	template<bool B, class T = void>
-//	struct enable_if {};
-//
-//	template<class T>
-//	struct enable_if<true, T> { typedef T type; };
+	template <bool>
+	struct enable_if {};
 
-
+	template <>
+	struct enable_if<true> {
+		typedef void type;
+	};
 
 
 
@@ -166,6 +166,8 @@ namespace ft {
 		vector (InputIterator first, InputIterator last,
 		const allocator_type& alloc = allocator_type(), typename ft::enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type *_if = 0) {
 			iterator tmp = first;
+			_size = 0;
+			_capacity = 0;
 			while (tmp != last) {
 				++tmp;
 				_size++;
@@ -185,6 +187,7 @@ namespace ft {
 				arr[i] = it_b[i];
 		}
 
+		//destructor
 		~vector() {
 			clear();
 		}
@@ -242,9 +245,9 @@ namespace ft {
 			}
 		}
 
-
 		void pop_back() {
-			delete &arr[_size];
+			T tmp;
+			arr[this->size() - 1] = tmp;
 			_size--;
 		}
 

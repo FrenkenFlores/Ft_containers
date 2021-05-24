@@ -110,7 +110,7 @@ void check_capacity(ft::vector<T> &x, std::vector<T> &y, bool &flag) {
 }
 
 int main(void) {
-	bool flag = false;
+	bool flag = true;
 #ifdef T1
 	{
 		PUT_STR(B"CONSTRUCTOR[default (1)]");
@@ -372,15 +372,12 @@ int main(void) {
 		for (int i = 0; i < 10; i++)
 			ft.push_back(i);
 
-		check_value(ft, std, flag);
-		check_flag(flag);
-		check_size(ft, std, flag);
-		check_flag(flag);
-		check_capacity(ft, std, flag);
-		check_flag(flag);
-
-		ft.push_back(50);
-		std.push_back(50);
+		for (int i = 0; i < 5; ++i) {
+			ft.pop_back();
+		}
+		for (int i = 0; i < 5; ++i) {
+			std.pop_back();
+		}
 		check_value(ft, std, flag);
 		check_flag(flag);
 		check_size(ft, std, flag);

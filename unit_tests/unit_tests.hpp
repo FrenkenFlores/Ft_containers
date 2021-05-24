@@ -1,12 +1,12 @@
 #pragma once
 
-#include "../list/list.hpp"
+//#include "../list/list.hpp"
 #include "../vector/vector.hpp"
 
 #include <type_traits>
 #include <list>
 #include <vector>
-
+#include <iostream>
 
 #define OK "\e[0;32mOK\e[0;0m"
 #define KO "\e[0;31mKO\e[0;0m"
