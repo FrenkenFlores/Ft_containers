@@ -29,6 +29,18 @@ bool insert_node(node **root, int const data) {
 	}
 }
 
+bool find_node(const node *root, const int data) {
+	if (root == NULL)
+		return false;
+	if (root->data == data)
+		return true;
+	if (root->data > data)
+		return find_node(root->left, data);
+	else
+		return find_node(root->right, data);
+	return false;
+}
+
 void print_tree(node *root, int level = 0) {
 	if (root == NULL) {
 		for(int i = 0; i < level; i++) std::cout << '\t';
@@ -54,8 +66,9 @@ int main() {
 	insert_node(&root, 1);
 	insert_node(&root, 15);
 	insert_node(&root, 11);
-
 	print_tree(root);
+	std::cout << "10: " << find_node(root, 10) << std::endl;
+	std::cout << "500: " << find_node(root, 500) << std::endl;
 	return (0);
 }
 
