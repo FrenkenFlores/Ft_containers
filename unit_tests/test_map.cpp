@@ -31,36 +31,36 @@
 using namespace std;
 
 
-//void check_flag(bool flag) {
-//	if (flag == true)
-//		PUT_STR(OK);
-//	else
-//		PUT_STR(KO);
-//	flag = false;
-//}
-//
-//template <typename T>
-//void check_value(ft::vector<T> &x, std::vector<T> &y, bool &flag) {
-//	typename ft::vector<T>::iterator ft_itb = x.begin();
-//	typename ft::vector<T>::iterator ft_ite = x.end();
-//	typename std::vector<T>::iterator std_itb = y.begin();
-//	typename std::vector<T>::iterator std_ite = y.end();
-//	while (ft_itb != ft_ite)
-//	{
-//		if (*ft_itb != *std_itb)
-//		{
-//			flag = false;
-//			cout << LB << *ft_itb << " != " << *std_itb << CLEAN << std::endl;
-//			break;
-//		} else {
-////			cout << P << *ft_itb << " == " << *std_itb << CLEAN << std::endl;
-//			flag = true;
-//		}
-//		++ft_itb;
-//		++std_itb;
-//	}
-//}
-//
+void check_flag(bool flag) {
+	if (flag == true)
+		PUT_STR(OK);
+	else
+		PUT_STR(KO);
+	flag = false;
+}
+
+template <typename T, typename U>
+void check_value(ft::map<T, U> &x, std::map<T, U> &y, bool &flag) {
+	typename ft::map<T, U>::iterator ft_itb = x.begin();
+	typename ft::map<T, U>::iterator ft_ite = x.end();
+	typename std::map<T, U>::iterator std_itb = y.begin();
+	typename std::map<T, U>::iterator std_ite = y.end();
+	while (ft_itb != ft_ite)
+	{
+		if (ft_itb->first != std_itb->first && ft_itb->second != std_itb->second)
+		{
+			flag = false;
+			cout << LB << ft_itb->first << ":" << ft_itb->second << " != " << std_itb->first << ":" << std_itb->second << CLEAN << std::endl;
+			break;
+		} else {
+			cout << P << ft_itb->first << ":" << ft_itb->second << " == " << std_itb->first << ":" << std_itb->second << CLEAN << std::endl;
+			flag = true;
+		}
+		++ft_itb;
+		++std_itb;
+	}
+}
+
 //template <typename T>
 //void check_reverse_value(ft::vector<T> &x, std::vector<T> &y, bool &flag) {
 //	typename ft::vector<T>::reverse_iterator ft_itb = x.rbegin();
@@ -82,72 +82,59 @@ using namespace std;
 //		++std_itb;
 //	}
 //}
-//
-//
-//
-//template <typename T>
-//void check_size(ft::vector<T> &x, std::vector<T> &y, bool &flag) {
-//	if (x.size() != y.size())
-//	{
-//		flag = false;
-//		cout << LB << x.size() << " != " << y.size() << CLEAN << std::endl;
-//	} else {
-//		flag = true;
-////		cout << P << x.size() << " == " << y.size() << CLEAN << std::endl;
-//	}
-//}
-//
-//template <typename T>
-//void check_capacity(ft::vector<T> &x, std::vector<T> &y, bool &flag) {
-//	if (x.capacity() != y.capacity())
-//	{
-//		flag = false;
-//		cout << LB << x.capacity() << " != " << y.capacity() << CLEAN << std::endl;
-//	} else {
-//		flag = true;
-////		cout << P << x.capacity() << " == " << y.capacity() << CLEAN << std::endl;
-//	}
-//}
+
+template <typename T, typename U>
+void check_size(ft::map<T, U> &x, std::map<T, U> &y, bool &flag) {
+	if (x.size() != y.size())
+	{
+		flag = false;
+		cout << LB << x.size() << " != " << y.size() << CLEAN << std::endl;
+	} else {
+		flag = true;
+		cout << P << x.size() << " == " << y.size() << CLEAN << std::endl;
+	}
+}
+
+
+
+//for map constructor testing
+bool fncomp (char lhs, char rhs) {return lhs<rhs;}
+
+struct classcomp {
+	bool operator() (const char& lhs, const char& rhs) const
+	{return lhs<rhs;}
+};
 
 int main(void) {
 	bool flag = true;
 #ifdef T1
 	{
 //		PUT_STR(B"CONSTRUCTOR[default (1)]");
-		ft::map<int, int> _map;
-		_map.insert ( std::pair<int,int>(2,200) );
-		_map.insert ( std::pair<int,int>(3,300) );
-		_map.insert ( std::pair<int,int>(4,400) );
-		_map.insert ( std::pair<int,int>(5,500) );
-		_map.insert ( std::pair<int,int>(1,100) );
-		ft::map<int, int>::iterator it = _map.begin();
-		std::cout << it->first << "   " << it->second << std::endl;
-		++it;
-		std::cout << it->first << "   " << it->second << std::endl;
-		++it;
-		std::cout << it->first << "   " << it->second << std::endl;
-		++it;
-		std::cout << it->first << "   " << it->second << std::endl;
-		++it;
-		std::cout << it->first << "   " << it->second << std::endl;
-		++it;
-		std::cout << it->first << "   " << it->second << std::endl;
-		++it;
-		std::cout << it->first << "   " << it->second << std::endl;
-		++it;
-		std::cout << it->first << "   " << it->second << std::endl;
-		--it;
-		std::cout << it->first << "   " << it->second << std::endl;
-		--it;
-		std::cout << it->first << "   " << it->second << std::endl;
-		--it;
-		std::cout << it->first << "   " << it->second << std::endl;
-		--it;
-		std::cout << it->first << "   " << it->second << std::endl;
-		--it;
-		std::cout << it->first << "   " << it->second << std::endl;
-		--it;
-//		_map.DUMP(_map.get_root());
+		std::map<char,int> std_first;
+		ft::map<char,int> ft_first;
+
+		std_first['a']=10;
+		std_first['b']=30;
+		std_first['c']=50;
+		std_first['d']=70;
+
+		ft_first['a']=10;
+		ft_first['b']=30;
+		ft_first['c']=50;
+		ft_first['d']=70;
+
+		std::map<char,int> std_second (std_first.begin(),std_first.end());
+		ft::map<char,int> ft_second (ft_first.begin(),ft_first.end());
+
+		std::map<char,int> std_third (std_second);
+		ft::map<char,int> ft_third (ft_second);
+
+		std::map<char,int,classcomp> std_fourth;                 // class as Compare
+		ft::map<char,int,classcomp> ft_fourth;                 // class as Compare
+
+		bool(*fn_pt)(char,char) = fncomp;
+		std::map<char,int,bool(*)(char,char)> std_fifth (fn_pt);
+		ft::map<char,int,bool(*)(char,char)> ft_fifth (fn_pt);
 
 	}
 #endif

@@ -99,10 +99,12 @@ namespace ft {
 				node_pointer tmp = m_ptr;
 				for (int i = 0; i < index; ++i)
 				{
-					if (m_ptr->data.first > m_ptr->left->data.first)
-						m_ptr = m_ptr->right;
-					else
-						m_ptr = m_ptr->left;
+					if (tmp->prev == nullptr)		// if next node is root
+						tmp = tmp->right;
+					else if (tmp == tmp->prev->left)	// if next node is prev
+						tmp = tmp->prev;
+					else if (tmp->right != nullptr)		// if next node is the right element
+						tmp = tmp->right;
 				}
 				return tmp->data;
 			}
@@ -150,6 +152,14 @@ namespace ft {
 			return iterator(ptr);
 		}
 
+//		end()
+		iterator end() {
+			node *ptr = root;
+			while (ptr->right != nullptr) {
+				ptr = ptr->right;
+			}
+			return iterator(ptr);
+		}
 
 //		insert[single element (1)]
 		std::pair<Key, T> insert(const value_type &val) {
@@ -195,6 +205,33 @@ namespace ft {
 
 		node *get_root() {
 			return root;
+		}
+
+		mapped_type& operator[] (const key_type& k) {
+			iterator it = find(k);
+			return it->second;
+		}
+
+
+
+		iterator find (const key_type& k) {
+			node *ptr = root;
+			while (ptr != nullptr) {
+				if (ptr->data.first == k)
+					return iterator(ptr);
+				if (ptr->data.first < k) {
+					if (ptr->right == nullptr) {
+						return end();
+					}
+					ptr = ptr->right;
+				} else {
+					if (ptr->left == nullptr) {
+						return end();
+					}
+					ptr = ptr->left;
+				}
+			}
+			return end();
 		}
 ////		insert[with hint (2)]
 //		iterator insert (iterator position, const value_type& val);

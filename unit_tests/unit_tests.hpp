@@ -7,6 +7,7 @@
 #include <type_traits>
 #include <list>
 #include <vector>
+#include <map>
 #include <iostream>
 #include <stdexcept>
 
