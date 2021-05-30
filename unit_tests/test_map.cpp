@@ -120,8 +120,34 @@ int main(void) {
 		_map.insert ( std::pair<int,int>(4,400) );
 		_map.insert ( std::pair<int,int>(5,500) );
 		_map.insert ( std::pair<int,int>(1,100) );
-
-		_map.DUMP(_map.get_root());
+		ft::map<int, int>::iterator it = _map.begin();
+		std::cout << it->first << "   " << it->second << std::endl;
+		++it;
+		std::cout << it->first << "   " << it->second << std::endl;
+		++it;
+		std::cout << it->first << "   " << it->second << std::endl;
+		++it;
+		std::cout << it->first << "   " << it->second << std::endl;
+		++it;
+		std::cout << it->first << "   " << it->second << std::endl;
+		++it;
+		std::cout << it->first << "   " << it->second << std::endl;
+		++it;
+		std::cout << it->first << "   " << it->second << std::endl;
+		++it;
+		std::cout << it->first << "   " << it->second << std::endl;
+		--it;
+		std::cout << it->first << "   " << it->second << std::endl;
+		--it;
+		std::cout << it->first << "   " << it->second << std::endl;
+		--it;
+		std::cout << it->first << "   " << it->second << std::endl;
+		--it;
+		std::cout << it->first << "   " << it->second << std::endl;
+		--it;
+		std::cout << it->first << "   " << it->second << std::endl;
+		--it;
+//		_map.DUMP(_map.get_root());
 
 	}
 #endif
