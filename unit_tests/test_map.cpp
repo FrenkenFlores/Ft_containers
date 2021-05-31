@@ -113,28 +113,45 @@ int main(void) {
 		std::map<char,int> std_first;
 		ft::map<char,int> ft_first;
 
-		std_first['a']=10;
-		std_first['b']=30;
-		std_first['c']=50;
-		std_first['d']=70;
+//		std_first['a']=10;
+//		std_first['b']=30;
+//		std_first['c']=50;
+//		std_first['d']=70;
 
-		ft_first['a']=10;
-		ft_first['b']=30;
-		ft_first['c']=50;
-		ft_first['d']=70;
+//		std::cout << ft_first.insert(std::pair<char, int>('a', 10)).first << "/" << ft_first.insert(std::pair<char, int>('a', 10)).second << std::endl;
+		std::cout << std_first.insert(std::pair<char, int>('a', 10)).first << "/" << std_first.insert(std::pair<char, int>('a', 10)).second << std::endl;
 
-		std::map<char,int> std_second (std_first.begin(),std_first.end());
-		ft::map<char,int> ft_second (ft_first.begin(),ft_first.end());
+//		ft_first.insert(std::pair<char, int>('a', 10));
+//		ft_first.insert(std::pair<char, int>('b', 20));
+//		ft_first.insert(std::pair<char, int>('c', 30));
+//		ft_first.insert(std::pair<char, int>('d', 40));
 
-		std::map<char,int> std_third (std_second);
-		ft::map<char,int> ft_third (ft_second);
+//		ft::map<char,int>::iterator it = ft_first.find('a');
+//		std::cout << it->first << "/" << it->second << std::endl;
 
-		std::map<char,int,classcomp> std_fourth;                 // class as Compare
-		ft::map<char,int,classcomp> ft_fourth;                 // class as Compare
+//		ft_first['a']=10;
+//		ft_first['b']=30;
+//		ft_first['c']=50;
+//		ft_first['d']=70;
+//
+//		int j = ft_first['a'];
+//
+//		ft::map<char,int>::iterator it = ft_first.find('d');
+//		std::cout << it->first << "/" << it->second << std::endl;
 
-		bool(*fn_pt)(char,char) = fncomp;
-		std::map<char,int,bool(*)(char,char)> std_fifth (fn_pt);
-		ft::map<char,int,bool(*)(char,char)> ft_fifth (fn_pt);
+
+//		std::map<char,int> std_second (std_first.begin(),std_first.end());
+//		ft::map<char,int> ft_second (ft_first.begin(),ft_first.end());
+//
+//		std::map<char,int> std_third (std_second);
+//		ft::map<char,int> ft_third (ft_second);
+//
+//		std::map<char,int,classcomp> std_fourth;                 // class as Compare
+//		ft::map<char,int,classcomp> ft_fourth;                 // class as Compare
+//
+//		bool(*fn_pt)(char,char) = fncomp;
+//		std::map<char,int,bool(*)(char,char)> std_fifth (fn_pt);
+//		ft::map<char,int,bool(*)(char,char)> ft_fifth (fn_pt);
 
 	}
 #endif

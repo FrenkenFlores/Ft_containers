@@ -146,6 +146,8 @@ namespace ft {
 //		begin()
 		iterator begin() {
 			node *ptr = root;
+			if (ptr == nullptr)
+				return iterator(nullptr);
 			while (ptr->left != nullptr) {
 				ptr = ptr->left;
 			}
@@ -155,6 +157,8 @@ namespace ft {
 //		end()
 		iterator end() {
 			node *ptr = root;
+			if (ptr == nullptr)
+				return iterator(nullptr);
 			while (ptr->right != nullptr) {
 				ptr = ptr->right;
 			}
@@ -162,7 +166,32 @@ namespace ft {
 		}
 
 //		insert[single element (1)]
-		std::pair<Key, T> insert(const value_type &val) {
+//		std::pair<Key, T> &insert(const value_type &val) {
+//			value_compare func;
+//			if (root == nullptr) {
+//				root = new node(val, nullptr, nullptr, nullptr);
+//				return root->data;
+//			}
+//			node *ptr = root;
+//			while (ptr != nullptr) {
+//				if (func(ptr->data, val)) {
+//					if (ptr->right == nullptr) {
+//						ptr->right = new node(val, ptr, nullptr, nullptr);
+//						break;
+//					}
+//					ptr = ptr->right;
+//				} else {
+//					if (ptr->left == nullptr) {
+//						ptr->left = new node(val, ptr, nullptr, nullptr);
+//						break;
+//					}
+//					ptr = ptr->left;
+//				}
+//			}
+//			return ptr->data;
+//		}
+
+		std::pair<iterator, bool> &insert(const value_type &val) {
 			value_compare func;
 			if (root == nullptr) {
 				root = new node(val, nullptr, nullptr, nullptr);
@@ -208,8 +237,17 @@ namespace ft {
 		}
 
 		mapped_type& operator[] (const key_type& k) {
+			std::cout << "HHH" << std::endl;
 			iterator it = find(k);
-			return it->second;
+			if (it == end()) {		// if the element dose not exist
+				std::cout << "XXX" << std::endl;
+				value_type tmp = value_type(k, mapped_type());
+				std::cout << tmp.first << " " << tmp.second << std::endl;
+				return (insert(tmp).second);
+			}
+			std::cout << "YYY" << std::endl;
+
+			return find(k)->second; // if it already exists
 		}
 
 
