@@ -191,29 +191,35 @@ namespace ft {
 //			return ptr->data;
 //		}
 
-		std::pair<iterator, bool> &insert(const value_type &val) {
+		std::pair<iterator, bool> insert(const value_type &val) {
 			value_compare func;
+			iterator it;
+			if ((it = find(val.first)) != end()) {
+				return (std::pair<iterator, bool>(it, false));
+			}
 			if (root == nullptr) {
 				root = new node(val, nullptr, nullptr, nullptr);
-				return root->data;
+				return (std::pair<iterator, bool>(iterator(root), true));
 			}
 			node *ptr = root;
 			while (ptr != nullptr) {
 				if (func(ptr->data, val)) {
 					if (ptr->right == nullptr) {
 						ptr->right = new node(val, ptr, nullptr, nullptr);
+						ptr = ptr->right;
 						break;
 					}
 					ptr = ptr->right;
 				} else {
 					if (ptr->left == nullptr) {
 						ptr->left = new node(val, ptr, nullptr, nullptr);
+						ptr = ptr->left;
 						break;
 					}
 					ptr = ptr->left;
 				}
 			}
-			return ptr->data;
+			return (std::pair<iterator, bool>(iterator(ptr), true));
 		}
 
 		void DUMP (node *ptr, int level = 0) {
@@ -237,16 +243,12 @@ namespace ft {
 		}
 
 		mapped_type& operator[] (const key_type& k) {
-			std::cout << "HHH" << std::endl;
 			iterator it = find(k);
 			if (it == end()) {		// if the element dose not exist
-				std::cout << "XXX" << std::endl;
 				value_type tmp = value_type(k, mapped_type());
 				std::cout << tmp.first << " " << tmp.second << std::endl;
-				return (insert(tmp).second);
+				return (insert(tmp).first->second);
 			}
-			std::cout << "YYY" << std::endl;
-
 			return find(k)->second; // if it already exists
 		}
 

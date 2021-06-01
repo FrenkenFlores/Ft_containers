@@ -118,8 +118,8 @@ int main(void) {
 //		std_first['c']=50;
 //		std_first['d']=70;
 
-//		std::cout << ft_first.insert(std::pair<char, int>('a', 10)).first << "/" << ft_first.insert(std::pair<char, int>('a', 10)).second << std::endl;
-		std::cout << std_first.insert(std::pair<char, int>('a', 10)).first << "/" << std_first.insert(std::pair<char, int>('a', 10)).second << std::endl;
+//		std::cout << ft_first.insert(std::pair<char, int>('a', 10)).first->first << "/" << ft_first.insert(std::pair<char, int>('a', 10)).first->second << std::endl;
+//		std::cout << std_first.insert(std::pair<char, int>('a', 10)).first->first << "/" << std_first.insert(std::pair<char, int>('a', 10)).first->second << std::endl;
 
 //		ft_first.insert(std::pair<char, int>('a', 10));
 //		ft_first.insert(std::pair<char, int>('b', 20));
@@ -129,15 +129,15 @@ int main(void) {
 //		ft::map<char,int>::iterator it = ft_first.find('a');
 //		std::cout << it->first << "/" << it->second << std::endl;
 
-//		ft_first['a']=10;
-//		ft_first['b']=30;
-//		ft_first['c']=50;
-//		ft_first['d']=70;
+		ft_first['a']=10;
+		ft_first['b']=30;
+		ft_first['c']=50;
+		ft_first['d']=70;
 //
 //		int j = ft_first['a'];
 //
-//		ft::map<char,int>::iterator it = ft_first.find('d');
-//		std::cout << it->first << "/" << it->second << std::endl;
+		ft::map<char,int>::iterator it = ft_first.find('a');
+		std::cout << it->first << "/" << it->second << std::endl;
 
 
 //		std::map<char,int> std_second (std_first.begin(),std_first.end());
