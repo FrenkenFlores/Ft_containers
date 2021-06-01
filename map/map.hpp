@@ -84,13 +84,14 @@ namespace ft {
 				else if (m_ptr->right != nullptr)		// if next node is the right element
 					m_ptr = m_ptr->right;
 			}
-			void operator--() {			//counter clockwise
+			iterator operator--() {			//counter clockwise
 				if (m_ptr->prev == nullptr)		// if prev node is root
 					m_ptr = m_ptr->left;
 				else if (m_ptr == m_ptr->prev->right)	// if prev node is prev
 					m_ptr = m_ptr->prev;
 				else if (m_ptr->left != nullptr)		// if prev node is the left element
 					m_ptr = m_ptr->left;
+				return *this;
 			}
 			bool operator==(const iterator & rhs) { return this->m_ptr == rhs.m_ptr; }
 			bool operator!=(const iterator & rhs) { return this->m_ptr != rhs.m_ptr; }
@@ -132,15 +133,24 @@ namespace ft {
 		map (InputIterator first, InputIterator last,
 			 const key_compare& comp = key_compare(),
 			 const allocator_type& alloc = allocator_type()) {
+			root = nullptr;
+			count = 0;
 			while (first != last) {
-				insert(*first);
+				insert(value_type(first->first, first->second));
 				++first;
 			}
 		}
-////		constructor[copy (3)]
-//		map (const map& x) {
-//
-//		}
+//		constructor[copy (3)]
+		map (const map& x) {
+			iterator first = begin();
+			iterator last = end();
+			root = nullptr;
+			count = 0;
+			while (first != last) {
+				insert(value_type(first->first, first->second));
+				++first;
+			}
+		}
 
 
 //		begin()
@@ -163,6 +173,12 @@ namespace ft {
 				ptr = ptr->right;
 			}
 			return iterator(ptr);
+		}
+
+
+//		size()
+		size_type size() const {
+			return count;
 		}
 
 //		insert[single element (1)]
@@ -191,21 +207,25 @@ namespace ft {
 //			return ptr->data;
 //		}
 
+
 		std::pair<iterator, bool> insert(const value_type &val) {
 			value_compare func;
 			iterator it;
-			if ((it = find(val.first)) != end()) {
+			if ((it = find(val.first)) != end()) {			//if the element exist
 				return (std::pair<iterator, bool>(it, false));
 			}
-			if (root == nullptr) {
-				root = new node(val, nullptr, nullptr, nullptr);
+			if (root == nullptr) {						//if the element is the first node
+				root = new node(val, nullptr, nullptr, (new node(value_type(), root, nullptr, nullptr)));		// the most right element (aka last element) is always an empty node
+				count++;
 				return (std::pair<iterator, bool>(iterator(root), true));
 			}
 			node *ptr = root;
 			while (ptr != nullptr) {
 				if (func(ptr->data, val)) {
-					if (ptr->right == nullptr) {
-						ptr->right = new node(val, ptr, nullptr, nullptr);
+					if (ptr->right->right == nullptr) {
+						delete ptr->right;
+						ptr->right = new node(val, ptr, nullptr, (new node(value_type(), ptr->right, nullptr, nullptr)));		// the most right element (aka last element) is always an empty node
+						count++;
 						ptr = ptr->right;
 						break;
 					}
@@ -213,6 +233,7 @@ namespace ft {
 				} else {
 					if (ptr->left == nullptr) {
 						ptr->left = new node(val, ptr, nullptr, nullptr);
+						count++;
 						ptr = ptr->left;
 						break;
 					}
@@ -221,6 +242,47 @@ namespace ft {
 			}
 			return (std::pair<iterator, bool>(iterator(ptr), true));
 		}
+
+
+//		std::pair<iterator, bool> insert(const value_type &val) {
+//			value_compare func;
+//			iterator it;
+//			if ((it = find(val.first)) != end()) {			//if the element exist
+//				return (std::pair<iterator, bool>(it, false));
+//			}
+//			if (root == nullptr) {						//if the element is the first node
+//				root = new node(val, nullptr, nullptr, nullptr);
+//				count++;
+//				return (std::pair<iterator, bool>(iterator(root), true));
+//			}
+//			node *ptr = root;
+//			while (ptr != nullptr) {
+//				if (func(ptr->data, val)) {
+//					if (ptr->right == nullptr) {
+//						ptr->right = new node(val, ptr, nullptr, nullptr);
+//						count++;
+//						ptr = ptr->right;
+//						break;
+//					}
+//					ptr = ptr->right;
+//				} else {
+//					if (ptr->left == nullptr) {
+//						ptr->left = new node(val, ptr, nullptr, nullptr);
+//						count++;
+//						ptr = ptr->left;
+//						break;
+//					}
+//					ptr = ptr->left;
+//				}
+//			}
+//			return (std::pair<iterator, bool>(iterator(ptr), true));
+//		}
+
+////		insert[with hint (2)]
+//		iterator insert (iterator position, const value_type& val);
+////		insert[range (3)]
+//		template <class InputIterator>
+//		void insert (InputIterator first, InputIterator last);
 
 		void DUMP (node *ptr, int level = 0) {
 			if (ptr == nullptr) {
@@ -246,7 +308,6 @@ namespace ft {
 			iterator it = find(k);
 			if (it == end()) {		// if the element dose not exist
 				value_type tmp = value_type(k, mapped_type());
-				std::cout << tmp.first << " " << tmp.second << std::endl;
 				return (insert(tmp).first->second);
 			}
 			return find(k)->second; // if it already exists
@@ -273,11 +334,7 @@ namespace ft {
 			}
 			return end();
 		}
-////		insert[with hint (2)]
-//		iterator insert (iterator position, const value_type& val);
-////		insert[range (3)]
-//		template <class InputIterator>
-//		void insert (InputIterator first, InputIterator last);
+
 	};
 
 }

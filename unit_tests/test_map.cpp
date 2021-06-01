@@ -28,6 +28,17 @@
 //#define T27
 //#define T28
 
+
+
+
+//		std::cout << ft_first.insert(std::pair<char, int>('a', 10)).first->first << "/" << ft_first.insert(std::pair<char, int>('a', 10)).first->second << std::endl;
+//		std::cout << std_first.insert(std::pair<char, int>('a', 10)).first->first << "/" << std_first.insert(std::pair<char, int>('a', 10)).first->second << std::endl;
+
+//		ft_first.insert(std::pair<char, int>('a', 10));
+//		ft_first.insert(std::pair<char, int>('b', 20));
+//		ft_first.insert(std::pair<char, int>('c', 30));
+//		ft_first.insert(std::pair<char, int>('d', 40));
+
 using namespace std;
 
 
@@ -45,7 +56,7 @@ void check_value(ft::map<T, U> &x, std::map<T, U> &y, bool &flag) {
 	typename ft::map<T, U>::iterator ft_ite = x.end();
 	typename std::map<T, U>::iterator std_itb = y.begin();
 	typename std::map<T, U>::iterator std_ite = y.end();
-	while (ft_itb != ft_ite)
+	while (ft_itb != ft_ite && std_itb != std_ite)
 	{
 		if (ft_itb->first != std_itb->first && ft_itb->second != std_itb->second)
 		{
@@ -109,50 +120,49 @@ int main(void) {
 	bool flag = true;
 #ifdef T1
 	{
-//		PUT_STR(B"CONSTRUCTOR[default (1)]");
+		PUT_STR(B"CONSTRUCTOR[default (1)]");
 		std::map<char,int> std_first;
 		ft::map<char,int> ft_first;
 
-//		std_first['a']=10;
-//		std_first['b']=30;
-//		std_first['c']=50;
-//		std_first['d']=70;
+		check_value(ft_first, std_first, flag);
+		check_flag(flag);
+		check_size(ft_first, std_first, flag);
+		check_flag(flag);
 
-//		std::cout << ft_first.insert(std::pair<char, int>('a', 10)).first->first << "/" << ft_first.insert(std::pair<char, int>('a', 10)).first->second << std::endl;
-//		std::cout << std_first.insert(std::pair<char, int>('a', 10)).first->first << "/" << std_first.insert(std::pair<char, int>('a', 10)).first->second << std::endl;
-
-//		ft_first.insert(std::pair<char, int>('a', 10));
-//		ft_first.insert(std::pair<char, int>('b', 20));
-//		ft_first.insert(std::pair<char, int>('c', 30));
-//		ft_first.insert(std::pair<char, int>('d', 40));
-
-//		ft::map<char,int>::iterator it = ft_first.find('a');
-//		std::cout << it->first << "/" << it->second << std::endl;
+		PUT_STR(B"CONSTRUCTOR[range (2)]");
+		std_first['a']=10;
+		std_first['b']=30;
+		std_first['c']=50;
+		std_first['d']=70;
 
 		ft_first['a']=10;
 		ft_first['b']=30;
 		ft_first['c']=50;
 		ft_first['d']=70;
-//
-//		int j = ft_first['a'];
-//
-		ft::map<char,int>::iterator it = ft_first.find('a');
-		std::cout << it->first << "/" << it->second << std::endl;
 
 
-//		std::map<char,int> std_second (std_first.begin(),std_first.end());
-//		ft::map<char,int> ft_second (ft_first.begin(),ft_first.end());
-//
-//		std::map<char,int> std_third (std_second);
-//		ft::map<char,int> ft_third (ft_second);
-//
-//		std::map<char,int,classcomp> std_fourth;                 // class as Compare
-//		ft::map<char,int,classcomp> ft_fourth;                 // class as Compare
-//
-//		bool(*fn_pt)(char,char) = fncomp;
-//		std::map<char,int,bool(*)(char,char)> std_fifth (fn_pt);
-//		ft::map<char,int,bool(*)(char,char)> ft_fifth (fn_pt);
+		std::map<char,int> std_second (std_first.begin(),std_first.end());
+		ft::map<char,int> ft_second (ft_first.begin(),ft_first.end());
 
+		check_value(ft_second, std_second, flag);
+		check_flag(flag);
+		check_size(ft_second, std_second, flag);
+		check_flag(flag);
+
+		PUT_STR(B"CONSTRUCTOR[copy (3)]");
+		std::map<char,int> std_third (std_second);
+		ft::map<char,int> ft_third (ft_second);
+		check_value(ft_second, std_second, flag);
+		check_flag(flag);
+		check_size(ft_second, std_second, flag);
+		check_flag(flag);
+
+		std::map<char,int,classcomp> std_fourth;                 // class as Compare
+		ft::map<char,int,classcomp> ft_fourth;                 // class as Compare
+
+		bool(*fn_pt)(char,char) = fncomp;
+		std::map<char,int,bool(*)(char,char)> std_fifth (fn_pt);
+		ft::map<char,int,bool(*)(char,char)> ft_fifth (fn_pt);
 	}
 #endif
 #ifdef T2
