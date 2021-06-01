@@ -1,24 +1,24 @@
 #include "unit_tests.hpp"
-#define T1 // constructors
-//#define T2 // operator=()
-//#define T3	// begin(), end(), rbegin(), rend()
-//#define T4	// size()
-//#define T5	// max_size()
-//#define T6 // resize()
-//#define T7 // capacity()
-//#define T8 // empty()
-//#define T9 // reserve()
-//#define T10 // operator[]
-//#define T11 // at()
-//#define T12 // front()
-//#define T13 // back()
-//#define T14 // assign()
-//#define T15 // push_back()
-//#define T16 // pop_back()
-//#define T17 // insert()
-//#define T18 // erase()
-//#define T19 // swap()
-//#define T20 // clear()
+//#define T1 // constructors
+#define T2 // operator=()
+//#define T3 // begin(), end(), rbegin(), rend()
+//#define T4 // empty()
+//#define T5 // size()
+//#define T6 // max_size()
+//#define T7 // operator[]()
+//#define T8 // insert()
+//#define T9 // erase()
+//#define T10 // swap()
+//#define T11 // clear[]
+//#define T12 // key_comp()
+//#define T13 // value_comp()
+//#define T14 // find()
+//#define T15 // count()
+//#define T16 // lower_bound()
+//#define T17 // upper_bound()
+//#define T18 // equal_range()
+//#define T19
+//#define T20
 //#define T21
 //#define T22
 //#define T23
@@ -72,28 +72,6 @@ void check_value(ft::map<T, U> &x, std::map<T, U> &y, bool &flag) {
 	}
 }
 
-//template <typename T>
-//void check_reverse_value(ft::vector<T> &x, std::vector<T> &y, bool &flag) {
-//	typename ft::vector<T>::reverse_iterator ft_itb = x.rbegin();
-//	typename ft::vector<T>::reverse_iterator ft_ite = x.rend();
-//	typename std::vector<T>::reverse_iterator std_itb = y.rbegin();
-//	typename std::vector<T>::reverse_iterator std_ite = y.rend();
-//	while (ft_itb != ft_ite && std_itb != std_ite)
-//	{
-//		if (*ft_itb != *std_itb)
-//		{
-//			flag = false;
-//			cout << LB << *ft_itb << " != " << *std_itb << CLEAN << std::endl;
-//			break;
-//		} else {
-////			cout << P << *ft_itb << " == " << *std_itb << CLEAN << std::endl;
-//			flag = true;
-//		}
-//		++ft_itb;
-//		++std_itb;
-//	}
-//}
-
 template <typename T, typename U>
 void check_size(ft::map<T, U> &x, std::map<T, U> &y, bool &flag) {
 	if (x.size() != y.size())
@@ -140,7 +118,6 @@ int main(void) {
 		ft_first['c']=50;
 		ft_first['d']=70;
 
-
 		std::map<char,int> std_second (std_first.begin(),std_first.end());
 		ft::map<char,int> ft_second (ft_first.begin(),ft_first.end());
 
@@ -167,7 +144,49 @@ int main(void) {
 #endif
 #ifdef T2
 	{
-		PUT_STR(B"OPERATOR=()");
+//		PUT_STR(B"OPERATOR=()");
+
+		std::map<int,int> std_first;
+		ft::map<int,int> ft_first;
+
+//		std_first[12]=10;
+//		std_first[5]=30;
+//		std_first[15]=50;
+//		std_first[13]=70;
+//		std_first[17]=70;
+//		std_first[14]=70;
+//		std_first[20]=70;
+//		std_first[18]=70;
+//		std_first[3]=70;
+//		std_first[7]=70;
+//		std_first[1]=70;
+//		std_first[9]=70;
+//		std_first[8]=70;
+//		std_first[11]=70;
+
+
+		ft_first[12]=10;
+		ft_first[5]=30;
+		ft_first[15]=50;
+		ft_first[13]=70;
+		ft_first[17]=70;
+//		ft_first[14]=70; // <-
+//		ft_first[20]=70;
+//		ft_first[18]=70;
+//		ft_first[3]=70;
+//		ft_first[7]=70;
+		ft_first[1]=70;
+		ft_first[9]=70; // <-
+//		ft_first[8]=70;
+//		ft_first[11]=70;
+
+		ft_first.DUMP(ft_first.get_root());
+
+//
+//
+//		ft_first.erase(--(--ft_first.end()));
+//		ft_first.DUMP(ft_first.get_root());
+
 	}
 #endif
 #ifdef T3

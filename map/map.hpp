@@ -76,13 +76,14 @@ namespace ft {
 			~iterator() { }
 			type_reference operator*() const{ return m_ptr->data; }
 			type_pointer operator->() const { return &m_ptr->data; }
-			void operator++() {			//clockwise
+			iterator operator++() {			//clockwise
 				if (m_ptr->prev == nullptr)		// if next node is root
 					m_ptr = m_ptr->right;
 				else if (m_ptr == m_ptr->prev->left)	// if next node is prev
 					m_ptr = m_ptr->prev;
 				else if (m_ptr->right != nullptr)		// if next node is the right element
 					m_ptr = m_ptr->right;
+				return *this;
 			}
 			iterator operator--() {			//counter clockwise
 				if (m_ptr->prev == nullptr)		// if prev node is root
@@ -152,6 +153,9 @@ namespace ft {
 			}
 		}
 
+//		operator=()
+		map &operator=(const map &rhs) {
+		}
 
 //		begin()
 		iterator begin() {
@@ -313,8 +317,6 @@ namespace ft {
 			return find(k)->second; // if it already exists
 		}
 
-
-
 		iterator find (const key_type& k) {
 			node *ptr = root;
 			while (ptr != nullptr) {
@@ -333,6 +335,35 @@ namespace ft {
 				}
 			}
 			return end();
+		}
+
+
+		void erase (iterator position) {
+			if (position.get_node_pointer()->right == nullptr && position.get_node_pointer()->left == nullptr) {		//case1: if node is leaf-node
+				position.get_node_pointer()->prev = nullptr;
+				delete position.get_node_pointer();
+			} else if (position.get_node_pointer()->right != nullptr && position.get_node_pointer()->left == nullptr){		//case2: if node have only one right subtree
+				position.get_node_pointer()->prev->right = position.get_node_pointer()->right;
+				position.get_node_pointer()->right->prev = position.get_node_pointer()->prev;
+				delete position.get_node_pointer();
+			} else if (position.get_node_pointer()->right == nullptr && position.get_node_pointer()->left != nullptr){		//case3: if node have only one left subtree
+				position.get_node_pointer()->prev->left = position.get_node_pointer()->left;
+				position.get_node_pointer()->left->prev = position.get_node_pointer()->prev;
+				delete position.get_node_pointer();
+			} else if (position.get_node_pointer()->right != nullptr && position.get_node_pointer()->left != nullptr){		//case4: if node have tow subtrees
+				node *tmp = position.get_node_pointer()->left;
+				while (tmp->right != nullptr)
+					tmp = tmp->right;
+				tmp->right = position.get_node_pointer()->right;
+				tmp->left = position.get_node_pointer()->left;
+				tmp->prev = position.get_node_pointer()->prev;
+				if (position.get_node_pointer() == position.get_node_pointer()->prev->left)
+					position.get_node_pointer()->prev->left = tmp;
+				else if (position.get_node_pointer() == position.get_node_pointer()->prev->right)
+					position.get_node_pointer()->prev->right = tmp;
+				delete position.get_node_pointer();
+			}
+			count--;
 		}
 
 	};
