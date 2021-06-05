@@ -339,17 +339,17 @@ namespace ft {
 
 		void DUMP (node *ptr, int level = 0) {
 			if (ptr == nullptr) {
-				for(int i = 0; i < level; i++) std::cout << '\t';
-				std::cout << " leaf " << std::endl;
+				for(int i = 0; i < level; i++) std::cout << "\t";
+				std::cout << "\033[32m leaf \033[0m" << std::endl;
 				return;
 			}
 			for(int i = 0; i < level; i++) std::cout << '\t';
 			std::cout << ptr->data.first << " : " << ptr->data.second << std::endl;
 			for(int i = 0; i < level; i++) std::cout << '\t';
-			std::cout << "left" << std::endl;
+			std::cout << "\033[33m left \033[0m" << std::endl;
 			DUMP(ptr->left, level + 1);
 			for(int i = 0; i < level; i++) std::cout << '\t';
-			std::cout << "right" << std::endl;
+			std::cout << "\033[31m right \033[0m" << std::endl;
 			DUMP(ptr->right, level + 1);
 		}
 
@@ -388,29 +388,38 @@ namespace ft {
 
 
 		void erase (iterator position) {
-			if (position.get_node_pointer()->right == nullptr && position.get_node_pointer()->left == nullptr) {		//case1: if node is leaf-node
-				position.get_node_pointer()->prev = nullptr;
-				delete position.get_node_pointer();
-			} else if (position.get_node_pointer()->right != nullptr && position.get_node_pointer()->left == nullptr){		//case2: if node have only one right subtree
-				position.get_node_pointer()->prev->right = position.get_node_pointer()->right;
-				position.get_node_pointer()->right->prev = position.get_node_pointer()->prev;
-				delete position.get_node_pointer();
-			} else if (position.get_node_pointer()->right == nullptr && position.get_node_pointer()->left != nullptr){		//case3: if node have only one left subtree
-				position.get_node_pointer()->prev->left = position.get_node_pointer()->left;
-				position.get_node_pointer()->left->prev = position.get_node_pointer()->prev;
-				delete position.get_node_pointer();
-			} else if (position.get_node_pointer()->right != nullptr && position.get_node_pointer()->left != nullptr){		//case4: if node have tow subtrees
-				node *tmp = position.get_node_pointer()->left;
-				while (tmp->right != nullptr)
-					tmp = tmp->right;
-				tmp->right = position.get_node_pointer()->right;
-				tmp->left = position.get_node_pointer()->left;
-				tmp->prev = position.get_node_pointer()->prev;
-				if (position.get_node_pointer() == position.get_node_pointer()->prev->left)
-					position.get_node_pointer()->prev->left = tmp;
-				else if (position.get_node_pointer() == position.get_node_pointer()->prev->right)
-					position.get_node_pointer()->prev->right = tmp;
-				delete position.get_node_pointer();
+			node *tmp = position.get_node_pointer();
+			if (tmp->right->right == nullptr && tmp->left == nullptr) {		//case1: if node is leaf-node
+				if (tmp == tmp->prev->left) {
+					tmp->prev->left = nullptr;
+				} else if (tmp == tmp->prev->right){
+					tmp->prev->right = nullptr;
+				}
+				delete tmp->right->right;
+				delete tmp;
+			} else if (tmp->right->right != nullptr && tmp->left == nullptr){		//case2: if node have only one right subtree
+				tmp->prev->right = tmp->right;
+				tmp->right->prev = tmp->prev;
+				delete tmp->right->right;
+				delete tmp;
+			} else if (tmp->right->right == nullptr && tmp->left != nullptr){		//case3: if node have only one left subtree
+				tmp->prev->left = tmp->left;
+				tmp->left->prev = tmp->prev;
+				delete tmp->right->right;
+				delete tmp;
+			} else if (tmp->right->right != nullptr && tmp->left != nullptr){		//case4: if node have tow subtrees
+				node *ptr = tmp->left;
+				while (ptr->right->right != nullptr)
+					ptr = ptr->right;
+				if (tmp == tmp->prev->left) {
+					tmp->prev->left = ptr;
+				} else if (tmp == tmp->prev->right){
+					tmp->prev->right = ptr;
+				}
+				ptr->right = tmp->right;
+				ptr->right->prev = ptr;
+				ptr->prev = tmp->prev;
+				delete tmp;
 			}
 			count--;
 		}

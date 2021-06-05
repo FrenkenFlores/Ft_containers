@@ -183,32 +183,22 @@ int main(void) {
 		ft_first[15]=50;
 		ft_first[13]=70;
 		ft_first[17]=70;
-//		ft_first[14]=70; // <-
-//		ft_first[20]=70;
-//		ft_first[18]=70;
-//		ft_first[3]=70;
-//		ft_first[7]=70;
+		ft_first[18]=70;
+		ft_first[19]=70;
 		ft_first[1]=70;
-		ft_first[9]=70; // <-
-//		ft_first[8]=70;
-//		ft_first[11]=70;
-
+		ft_first[9]=70;
+		ft_first[11]=70;
 
 		it_ft_b = ft_first.begin();
 		it_ft_e = ft_first.end();
-		while (it_ft_b != it_ft_e)
+		while (it_ft_b != it_ft_e && it_ft_b->first != 15)
 		{
 			std::cout << it_ft_b->first << std::endl;
 			++it_ft_b;
 		}
-		
-
 		ft_first.DUMP(ft_first.get_root());
-
-//
-//
-//		ft_first.erase(--(--ft_first.end()));
-//		ft_first.DUMP(ft_first.get_root());
+		ft_first.erase(it_ft_b);
+		ft_first.DUMP(ft_first.get_root());
 
 	}
 #endif
