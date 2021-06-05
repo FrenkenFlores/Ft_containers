@@ -149,21 +149,34 @@ int main(void) {
 		std::map<int,int> std_first;
 		ft::map<int,int> ft_first;
 
-//		std_first[12]=10;
-//		std_first[5]=30;
-//		std_first[15]=50;
-//		std_first[13]=70;
-//		std_first[17]=70;
-//		std_first[14]=70;
-//		std_first[20]=70;
-//		std_first[18]=70;
-//		std_first[3]=70;
-//		std_first[7]=70;
-//		std_first[1]=70;
-//		std_first[9]=70;
-//		std_first[8]=70;
-//		std_first[11]=70;
+		std::map<int,int>::iterator it_std_b;
+		ft::map<int,int>::iterator it_ft_b;
+		std::map<int,int>::iterator it_std_e;
+		ft::map<int,int>::iterator it_ft_e;
+		
+// 		std_first[12]=10;
+// 		std_first[5]=30;
+// 		std_first[15]=50;
+// 		std_first[13]=70;
+// 		std_first[17]=70;
+// //		std_first[14]=70;
+// //		std_first[20]=70;
+// //		std_first[18]=70;
+// //		std_first[3]=70;
+// //		std_first[7]=70;
+// 		std_first[1]=70;
+// 		std_first[9]=70;
+// //		std_first[8]=70;
+// //		std_first[11]=70;
 
+
+// 		it_std_b = std_first.begin();
+// 		it_std_e = std_first.end();
+// 		while (it_std_b != it_std_e)
+// 		{
+// 			std::cout << it_std_b->first << std::endl;
+// 			++it_std_b;
+// 		}
 
 		ft_first[12]=10;
 		ft_first[5]=30;
@@ -179,6 +192,16 @@ int main(void) {
 		ft_first[9]=70; // <-
 //		ft_first[8]=70;
 //		ft_first[11]=70;
+
+
+		it_ft_b = ft_first.begin();
+		it_ft_e = ft_first.end();
+		while (it_ft_b != it_ft_e)
+		{
+			std::cout << it_ft_b->first << std::endl;
+			++it_ft_b;
+		}
+		
 
 		ft_first.DUMP(ft_first.get_root());
 

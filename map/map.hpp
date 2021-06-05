@@ -63,28 +63,74 @@ namespace ft {
 			typedef value_type* type_pointer;
 			typedef value_type& type_reference;
 
-			iterator() : m_ptr(nullptr) { }
-			iterator(node_pointer ptr) : m_ptr(ptr) { }
+			iterator() : m_ptr(nullptr), root(nullptr), begin(nullptr), end(nullptr) { }
+			iterator(node_pointer ptr) {
+				if (ptr == nullptr) {
+					m_ptr = nullptr;
+					root = nullptr;
+					begin = nullptr;
+					end = nullptr;
+					return;
+				}
+				m_ptr = ptr;
+				root = m_ptr;
+				while (root->prev != nullptr)
+					root = root->prev;
+				begin = root;
+				while (begin->left != nullptr)
+					begin = begin->left;
+				end = root;
+				while (end->right != nullptr)
+					end = end->right;
+				
+			}
 			iterator(const iterator & src) {
 				*this = src;
 				return;
 			}
 			iterator & operator=(const iterator & rhs) {
 				this->m_ptr = rhs.m_ptr;
+				this->root = rhs.root;
+				this->begin = rhs.begin;
+				this->end = rhs.end;
 				return *this;
 			}
 			~iterator() { }
-			type_reference operator*() const{ return m_ptr->data; }
+			type_reference operator*() const{ return m_ptr->data; } 
 			type_pointer operator->() const { return &m_ptr->data; }
 			iterator operator++() {			//clockwise
-				if (m_ptr->prev == nullptr)		// if next node is root
+				node *ptr;
+				if (m_ptr == nullptr) {
+					m_ptr = root;
+					while (m_ptr->left != nullptr)
+						m_ptr = m_ptr->left;
+				} else if (m_ptr->right->right != nullptr) {
 					m_ptr = m_ptr->right;
-				else if (m_ptr == m_ptr->prev->left)	// if next node is prev
-					m_ptr = m_ptr->prev;
-				else if (m_ptr->right != nullptr)		// if next node is the right element
+					while (m_ptr->left != nullptr) {
+						m_ptr = m_ptr->left;
+					}
+				} else if (m_ptr->right == end) {
 					m_ptr = m_ptr->right;
+				}
+				 else {
+					ptr = m_ptr->prev;
+					while (ptr != nullptr && m_ptr == ptr->right) {
+						m_ptr = ptr;
+						ptr = ptr->prev;
+					}
+					m_ptr = ptr;
+				}
 				return *this;
 			}
+			// iterator operator++() {			//clockwise
+			// 	if (m_ptr->prev == nullptr)		// if next node is root
+			// 		m_ptr = m_ptr->right;
+			// 	else if (m_ptr == m_ptr->prev->left)	// if next node is prev
+			// 		m_ptr = m_ptr->prev;
+			// 	else if (m_ptr->right != nullptr)		// if next node is the right element
+			// 		m_ptr = m_ptr->right;
+			// 	return *this;
+			// }
 			iterator operator--() {			//counter clockwise
 				if (m_ptr->prev == nullptr)		// if prev node is root
 					m_ptr = m_ptr->left;
@@ -113,6 +159,9 @@ namespace ft {
 
 		private:
 			node_pointer m_ptr;
+			node_pointer root;
+			node_pointer begin;
+			node_pointer end;
 		};
 		struct const_iterator {
 		};
