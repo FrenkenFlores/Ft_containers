@@ -236,7 +236,7 @@ namespace ft {
 					ptr = ptr->right;
 				} else {
 					if (ptr->left == nullptr) {
-						ptr->left = new node(val, ptr, nullptr, nullptr);
+						ptr->left = new node(val, ptr, nullptr, (new node(value_type(), ptr->right, nullptr, nullptr)));
 						count++;
 						ptr = ptr->left;
 						break;
