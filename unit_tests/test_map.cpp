@@ -1,5 +1,5 @@
 #include "unit_tests.hpp"
-//#define T1 // constructors
+// #define T1 // constructors
 #define T2 // operator=()
 //#define T3 // begin(), end(), rbegin(), rend()
 //#define T4 // empty()
@@ -118,28 +118,28 @@ int main(void) {
 		ft_first['c']=50;
 		ft_first['d']=70;
 
-		std::map<char,int> std_second (std_first.begin(),std_first.end());
-		ft::map<char,int> ft_second (ft_first.begin(),ft_first.end());
+		// std::map<char,int> std_second (std_first.begin(),std_first.end());
+		// ft::map<char,int> ft_second (ft_first.begin(),ft_first.end());
 
-		check_value(ft_second, std_second, flag);
-		check_flag(flag);
-		check_size(ft_second, std_second, flag);
-		check_flag(flag);
+		// check_value(ft_second, std_second, flag);
+		// check_flag(flag);
+		// check_size(ft_second, std_second, flag);
+		// check_flag(flag);
 
-		PUT_STR(B"CONSTRUCTOR[copy (3)]");
-		std::map<char,int> std_third (std_second);
-		ft::map<char,int> ft_third (ft_second);
-		check_value(ft_second, std_second, flag);
-		check_flag(flag);
-		check_size(ft_second, std_second, flag);
-		check_flag(flag);
+		// PUT_STR(B"CONSTRUCTOR[copy (3)]");
+		// std::map<char,int> std_third (std_second);
+		// ft::map<char,int> ft_third (ft_second);
+		// check_value(ft_second, std_second, flag);
+		// check_flag(flag);
+		// check_size(ft_second, std_second, flag);
+		// check_flag(flag);
 
-		std::map<char,int,classcomp> std_fourth;                 // class as Compare
-		ft::map<char,int,classcomp> ft_fourth;                 // class as Compare
+		// std::map<char,int,classcomp> std_fourth;                 // class as Compare
+		// ft::map<char,int,classcomp> ft_fourth;                 // class as Compare
 
-		bool(*fn_pt)(char,char) = fncomp;
-		std::map<char,int,bool(*)(char,char)> std_fifth (fn_pt);
-		ft::map<char,int,bool(*)(char,char)> ft_fifth (fn_pt);
+		// bool(*fn_pt)(char,char) = fncomp;
+		// std::map<char,int,bool(*)(char,char)> std_fifth (fn_pt);
+		// ft::map<char,int,bool(*)(char,char)> ft_fifth (fn_pt);
 	}
 #endif
 #ifdef T2
@@ -189,16 +189,16 @@ int main(void) {
 		ft_first[9]=70;
 		ft_first[11]=70;
 
-		it_ft_b = ft_first.begin();
-		it_ft_e = ft_first.end();
-		while (it_ft_b != it_ft_e && it_ft_b->first != 15)
-		{
-			std::cout << it_ft_b->first << std::endl;
-			++it_ft_b;
-		}
-		ft_first.DUMP(ft_first.get_root());
-		ft_first.erase(it_ft_b);
-		ft_first.DUMP(ft_first.get_root());
+		// it_ft_b = ft_first.begin();
+		// it_ft_e = ft_first.end();
+		// while (it_ft_b != it_ft_e && it_ft_b->first != 15)
+		// {
+		// 	std::cout << it_ft_b->first << std::endl;
+		// 	++it_ft_b;
+		// }
+		// ft_first.DUMP(ft_first.get_root());
+		// ft_first.erase(it_ft_b);
+		// ft_first.DUMP(ft_first.get_root());
 
 	}
 #endif

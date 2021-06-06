@@ -22,6 +22,10 @@ namespace ft {
 			node *right;
 
 			node(std::pair<Key, T> val, node *p, node *l, node *r) : data(val), prev(p), left(l), right(r) {}
+			void set_node_prev(node *p) { prev = p; }
+			void set_node_left(node *l) { left = l; }
+			void set_node_right(node *r) { right = r; }
+
 		};
 		node *root;
 		size_t count;
@@ -122,22 +126,28 @@ namespace ft {
 				}
 				return *this;
 			}
-			// iterator operator++() {			//clockwise
-			// 	if (m_ptr->prev == nullptr)		// if next node is root
-			// 		m_ptr = m_ptr->right;
-			// 	else if (m_ptr == m_ptr->prev->left)	// if next node is prev
-			// 		m_ptr = m_ptr->prev;
-			// 	else if (m_ptr->right != nullptr)		// if next node is the right element
-			// 		m_ptr = m_ptr->right;
-			// 	return *this;
-			// }
-			iterator operator--() {			//counter clockwise
-				if (m_ptr->prev == nullptr)		// if prev node is root
+			iterator operator--() {			//clockwise
+				node *ptr;
+				if (m_ptr == nullptr) {
+					m_ptr = root;
+					while (m_ptr->right->right != nullptr)
+						m_ptr = m_ptr->right;
+				} else if (m_ptr->left != nullptr) {
 					m_ptr = m_ptr->left;
-				else if (m_ptr == m_ptr->prev->right)	// if prev node is prev
-					m_ptr = m_ptr->prev;
-				else if (m_ptr->left != nullptr)		// if prev node is the left element
+					while (m_ptr->right->right != nullptr) {
+						m_ptr = m_ptr->right;
+					}
+				} else if (m_ptr->left == begin) {
 					m_ptr = m_ptr->left;
+				}
+				 else {
+					ptr = m_ptr->prev;
+					while (ptr != nullptr && m_ptr == ptr->left) {
+						m_ptr = ptr;
+						ptr = ptr->prev;
+					}
+					m_ptr = ptr;
+				}
 				return *this;
 			}
 			bool operator==(const iterator & rhs) { return this->m_ptr == rhs.m_ptr; }
@@ -192,22 +202,47 @@ namespace ft {
 		}
 //		constructor[copy (3)]
 		map (const map& x) {
-			iterator first = begin();
-			iterator last = end();
+			clear();
 			root = nullptr;
 			count = 0;
+			iterator first = x.begin();
+			iterator last = x.end();
 			while (first != last) {
 				insert(value_type(first->first, first->second));
 				++first;
 			}
 		}
+		// destructor
+		~map() {
+			clear();
+		}
 
 //		operator=()
 		map &operator=(const map &rhs) {
+			clear();
+			root = nullptr;
+			count = 0;
+			iterator first = rhs.begin();
+			iterator last = rhs.end();
+			while (first != last) {
+				insert(value_type(first->first, first->second));
+				++first;
+			}
+			return *this;
 		}
 
 //		begin()
 		iterator begin() {
+			node *ptr = root;
+			if (ptr == nullptr)
+				return iterator(nullptr);
+			while (ptr->left != nullptr) {
+				ptr = ptr->left;
+			}
+			return iterator(ptr);
+		}
+
+		iterator begin() const {
 			node *ptr = root;
 			if (ptr == nullptr)
 				return iterator(nullptr);
@@ -228,6 +263,16 @@ namespace ft {
 			return iterator(ptr);
 		}
 
+		iterator end() const {
+			node *ptr = root;
+			if (ptr == nullptr)
+				return iterator(nullptr);
+			while (ptr->right != nullptr) {
+				ptr = ptr->right;
+			}
+			return iterator(ptr);
+		}
+
 
 //		size()
 		size_type size() const {
@@ -235,32 +280,6 @@ namespace ft {
 		}
 
 //		insert[single element (1)]
-//		std::pair<Key, T> &insert(const value_type &val) {
-//			value_compare func;
-//			if (root == nullptr) {
-//				root = new node(val, nullptr, nullptr, nullptr);
-//				return root->data;
-//			}
-//			node *ptr = root;
-//			while (ptr != nullptr) {
-//				if (func(ptr->data, val)) {
-//					if (ptr->right == nullptr) {
-//						ptr->right = new node(val, ptr, nullptr, nullptr);
-//						break;
-//					}
-//					ptr = ptr->right;
-//				} else {
-//					if (ptr->left == nullptr) {
-//						ptr->left = new node(val, ptr, nullptr, nullptr);
-//						break;
-//					}
-//					ptr = ptr->left;
-//				}
-//			}
-//			return ptr->data;
-//		}
-
-
 		std::pair<iterator, bool> insert(const value_type &val) {
 			value_compare func;
 			iterator it;
@@ -277,7 +296,8 @@ namespace ft {
 				if (func(ptr->data, val)) {
 					if (ptr->right->right == nullptr) {
 						delete ptr->right;
-						ptr->right = new node(val, ptr, nullptr, (new node(value_type(), ptr->right, nullptr, nullptr)));		// the most right element (aka last element) is always an empty node
+						ptr->right = new node(val, ptr, nullptr, (new node(value_type(), nullptr, nullptr, nullptr)));		// the most right element (aka last element) is always an empty node
+						ptr->right->right->set_node_prev(ptr->right);
 						count++;
 						ptr = ptr->right;
 						break;
@@ -285,7 +305,8 @@ namespace ft {
 					ptr = ptr->right;
 				} else {
 					if (ptr->left == nullptr) {
-						ptr->left = new node(val, ptr, nullptr, (new node(value_type(), ptr->right, nullptr, nullptr)));
+						ptr->left = new node(val, ptr, nullptr, (new node(value_type(), nullptr, nullptr, nullptr)));
+						ptr->left->right->set_node_prev(ptr->left);
 						count++;
 						ptr = ptr->left;
 						break;
@@ -295,41 +316,6 @@ namespace ft {
 			}
 			return (std::pair<iterator, bool>(iterator(ptr), true));
 		}
-
-
-//		std::pair<iterator, bool> insert(const value_type &val) {
-//			value_compare func;
-//			iterator it;
-//			if ((it = find(val.first)) != end()) {			//if the element exist
-//				return (std::pair<iterator, bool>(it, false));
-//			}
-//			if (root == nullptr) {						//if the element is the first node
-//				root = new node(val, nullptr, nullptr, nullptr);
-//				count++;
-//				return (std::pair<iterator, bool>(iterator(root), true));
-//			}
-//			node *ptr = root;
-//			while (ptr != nullptr) {
-//				if (func(ptr->data, val)) {
-//					if (ptr->right == nullptr) {
-//						ptr->right = new node(val, ptr, nullptr, nullptr);
-//						count++;
-//						ptr = ptr->right;
-//						break;
-//					}
-//					ptr = ptr->right;
-//				} else {
-//					if (ptr->left == nullptr) {
-//						ptr->left = new node(val, ptr, nullptr, nullptr);
-//						count++;
-//						ptr = ptr->left;
-//						break;
-//					}
-//					ptr = ptr->left;
-//				}
-//			}
-//			return (std::pair<iterator, bool>(iterator(ptr), true));
-//		}
 
 ////		insert[with hint (2)]
 //		iterator insert (iterator position, const value_type& val);
@@ -344,7 +330,7 @@ namespace ft {
 				return;
 			}
 			for(int i = 0; i < level; i++) std::cout << '\t';
-			std::cout << ptr->data.first << " : " << ptr->data.second << std::endl;
+			std::cout << ptr->prev << ":" << ptr << " : " << ptr->data.first << " : " << ptr->data.second << std::endl;
 			for(int i = 0; i < level; i++) std::cout << '\t';
 			std::cout << "\033[33m left \033[0m" << std::endl;
 			DUMP(ptr->left, level + 1);
@@ -423,8 +409,34 @@ namespace ft {
 			}
 			count--;
 		}
+		void clear() {
+			erase_nodes(root);
+		}
+
+		private:
+		void erase_nodes(node *n) {
+			if (n->left != nullptr) {
+				// std::cout << n->data.first << ":" << n->data.second << "\t";
+				erase_nodes(n->left);
+			}
+			if (n->right != nullptr) {
+				// std::cout << n->data.first << ":" << n->data.second << "\t";
+				erase_nodes(n->right);
+			}
+			if (n->left == nullptr && n->right  == nullptr) {
+				// std::cout << n->data.first << ":" << n->data.second << std::endl;
+				if (n->prev != nullptr && n == n->prev->left) {
+					n->prev->left = nullptr;
+				} else if (n->prev != nullptr && n == n->prev->right) {
+					n->prev->right = nullptr;
+				}
+				delete n;
+			}
+		}
 
 	};
+
+	
 
 }
 

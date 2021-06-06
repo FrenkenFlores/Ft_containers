@@ -15,5 +15,12 @@ if [[ "$1" == "leaks" ]] ; then
     rm test_map
     exit
 fi
+if [[ "$1" == "valgrind" ]] ; then
+    valgrind ./test_map
+    rm -rf test_map.dSYM
+    rm test_map
+    exit
+fi
+
 ./test_map
 rm test_map
