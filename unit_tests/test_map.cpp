@@ -1,13 +1,13 @@
 #include "unit_tests.hpp"
-// #define T1 // constructors
+#define T1 // constructors
 #define T2 // operator=()
-//#define T3 // begin(), end(), rbegin(), rend()
-//#define T4 // empty()
-//#define T5 // size()
-//#define T6 // max_size()
-//#define T7 // operator[]()
-//#define T8 // insert()
-//#define T9 // erase()
+#define T3 // begin(), end(), rbegin(), rend()
+#define T4 // empty()
+#define T5 // size()
+#define T6 // max_size()
+#define T7 // operator[]()
+#define T8 // insert()
+#define T9 // erase()
 //#define T10 // swap()
 //#define T11 // clear[]
 //#define T12 // key_comp()
@@ -28,16 +28,6 @@
 //#define T27
 //#define T28
 
-
-
-
-//		std::cout << ft_first.insert(std::pair<char, int>('a', 10)).first->first << "/" << ft_first.insert(std::pair<char, int>('a', 10)).first->second << std::endl;
-//		std::cout << std_first.insert(std::pair<char, int>('a', 10)).first->first << "/" << std_first.insert(std::pair<char, int>('a', 10)).first->second << std::endl;
-
-//		ft_first.insert(std::pair<char, int>('a', 10));
-//		ft_first.insert(std::pair<char, int>('b', 20));
-//		ft_first.insert(std::pair<char, int>('c', 30));
-//		ft_first.insert(std::pair<char, int>('d', 40));
 
 using namespace std;
 
@@ -118,128 +108,197 @@ int main(void) {
 		ft_first['c']=50;
 		ft_first['d']=70;
 
-		// std::map<char,int> std_second (std_first.begin(),std_first.end());
-		// ft::map<char,int> ft_second (ft_first.begin(),ft_first.end());
+		std::map<char,int> std_second (std_first.begin(),std_first.end());
+		ft::map<char,int> ft_second (ft_first.begin(),ft_first.end());
 
-		// check_value(ft_second, std_second, flag);
-		// check_flag(flag);
-		// check_size(ft_second, std_second, flag);
-		// check_flag(flag);
+		check_value(ft_second, std_second, flag);
+		check_flag(flag);
+		check_size(ft_second, std_second, flag);
+		check_flag(flag);
 
-		// PUT_STR(B"CONSTRUCTOR[copy (3)]");
-		// std::map<char,int> std_third (std_second);
-		// ft::map<char,int> ft_third (ft_second);
-		// check_value(ft_second, std_second, flag);
-		// check_flag(flag);
-		// check_size(ft_second, std_second, flag);
-		// check_flag(flag);
+		PUT_STR(B"CONSTRUCTOR[copy (3)]");
+		std::map<char,int> std_third (std_second);
+		ft::map<char,int> ft_third (ft_second);
+		check_value(ft_second, std_second, flag);
+		check_flag(flag);
+		check_size(ft_second, std_second, flag);
+		check_flag(flag);
 
-		// std::map<char,int,classcomp> std_fourth;                 // class as Compare
-		// ft::map<char,int,classcomp> ft_fourth;                 // class as Compare
+		std::map<char,int,classcomp> std_fourth;                 // class as Compare
+		ft::map<char,int,classcomp> ft_fourth;                 // class as Compare
 
-		// bool(*fn_pt)(char,char) = fncomp;
-		// std::map<char,int,bool(*)(char,char)> std_fifth (fn_pt);
-		// ft::map<char,int,bool(*)(char,char)> ft_fifth (fn_pt);
+		bool(*fn_pt)(char,char) = fncomp;
+		std::map<char,int,bool(*)(char,char)> std_fifth (fn_pt);
+		ft::map<char,int,bool(*)(char,char)> ft_fifth (fn_pt);
+		PUT_STR(B"DESTRUCTOR");
 	}
 #endif
 #ifdef T2
 	{
-//		PUT_STR(B"OPERATOR=()");
+		PUT_STR(B"OPERATOR=()");
 
-		std::map<int,int> std_first;
-		ft::map<int,int> ft_first;
+		std::map<char,int> std_first;
+		ft::map<char,int> ft_first;
+		std::map<char,int> std_second;
+		ft::map<char,int> ft_second;
 
-		std::map<int,int>::iterator it_std_b;
-		ft::map<int,int>::iterator it_ft_b;
-		std::map<int,int>::iterator it_std_e;
-		ft::map<int,int>::iterator it_ft_e;
+		ft_first['x']=8;
+		ft_first['y']=16;
+		ft_first['z']=32;
+
+		std_first['x']=8;
+		std_first['y']=16;
+		std_first['z']=32;
 		
-// 		std_first[12]=10;
-// 		std_first[5]=30;
-// 		std_first[15]=50;
-// 		std_first[13]=70;
-// 		std_first[17]=70;
-// //		std_first[14]=70;
-// //		std_first[20]=70;
-// //		std_first[18]=70;
-// //		std_first[3]=70;
-// //		std_first[7]=70;
-// 		std_first[1]=70;
-// 		std_first[9]=70;
-// //		std_first[8]=70;
-// //		std_first[11]=70;
+		std_second=std_first;              // second now contains 3 ints
+		ft_second=ft_first;                // second now contains 3 ints
+		check_value(ft_second, std_second, flag);
+		check_flag(flag);
+		check_size(ft_second, std_second, flag);
+		check_flag(flag);
 
-
-// 		it_std_b = std_first.begin();
-// 		it_std_e = std_first.end();
-// 		while (it_std_b != it_std_e)
-// 		{
-// 			std::cout << it_std_b->first << std::endl;
-// 			++it_std_b;
-// 		}
-
-		ft_first[12]=10;
-		ft_first[5]=30;
-		ft_first[15]=50;
-		ft_first[13]=70;
-		ft_first[17]=70;
-		ft_first[18]=70;
-		ft_first[19]=70;
-		ft_first[1]=70;
-		ft_first[9]=70;
-		ft_first[11]=70;
-
-		// it_ft_b = ft_first.begin();
-		// it_ft_e = ft_first.end();
-		// while (it_ft_b != it_ft_e && it_ft_b->first != 15)
-		// {
-		// 	std::cout << it_ft_b->first << std::endl;
-		// 	++it_ft_b;
-		// }
-		// ft_first.DUMP(ft_first.get_root());
-		// ft_first.erase(it_ft_b);
-		// ft_first.DUMP(ft_first.get_root());
+		ft_first=ft::map<char,int>();  	// and first is now empty
+		std_first=std::map<char,int>();  // and first is now empty
+		check_value(ft_first, std_first, flag);
+		check_flag(flag);
+		check_size(ft_first, std_first, flag);
+		check_flag(flag);
 
 	}
 #endif
 #ifdef T3
 	{
+		std::map<char,int> std;
+		ft::map<char,int> ft;
 
+
+		ft['x']=8;
+		ft['y']=16;
+		ft['z']=32;
+
+		std['x']=8;
+		std['y']=16;
+		std['z']=32;
+
+		PUT_STR(B"BEGIN()");
+		if (ft.begin()->first == std.begin()->first && ft.begin()->second == std.begin()->second)
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
+
+		PUT_STR(B"END()");
+		if (ft.end()->first == std.end()->first || ft.end()->second == std.end()->second)
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
+
+		PUT_STR(B"RBEGIN()");
+		PUT_STR(B"REND()");
 	}
 #endif
 #ifdef T4
 	{
-		PUT_STR(B"SIZE()");
+		PUT_STR(B"EMPTY()");
+		std::map<char,int> std;
+		ft::map<char,int> ft;
+
+
+		ft['x']=8;
+		ft['y']=16;
+		ft['z']=32;
+
+		std['x']=8;
+		std['y']=16;
+		std['z']=32;
+		if (std.empty() == ft.empty())
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
+		
+		ft.clear();
+		std.clear();
+		if (std.empty() == ft.empty())
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
 	}
 #endif
 #ifdef T5
 	{
-		PUT_STR(B"MAX_SIZE()");
+		PUT_STR(B"SIZE()");
+		std::map<char,int> std;
+		ft::map<char,int> ft;
+
+
+		ft['x']=8;
+		ft['y']=16;
+		ft['z']=32;
+
+		std['x']=8;
+		std['y']=16;
+		std['z']=32;
+		if (std.size() == ft.size())
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
+		
+		ft.clear();
+		std.clear();
+		if (std.size() == ft.size())
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
 	}
 #endif
 #ifdef T6
 	{
-		PUT_STR(B"RESIZE()");
+		PUT_STR(B"MAX_SIZE()");
+		std::map<char,int> std;
+		ft::map<char,int> ft;
+		if (std.max_size() == ft.max_size())
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
 	}
 #endif
 #ifdef T7
 	{
-		PUT_STR(B"CAPACITY()");
+		PUT_STR(B"OPERATOR[]()");
+		std::map<char,int> std;
+		ft::map<char,int> ft;
+
+
+		ft['x']=8;
+		ft['y']=16;
+		ft['z']=32;
+
+		std['x']=8;
+		std['y']=16;
+		std['z']=32;
+		check_value(ft, std, flag);
+		check_flag(flag);
+		check_size(ft, std, flag);
+		check_flag(flag);
 	}
 #endif
 #ifdef T8
 	{
-		PUT_STR(B"EMPTY()");
+		PUT_STR(B"INSERT()");
+		
 	}
 #endif
 #ifdef T9
 	{
-		PUT_STR(B"RESERVE()");
+		PUT_STR(B"ERASE()");
 	}
 #endif
 #ifdef T10
 	{
 		PUT_STR(B"OPERATOR[]");
+		std::map<char,int>::iterator it_std_b;
+		ft::map<char,int>::iterator it_ft_b;
+		std::map<char,int>::iterator it_std_e;
+		ft::map<char,int>::iterator it_ft_e;
 	}
 #endif
 #ifdef T11

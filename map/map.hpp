@@ -3,6 +3,7 @@
 #include <memory>
 #include <cstdbool>
 #include <iostream>
+#include <utility>
 
 namespace ft {
 	template <class T> struct less : std::binary_function <T,T,bool> {
@@ -29,6 +30,7 @@ namespace ft {
 		};
 		node *root;
 		size_t count;
+		Alloc allocator;
 	public:
 
 		typedef Key key_type;
@@ -100,9 +102,33 @@ namespace ft {
 				return *this;
 			}
 			~iterator() { }
-			type_reference operator*() const{ return m_ptr->data; } 
+			type_reference operator*() const { return m_ptr->data; } 
 			type_pointer operator->() const { return &m_ptr->data; }
 			iterator operator++() {			//clockwise
+				node *ptr;
+				if (m_ptr == nullptr) {
+					m_ptr = root;
+					while (m_ptr->left != nullptr)
+						m_ptr = m_ptr->left;
+				} else if (m_ptr->right->right != nullptr) {
+					m_ptr = m_ptr->right;
+					while (m_ptr->left != nullptr) {
+						m_ptr = m_ptr->left;
+					}
+				} else if (m_ptr->right == end) {
+					m_ptr = m_ptr->right;
+				}
+				 else {
+					ptr = m_ptr->prev;
+					while (ptr != nullptr && m_ptr == ptr->right) {
+						m_ptr = ptr;
+						ptr = ptr->prev;
+					}
+					m_ptr = ptr;
+				}
+				return *this;
+			}
+			iterator operator++(int) {			//clockwise
 				node *ptr;
 				if (m_ptr == nullptr) {
 					m_ptr = root;
@@ -150,10 +176,34 @@ namespace ft {
 				}
 				return *this;
 			}
-			bool operator==(const iterator & rhs) { return this->m_ptr == rhs.m_ptr; }
-			bool operator!=(const iterator & rhs) { return this->m_ptr != rhs.m_ptr; }
-			node_pointer get_node_pointer() { return m_ptr; }
-			type_reference operator[](const int & index) {
+			iterator operator--(int) {			//clockwise
+				node *ptr;
+				if (m_ptr == nullptr) {
+					m_ptr = root;
+					while (m_ptr->right->right != nullptr)
+						m_ptr = m_ptr->right;
+				} else if (m_ptr->left != nullptr) {
+					m_ptr = m_ptr->left;
+					while (m_ptr->right->right != nullptr) {
+						m_ptr = m_ptr->right;
+					}
+				} else if (m_ptr->left == begin) {
+					m_ptr = m_ptr->left;
+				}
+				 else {
+					ptr = m_ptr->prev;
+					while (ptr != nullptr && m_ptr == ptr->left) {
+						m_ptr = ptr;
+						ptr = ptr->prev;
+					}
+					m_ptr = ptr;
+				}
+				return *this;
+			}
+			bool operator==(const iterator & rhs) const { return this->m_ptr == rhs.m_ptr; }
+			bool operator!=(const iterator & rhs) const { return this->m_ptr != rhs.m_ptr; }
+			node_pointer get_node_pointer() const { return m_ptr; }
+			type_reference operator[](const int & index) const {
 				node_pointer tmp = m_ptr;
 				for (int i = 0; i < index; ++i)
 				{
@@ -174,6 +224,168 @@ namespace ft {
 			node_pointer end;
 		};
 		struct const_iterator {
+		public:
+			typedef std::bidirectional_iterator_tag iterator_category;
+			typedef std::ptrdiff_t difference_type;
+			typedef std::pair<key_type, mapped_type> value_type;
+			typedef const node* node_pointer;
+			typedef const node& node_reference;
+			typedef const value_type* type_pointer;
+			typedef const value_type& type_reference;
+
+			const_iterator() : m_ptr(nullptr), root(nullptr), begin(nullptr), end(nullptr) { }
+			const_iterator(node_pointer ptr) {
+				if (ptr == nullptr) {
+					m_ptr = nullptr;
+					root = nullptr;
+					begin = nullptr;
+					end = nullptr;
+					return;
+				}
+				m_ptr = ptr;
+				root = m_ptr;
+				while (root->prev != nullptr)
+					root = root->prev;
+				begin = root;
+				while (begin->left != nullptr)
+					begin = begin->left;
+				end = root;
+				while (end->right != nullptr)
+					end = end->right;
+				
+			}
+			const_iterator(const const_iterator & src) {
+				*this = src;
+				return;
+			}
+			const_iterator & operator=(const const_iterator & rhs) {
+				this->m_ptr = rhs.m_ptr;
+				this->root = rhs.root;
+				this->begin = rhs.begin;
+				this->end = rhs.end;
+				return *this;
+			}
+			~const_iterator() { }
+			type_reference operator*() const { return m_ptr->data; } 
+			type_pointer operator->() const { return &m_ptr->data; }
+			const_iterator operator++() {			//clockwise
+				node *ptr;
+				if (m_ptr == nullptr) {
+					m_ptr = root;
+					while (m_ptr->left != nullptr)
+						m_ptr = m_ptr->left;
+				} else if (m_ptr->right->right != nullptr) {
+					m_ptr = m_ptr->right;
+					while (m_ptr->left != nullptr) {
+						m_ptr = m_ptr->left;
+					}
+				} else if (m_ptr->right == end) {
+					m_ptr = m_ptr->right;
+				}
+				 else {
+					ptr = m_ptr->prev;
+					while (ptr != nullptr && m_ptr == ptr->right) {
+						m_ptr = ptr;
+						ptr = ptr->prev;
+					}
+					m_ptr = ptr;
+				}
+				return *this;
+			}
+			const_iterator operator++(int) {			//clockwise
+				node *ptr;
+				if (m_ptr == nullptr) {
+					m_ptr = root;
+					while (m_ptr->left != nullptr)
+						m_ptr = m_ptr->left;
+				} else if (m_ptr->right->right != nullptr) {
+					m_ptr = m_ptr->right;
+					while (m_ptr->left != nullptr) {
+						m_ptr = m_ptr->left;
+					}
+				} else if (m_ptr->right == end) {
+					m_ptr = m_ptr->right;
+				}
+				 else {
+					ptr = m_ptr->prev;
+					while (ptr != nullptr && m_ptr == ptr->right) {
+						m_ptr = ptr;
+						ptr = ptr->prev;
+					}
+					m_ptr = ptr;
+				}
+				return *this;
+			}
+			const_iterator operator--() {			//clockwise
+				node *ptr;
+				if (m_ptr == nullptr) {
+					m_ptr = root;
+					while (m_ptr->right->right != nullptr)
+						m_ptr = m_ptr->right;
+				} else if (m_ptr->left != nullptr) {
+					m_ptr = m_ptr->left;
+					while (m_ptr->right->right != nullptr) {
+						m_ptr = m_ptr->right;
+					}
+				} else if (m_ptr->left == begin) {
+					m_ptr = m_ptr->left;
+				}
+				 else {
+					ptr = m_ptr->prev;
+					while (ptr != nullptr && m_ptr == ptr->left) {
+						m_ptr = ptr;
+						ptr = ptr->prev;
+					}
+					m_ptr = ptr;
+				}
+				return *this;
+			}
+			const_iterator operator--(int) {			//clockwise
+				node *ptr;
+				if (m_ptr == nullptr) {
+					m_ptr = root;
+					while (m_ptr->right->right != nullptr)
+						m_ptr = m_ptr->right;
+				} else if (m_ptr->left != nullptr) {
+					m_ptr = m_ptr->left;
+					while (m_ptr->right->right != nullptr) {
+						m_ptr = m_ptr->right;
+					}
+				} else if (m_ptr->left == begin) {
+					m_ptr = m_ptr->left;
+				}
+				 else {
+					ptr = m_ptr->prev;
+					while (ptr != nullptr && m_ptr == ptr->left) {
+						m_ptr = ptr;
+						ptr = ptr->prev;
+					}
+					m_ptr = ptr;
+				}
+				return *this;
+			}
+			bool operator==(const const_iterator & rhs) const { return this->m_ptr == rhs.m_ptr; }
+			bool operator!=(const const_iterator & rhs) const { return this->m_ptr != rhs.m_ptr; }
+			node_pointer get_node_pointer() const { return m_ptr; }
+			type_reference operator[](const int & index) const {
+				node_pointer tmp = m_ptr;
+				for (int i = 0; i < index; ++i)
+				{
+					if (tmp->prev == nullptr)		// if next node is root
+						tmp = tmp->right;
+					else if (tmp == tmp->prev->left)	// if next node is prev
+						tmp = tmp->prev;
+					else if (tmp->right != nullptr)		// if next node is the right element
+						tmp = tmp->right;
+				}
+				return tmp->data;
+			}
+
+		private:
+			node_pointer m_ptr;
+			node_pointer root;
+			node_pointer begin;
+			node_pointer end;
 		};
 		struct reverse_iterator {
 		};
@@ -193,8 +405,8 @@ namespace ft {
 		map (InputIterator first, InputIterator last,
 			 const key_compare& comp = key_compare(),
 			 const allocator_type& alloc = allocator_type()) {
-			root = nullptr;
 			count = 0;
+			root = nullptr;
 			while (first != last) {
 				insert(value_type(first->first, first->second));
 				++first;
@@ -202,11 +414,10 @@ namespace ft {
 		}
 //		constructor[copy (3)]
 		map (const map& x) {
-			clear();
-			root = nullptr;
 			count = 0;
-			iterator first = x.begin();
-			iterator last = x.end();
+			root = nullptr;
+			const_iterator first = x.begin();
+			const_iterator last = x.end();
 			while (first != last) {
 				insert(value_type(first->first, first->second));
 				++first;
@@ -220,10 +431,8 @@ namespace ft {
 //		operator=()
 		map &operator=(const map &rhs) {
 			clear();
-			root = nullptr;
-			count = 0;
-			iterator first = rhs.begin();
-			iterator last = rhs.end();
+			const_iterator first = rhs.begin();
+			const_iterator last = rhs.end();
 			while (first != last) {
 				insert(value_type(first->first, first->second));
 				++first;
@@ -242,14 +451,14 @@ namespace ft {
 			return iterator(ptr);
 		}
 
-		iterator begin() const {
+		const_iterator begin() const {
 			node *ptr = root;
 			if (ptr == nullptr)
-				return iterator(nullptr);
+				return const_iterator(nullptr);
 			while (ptr->left != nullptr) {
 				ptr = ptr->left;
 			}
-			return iterator(ptr);
+			return const_iterator(ptr);
 		}
 
 //		end()
@@ -263,20 +472,38 @@ namespace ft {
 			return iterator(ptr);
 		}
 
-		iterator end() const {
+		const_iterator end() const {
 			node *ptr = root;
 			if (ptr == nullptr)
-				return iterator(nullptr);
+				return const_iterator(nullptr);
 			while (ptr->right != nullptr) {
 				ptr = ptr->right;
 			}
-			return iterator(ptr);
+			return const_iterator(ptr);
 		}
-
+		// empty()
+		bool empty() const {
+			return (count == 0 ? true : false);
+		}
 
 //		size()
 		size_type size() const {
 			return count;
+		}
+
+		// max_size()
+		size_type max_size() const {
+			return allocator.max_size();
+		}
+
+		// operator[]()
+		mapped_type& operator[] (const key_type& k) {
+			iterator it = find(k);
+			if (it == end()) {		// if the element dose not exist
+				value_type tmp = value_type(k, mapped_type());
+				return (insert(tmp).first->second);
+			}
+			return find(k)->second; // if it already exists
 		}
 
 //		insert[single element (1)]
@@ -287,7 +514,7 @@ namespace ft {
 				return (std::pair<iterator, bool>(it, false));
 			}
 			if (root == nullptr) {						//if the element is the first node
-				root = new node(val, nullptr, nullptr, (new node(value_type(), root, nullptr, nullptr)));		// the most right element (aka last element) is always an empty node
+				root = new node(val, nullptr, nullptr, (new node(value_type(), root, nullptr, nullptr)));		// the most right element (aka last element) is always an ` node
 				count++;
 				return (std::pair<iterator, bool>(iterator(root), true));
 			}
@@ -343,14 +570,7 @@ namespace ft {
 			return root;
 		}
 
-		mapped_type& operator[] (const key_type& k) {
-			iterator it = find(k);
-			if (it == end()) {		// if the element dose not exist
-				value_type tmp = value_type(k, mapped_type());
-				return (insert(tmp).first->second);
-			}
-			return find(k)->second; // if it already exists
-		}
+		
 
 		iterator find (const key_type& k) {
 			node *ptr = root;
@@ -410,7 +630,10 @@ namespace ft {
 			count--;
 		}
 		void clear() {
-			erase_nodes(root);
+			if (size() != 0)
+				erase_nodes(root);
+			root = nullptr;
+			count = 0;
 		}
 
 		private:
@@ -431,6 +654,7 @@ namespace ft {
 					n->prev->right = nullptr;
 				}
 				delete n;
+				count--;
 			}
 		}
 
