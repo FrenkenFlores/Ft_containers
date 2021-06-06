@@ -544,12 +544,112 @@ namespace ft {
 			return (std::pair<iterator, bool>(iterator(ptr), true));
 		}
 
-////		insert[with hint (2)]
-//		iterator insert (iterator position, const value_type& val);
-////		insert[range (3)]
-//		template <class InputIterator>
-//		void insert (InputIterator first, InputIterator last);
+//		insert[with hint (2)]
+		iterator insert (iterator position, const value_type& val) {
+			value_compare func;
+			iterator it;
+			node *ptr;
+			if ((it = find(val.first)) != end()) {			//if the element exist
+				return it;
+			}
+			if (root == nullptr) {						//if the element is the first node
+				root = new node(val, nullptr, nullptr, (new node(value_type(), root, nullptr, nullptr)));		// the most right element (aka last element) is always an ` node
+				count++;
+				return iterator(root);
+			}
+			if (func(root->data, val))
+				ptr = root;
+			else
+				ptr = position.get_node_pointer();
+			while (ptr != nullptr) {
+				if (func(ptr->data, val)) {
+					if (ptr->right->right == nullptr) {
+						delete ptr->right;
+						ptr->right = new node(val, ptr, nullptr, (new node(value_type(), nullptr, nullptr, nullptr)));		// the most right element (aka last element) is always an empty node
+						ptr->right->right->set_node_prev(ptr->right);
+						count++;
+						ptr = ptr->right;
+						break;
+					}
+					ptr = ptr->right;
+				} else {
+					if (ptr->left == nullptr) {
+						ptr->left = new node(val, ptr, nullptr, (new node(value_type(), nullptr, nullptr, nullptr)));
+						ptr->left->right->set_node_prev(ptr->left);
+						count++;
+						ptr = ptr->left;
+						break;
+					}
+					ptr = ptr->left;
+				}
+			}
+			return iterator(ptr);
+		}
+//		insert[range (3)]
+		template <class InputIterator>
+		void insert (InputIterator first, InputIterator last) {
+			while (first != last) {
+				insert(std::pair<key_type, mapped_type>(first->first, first->second));
+				++first;
+			}
+		}
+//		(1)
+		void erase (iterator position) {
+			node *tmp = position.get_node_pointer();
+			if (tmp->right->right == nullptr && tmp->left == nullptr) {		//case1: if node is leaf-node
+				if (tmp == tmp->prev->left) {
+					tmp->prev->left = nullptr;
+				} else if (tmp == tmp->prev->right){
+					tmp->prev->right = nullptr;
+				}
+				delete tmp->right->right;
+				delete tmp;
+			} else if (tmp->right->right != nullptr && tmp->left == nullptr){		//case2: if node have only one right subtree
+				tmp->prev->right = tmp->right;
+				tmp->right->prev = tmp->prev;
+				delete tmp->right->right;
+				delete tmp;
+			} else if (tmp->right->right == nullptr && tmp->left != nullptr){		//case3: if node have only one left subtree
+				tmp->prev->left = tmp->left;
+				tmp->left->prev = tmp->prev;
+				delete tmp->right->right;
+				delete tmp;
+			} else if (tmp->right->right != nullptr && tmp->left != nullptr){		//case4: if node have tow subtrees
+				node *ptr = tmp->left;
+				while (ptr->right->right != nullptr)
+					ptr = ptr->right;
+				if (tmp == tmp->prev->left) {
+					tmp->prev->left = ptr;
+				} else if (tmp == tmp->prev->right){
+					tmp->prev->right = ptr;
+				}
+				ptr->right = tmp->right;
+				ptr->right->prev = ptr;
+				ptr->prev = tmp->prev;
+				delete tmp;
+			}
+			count--;
+		}
+//		(2)
+		size_type erase (const key_type& k) {
+			iterator it = find(k);
+			if (it != end()) {
+				erase(it);
+				return 1;
+			}
+			return 0;
+		}
 
+//		(3)
+		void erase (iterator first, iterator last) {
+			iterator it_tmp;
+			while (first != last) {
+				it_tmp = first;
+				++first;
+				erase(it_tmp);
+			}
+
+	     }
 		void DUMP (node *ptr, int level = 0) {
 			if (ptr == nullptr) {
 				for(int i = 0; i < level; i++) std::cout << "\t";
@@ -592,43 +692,6 @@ namespace ft {
 			return end();
 		}
 
-
-		void erase (iterator position) {
-			node *tmp = position.get_node_pointer();
-			if (tmp->right->right == nullptr && tmp->left == nullptr) {		//case1: if node is leaf-node
-				if (tmp == tmp->prev->left) {
-					tmp->prev->left = nullptr;
-				} else if (tmp == tmp->prev->right){
-					tmp->prev->right = nullptr;
-				}
-				delete tmp->right->right;
-				delete tmp;
-			} else if (tmp->right->right != nullptr && tmp->left == nullptr){		//case2: if node have only one right subtree
-				tmp->prev->right = tmp->right;
-				tmp->right->prev = tmp->prev;
-				delete tmp->right->right;
-				delete tmp;
-			} else if (tmp->right->right == nullptr && tmp->left != nullptr){		//case3: if node have only one left subtree
-				tmp->prev->left = tmp->left;
-				tmp->left->prev = tmp->prev;
-				delete tmp->right->right;
-				delete tmp;
-			} else if (tmp->right->right != nullptr && tmp->left != nullptr){		//case4: if node have tow subtrees
-				node *ptr = tmp->left;
-				while (ptr->right->right != nullptr)
-					ptr = ptr->right;
-				if (tmp == tmp->prev->left) {
-					tmp->prev->left = ptr;
-				} else if (tmp == tmp->prev->right){
-					tmp->prev->right = ptr;
-				}
-				ptr->right = tmp->right;
-				ptr->right->prev = ptr;
-				ptr->prev = tmp->prev;
-				delete tmp;
-			}
-			count--;
-		}
 		void clear() {
 			if (size() != 0)
 				erase_nodes(root);

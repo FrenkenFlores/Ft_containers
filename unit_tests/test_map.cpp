@@ -285,6 +285,55 @@ int main(void) {
 	{
 		PUT_STR(B"INSERT()");
 		
+		std::map<char,int> std_mymap;
+		ft::map<char,int> ft_mymap;
+
+		// first insert function version (single parameter):
+		ft_mymap.insert ( std::pair<char,int>('a',100) );
+		ft_mymap.insert ( std::pair<char,int>('z',200) );
+		std_mymap.insert ( std::pair<char,int>('a',100) );
+		std_mymap.insert ( std::pair<char,int>('z',200) );
+		check_value(ft_mymap, std_mymap, flag);
+		check_flag(flag);
+		check_size(ft_mymap, std_mymap, flag);
+		check_flag(flag);
+
+		std::pair<std::map<char,int>::iterator,bool> std_ret;
+		std_ret = std_mymap.insert ( std::pair<char,int>('z',500) );
+
+		std::pair<ft::map<char,int>::iterator,bool> ft_ret;
+		ft_ret = ft_mymap.insert ( std::pair<char,int>('z',500) );
+
+		if (std_ret.second==ft_ret.second)
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
+
+		// second insert function version (with hint position):
+		std::map<char,int>::iterator std_it = std_mymap.begin();
+		std_mymap.insert (std_it, std::pair<char,int>('b',300));  // max efficiency inserting
+		std_mymap.insert (std_it, std::pair<char,int>('c',400));  // no max efficiency inserting
+
+		ft::map<char,int>::iterator ft_it = ft_mymap.begin();
+		ft_mymap.insert (ft_it, std::pair<char,int>('b',300));  // max efficiency inserting
+		ft_mymap.insert (ft_it, std::pair<char,int>('c',400));  // no max efficiency inserting
+
+		check_value(ft_mymap, std_mymap, flag);
+		check_flag(flag);
+		check_size(ft_mymap, std_mymap, flag);
+		check_flag(flag);
+
+		// third insert function version (range insertion):
+		std::map<char,int> std_anothermap;
+		std_anothermap.insert(std_mymap.begin(),std_mymap.find('c'));
+		ft::map<char,int> ft_anothermap;
+		ft_anothermap.insert(ft_mymap.begin(),ft_mymap.find('c'));
+
+		check_value(ft_anothermap, std_anothermap, flag);
+		check_flag(flag);
+		check_size(ft_anothermap, std_anothermap, flag);
+		check_flag(flag);
+
 	}
 #endif
 #ifdef T9
