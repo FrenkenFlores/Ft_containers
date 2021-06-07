@@ -600,19 +600,17 @@ namespace ft {
 				if (tmp == tmp->prev->left) {
 					tmp->prev->left = nullptr;
 				} else if (tmp == tmp->prev->right){
-					tmp->prev->right = nullptr;
+					tmp->prev->right = new node(value_type(), tmp->prev, nullptr, nullptr);
 				}
 				delete tmp->right->right;
 				delete tmp;
 			} else if (tmp->right->right != nullptr && tmp->left == nullptr){		//case2: if node have only one right subtree
 				tmp->prev->right = tmp->right;
 				tmp->right->prev = tmp->prev;
-				delete tmp->right->right;
 				delete tmp;
 			} else if (tmp->right->right == nullptr && tmp->left != nullptr){		//case3: if node have only one left subtree
 				tmp->prev->left = tmp->left;
 				tmp->left->prev = tmp->prev;
-				delete tmp->right->right;
 				delete tmp;
 			} else if (tmp->right->right != nullptr && tmp->left != nullptr){		//case4: if node have tow subtrees
 				node *ptr = tmp->left;
@@ -648,29 +646,22 @@ namespace ft {
 				++first;
 				erase(it_tmp);
 			}
-
 	     }
-		void DUMP (node *ptr, int level = 0) {
-			if (ptr == nullptr) {
-				for(int i = 0; i < level; i++) std::cout << "\t";
-				std::cout << "\033[32m leaf \033[0m" << std::endl;
-				return;
-			}
-			for(int i = 0; i < level; i++) std::cout << '\t';
-			std::cout << ptr->prev << ":" << ptr << " : " << ptr->data.first << " : " << ptr->data.second << std::endl;
-			for(int i = 0; i < level; i++) std::cout << '\t';
-			std::cout << "\033[33m left \033[0m" << std::endl;
-			DUMP(ptr->left, level + 1);
-			for(int i = 0; i < level; i++) std::cout << '\t';
-			std::cout << "\033[31m right \033[0m" << std::endl;
-			DUMP(ptr->right, level + 1);
+
+//		swap()
+		void swap (map& x){
+			map tmp = x;
+			x = *this;
+			*this = tmp;
 		}
 
-		node *get_root() {
-			return root;
+//		clear()
+		void clear() {
+			if (size() != 0)
+				erase_nodes(root);
+			root = nullptr;
+			count = 0;
 		}
-
-		
 
 		iterator find (const key_type& k) {
 			node *ptr = root;
@@ -692,12 +683,26 @@ namespace ft {
 			return end();
 		}
 
-		void clear() {
-			if (size() != 0)
-				erase_nodes(root);
-			root = nullptr;
-			count = 0;
+		void DUMP (node *ptr, int level = 0) {
+			if (ptr == nullptr) {
+				for(int i = 0; i < level; i++) std::cout << "\t";
+				std::cout << "\033[32m leaf \033[0m" << std::endl;
+				return;
+			}
+			for(int i = 0; i < level; i++) std::cout << '\t';
+			std::cout << ptr->prev << ":" << ptr << " : " << ptr->data.first << " : " << ptr->data.second << std::endl;
+			for(int i = 0; i < level; i++) std::cout << '\t';
+			std::cout << "\033[33m left \033[0m" << std::endl;
+			DUMP(ptr->left, level + 1);
+			for(int i = 0; i < level; i++) std::cout << '\t';
+			std::cout << "\033[31m right \033[0m" << std::endl;
+			DUMP(ptr->right, level + 1);
 		}
+
+		node *get_root() {
+			return root;
+		}
+
 
 		private:
 		void erase_nodes(node *n) {

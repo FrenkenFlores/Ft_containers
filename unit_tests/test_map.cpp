@@ -8,7 +8,7 @@
 #define T7 // operator[]()
 #define T8 // insert()
 #define T9 // erase()
-//#define T10 // swap()
+#define T10 // swap()
 //#define T11 // clear[]
 //#define T12 // key_comp()
 //#define T13 // value_comp()
@@ -339,20 +339,97 @@ int main(void) {
 #ifdef T9
 	{
 		PUT_STR(B"ERASE()");
+		std::map<char,int> std_mymap;
+		std::map<char,int>::iterator std_it;
+		ft::map<char,int> ft_mymap;
+		ft::map<char,int>::iterator ft_it;
+
+		// insert some values:
+		std_mymap['a']=10;
+		std_mymap['b']=20;
+		std_mymap['c']=30;
+		std_mymap['d']=40;
+		std_mymap['e']=50;
+		std_mymap['f']=60;
+
+		ft_mymap['a']=10;
+		ft_mymap['b']=20;
+		ft_mymap['c']=30;
+		ft_mymap['d']=40;
+		ft_mymap['e']=50;
+		ft_mymap['f']=60;
+
+		std_it=std_mymap.find('b');
+		std_mymap.erase (std_it);                   // erasing by iterator
+
+		ft_it=ft_mymap.find('b');
+		ft_mymap.erase (ft_it);                   // erasing by iterator
+		check_value(ft_mymap, std_mymap, flag);
+		check_flag(flag);
+		check_size(ft_mymap, std_mymap, flag);
+		check_flag(flag);
+
+
+		std_mymap.erase ('c');                  // erasing by key
+		ft_mymap.erase ('c');                  // erasing by key
+		check_value(ft_mymap, std_mymap, flag);
+		check_flag(flag);
+		check_size(ft_mymap, std_mymap, flag);
+		check_flag(flag);
+
+		std_it=std_mymap.find ('e');
+		std_mymap.erase ( std_it, std_mymap.end() );    // erasing by range
+		ft_it=ft_mymap.find ('e');
+		ft_mymap.erase ( ft_it, ft_mymap.end() );    // erasing by range
+		check_value(ft_mymap, std_mymap, flag);
+		check_flag(flag);
+		check_size(ft_mymap, std_mymap, flag);
+		check_flag(flag);
+
+		for (std_it=std_mymap.begin(), ft_it=ft_mymap.begin(); std_it!=std_mymap.end() && ft_it!=ft_mymap.end(); ++std_it, ++ft_it)
+			if (std_it->first == ft_it->first && std_it->second == ft_it->second)
+				PUT_STR(OK);
+			else
+				PUT_STR(KO);
 	}
 #endif
 #ifdef T10
 	{
-		PUT_STR(B"OPERATOR[]");
-		std::map<char,int>::iterator it_std_b;
-		ft::map<char,int>::iterator it_ft_b;
-		std::map<char,int>::iterator it_std_e;
-		ft::map<char,int>::iterator it_ft_e;
+		PUT_STR(B"SWAP()");
+		std::map<char,int> std_foo,std_bar;
+		ft::map<char,int> ft_foo,ft_bar;
+
+		std_foo['x']=100;
+		std_foo['y']=200;
+		ft_foo['x']=100;
+		ft_foo['y']=200;
+
+		std_bar['a']=11;
+		std_bar['b']=22;
+		std_bar['c']=33;
+		ft_bar['a']=11;
+		ft_bar['b']=22;
+		ft_bar['c']=33;
+
+		std_foo.swap(std_bar);
+		ft_foo.swap(ft_bar);
+		check_value(ft_foo, std_foo, flag);
+		check_flag(flag);
+		check_size(ft_foo, std_foo, flag);
+		check_flag(flag);
+		check_value(ft_bar, std_bar, flag);
+		check_flag(flag);
+		check_size(ft_bar, std_bar, flag);
+		check_flag(flag);
 	}
 #endif
 #ifdef T11
 	{
 		PUT_STR(B"at()");
+		std::map<char,int>::iterator it_std_b;
+		ft::map<char,int>::iterator it_ft_b;
+		std::map<char,int>::iterator it_std_e;
+		ft::map<char,int>::iterator it_ft_e;
 	}
 #endif
 #ifdef T12
