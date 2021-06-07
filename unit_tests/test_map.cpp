@@ -9,14 +9,14 @@
 #define T8 // insert()
 #define T9 // erase()
 #define T10 // swap()
-//#define T11 // clear[]
-//#define T12 // key_comp()
-//#define T13 // value_comp()
-//#define T14 // find()
-//#define T15 // count()
-//#define T16 // lower_bound()
-//#define T17 // upper_bound()
-//#define T18 // equal_range()
+#define T11 // clear()
+#define T12 // key_comp()
+#define T13 // value_comp()
+#define T14 // find()
+#define T15 // count()
+#define T16 // lower_bound()
+#define T17 // upper_bound()
+#define T18 // equal_range()
 //#define T19
 //#define T20
 //#define T21
@@ -425,46 +425,273 @@ int main(void) {
 #endif
 #ifdef T11
 	{
-		PUT_STR(B"at()");
-		std::map<char,int>::iterator it_std_b;
-		ft::map<char,int>::iterator it_ft_b;
-		std::map<char,int>::iterator it_std_e;
-		ft::map<char,int>::iterator it_ft_e;
+		PUT_STR(B"clear()");
+		std::map<char,int> std_mymap;
+		std::map<char,int>::iterator std_it;
+		ft::map<char,int> ft_mymap;
+		ft::map<char,int>::iterator ft_it;
+		std_mymap.clear();
+		ft_mymap.clear();
+		check_value(ft_mymap, std_mymap, flag);
+		check_flag(flag);
+		check_size(ft_mymap, std_mymap, flag);
+		check_flag(flag);
+		// insert some values:
+		std_mymap['a']=10;
+		std_mymap['b']=20;
+		std_mymap['c']=30;
+		ft_mymap['a']=10;
+		ft_mymap['b']=20;
+		ft_mymap['c']=30;
+		std_mymap.clear();
+		ft_mymap.clear();
+		check_value(ft_mymap, std_mymap, flag);
+		check_flag(flag);
+		check_size(ft_mymap, std_mymap, flag);
+		check_flag(flag);
+
+		std_mymap['d']=40;
+		std_mymap['e']=50;
+		std_mymap['f']=60;
+		ft_mymap['d']=40;
+		ft_mymap['e']=50;
+		ft_mymap['f']=60;
+		std_mymap.clear();
+		ft_mymap.clear();
+		check_value(ft_mymap, std_mymap, flag);
+		check_flag(flag);
+		check_size(ft_mymap, std_mymap, flag);
+		check_flag(flag);
+
 	}
 #endif
 #ifdef T12
 	{
-		PUT_STR(B"front()");
+		PUT_STR(B"key_comp()");
+		ft::map<int, int> ft_map;
+		ft::map<int, int>::key_compare ft_comp = ft_map.key_comp();
+		std::map<int, int> std_map;
+		std::map<int, int>::key_compare std_comp = std_map.key_comp();
+		if (std_comp(1, 10) == ft_comp(1, 10))
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
 	}
 #endif
 #ifdef T13
 	{
-		PUT_STR(B"back()");
+		PUT_STR(B"value_comp()");
+		ft::map<int, int> ft_map;
+		ft::map<int, int>::value_compare ft_comp = ft_map.value_comp();
+		std::map<int, int> std_map;
+		std::map<int, int>::value_compare std_comp = std_map.value_comp();
+
+		std_map['a']=10;
+		std_map['b']=20;
+		std_map['c']=30;
+		std_map['d']=40;
+		std_map['e']=50;
+		std_map['f']=60;
+
+		ft_map['a']=10;
+		ft_map['b']=20;
+		ft_map['c']=30;
+		ft_map['d']=40;
+		ft_map['e']=50;
+		ft_map['f']=60;
+
+		ft::map<int, int>::iterator ft_it = ft_map.end();
+		std::map<int, int>::iterator std_it = std_map.end();
+		--ft_it; --std_it;
+		if (std_map.value_comp()(*std_map.begin(), *std_it) == ft_map.value_comp()(*ft_map.begin(), *ft_it))
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
 	}
 #endif
 #ifdef T14
 	{
-		PUT_STR(B"assign()");
+		PUT_STR(B"find()");
+		ft::map<int, int> ft_map;
+		std::map<int, int> std_map;
+
+		std_map['a']=10;
+		std_map['b']=20;
+		std_map['c']=30;
+		std_map['d']=40;
+		std_map['e']=50;
+		std_map['f']=60;
+
+		ft_map['a']=10;
+		ft_map['b']=20;
+		ft_map['c']=30;
+		ft_map['d']=40;
+		ft_map['e']=50;
+		ft_map['f']=60;
+
+		if ((ft_map.find('d')->first == std_map.find('d')->first) && (ft_map.find('d')->second == std_map.find('d')->second))
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
+		if ((ft_map.find('a')->first == std_map.find('a')->first) && (ft_map.find('a')->second == std_map.find('a')->second))
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
+		if ((ft_map.find('f')->first == std_map.find('f')->first) && (ft_map.find('f')->second == std_map.find('f')->second))
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
 	}
 #endif
 #ifdef T15
 	{
-		PUT_STR(B"PUSH_BACK()");
+		PUT_STR(B"count()");
+		ft::map<int, int> ft_map;
+		std::map<int, int> std_map;
+
+		std_map['a']=10;
+		std_map['b']=20;
+		std_map['c']=30;
+		std_map['d']=40;
+		std_map['e']=50;
+		std_map['f']=60;
+
+		ft_map['a']=10;
+		ft_map['b']=20;
+		ft_map['c']=30;
+		ft_map['d']=40;
+		ft_map['e']=50;
+		ft_map['f']=60;
+
+		if (ft_map.count('d') == std_map.count('d'))
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
+		if (ft_map.count('a') == std_map.count('a'))
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
+		if (ft_map.count('f') == std_map.count('f'))
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
 	}
 #endif
 #ifdef T16
 	{
-		PUT_STR(B"POP_BACK()");
+		PUT_STR(B"LOWER_BOUND()");
+		ft::map<int, int> ft_map;
+		std::map<int, int> std_map;
+		std_map[1]=10;
+		std_map[20]=20;
+		std_map[30]=30;
+		std_map[444]=40;
+		std_map[555]=50;
+		std_map[666]=60;
+
+		ft_map[1]=10;
+		ft_map[20]=20;
+		ft_map[30]=30;
+		ft_map[444]=40;
+		ft_map[555]=50;
+		ft_map[666]=60;
+
+
+		if ((ft_map.lower_bound(19)->first == std_map.lower_bound(19)->first) && (ft_map.lower_bound(19)->second == std_map.lower_bound(19)->second))
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
+		if ((ft_map.lower_bound(20)->first == std_map.lower_bound(20)->first) && (ft_map.lower_bound(20)->second == std_map.lower_bound(20)->second))
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
+		if ((ft_map.lower_bound(25)->first == std_map.lower_bound(25)->first) && (ft_map.lower_bound(25)->second == std_map.lower_bound(25)->second))
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
+		if (ft_map.lower_bound(777)->first == std_map.lower_bound(777)->first)
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
 	}
 #endif
 #ifdef T17
 	{
-		PUT_STR(B"INSERT()");
+		PUT_STR(B"UPPER_BOUND()");
+		ft::map<int, int> ft_map;
+		std::map<int, int> std_map;
+		std_map[1]=10;
+		std_map[20]=20;
+		std_map[30]=30;
+		std_map[444]=40;
+		std_map[555]=50;
+		std_map[666]=60;
+
+		ft_map[1]=10;
+		ft_map[20]=20;
+		ft_map[30]=30;
+		ft_map[444]=40;
+		ft_map[555]=50;
+		ft_map[666]=60;
+
+
+		if ((ft_map.upper_bound(19)->first == std_map.upper_bound(19)->first) && (ft_map.upper_bound(19)->second == std_map.upper_bound(19)->second))
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
+		if ((ft_map.upper_bound(20)->first == std_map.upper_bound(20)->first) && (ft_map.upper_bound(20)->second == std_map.upper_bound(20)->second))
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
+		if ((ft_map.upper_bound(25)->first == std_map.upper_bound(25)->first) && (ft_map.upper_bound(25)->second == std_map.upper_bound(25)->second))
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
+		if (ft_map.upper_bound(777)->first == std_map.upper_bound(777)->first)
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
 	}
 #endif
 #ifdef T18
 	{
-		PUT_STR(B"ERASE()");
+		PUT_STR(B"EQUAL_RANGE()");
+		ft::map<int, int> ft_map;
+		std::map<int, int> std_map;
+		std_map[1]=10;
+		std_map[20]=20;
+		std_map[30]=30;
+		std_map[444]=40;
+		std_map[555]=50;
+		std_map[666]=60;
+
+		ft_map[1]=10;
+		ft_map[20]=20;
+		ft_map[30]=30;
+		ft_map[444]=40;
+		ft_map[555]=50;
+		ft_map[666]=60;
+
+
+		if ((std_map.equal_range(19).first->first == ft_map.equal_range(19).first->first) && (std_map.equal_range(19).first->second == ft_map.equal_range(19).first->second) && (std_map.equal_range(19).second->first == ft_map.equal_range(19).second->first) && (std_map.equal_range(19).second->second == ft_map.equal_range(19).second->second))
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
+		if ((std_map.equal_range(20).first->first == ft_map.equal_range(20).first->first) && (std_map.equal_range(20).first->second == ft_map.equal_range(20).first->second) && (std_map.equal_range(20).second->first == ft_map.equal_range(20).second->first) && (std_map.equal_range(20).second->second == ft_map.equal_range(20).second->second))
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
+		if ((std_map.equal_range(25).first->first == ft_map.equal_range(25).first->first) && (std_map.equal_range(25).first->second == ft_map.equal_range(25).first->second) && (std_map.equal_range(25).second->first == ft_map.equal_range(25).second->first) && (std_map.equal_range(25).second->second == ft_map.equal_range(25).second->second))
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
+		if ((std_map.equal_range(777).first->first == ft_map.equal_range(777).first->first) && (std_map.equal_range(777).second->first == ft_map.equal_range(777).second->first)) {
+			PUT_STR(OK);
+		}
+		else {
+			PUT_STR(KO);
+//			std::cout << std_map.equal_range(777).first->first << "\t" << ft_map.equal_range(777).first->first << "\t" << std_map.equal_range(777).second->first << "\t" << ft_map.equal_range(777).second->first << std::endl;
+		}
 	}
 #endif
 #ifdef T19

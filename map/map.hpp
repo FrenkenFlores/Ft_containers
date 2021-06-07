@@ -29,8 +29,9 @@ namespace ft {
 
 		};
 		node *root;
-		size_t count;
+		size_t _size;
 		Alloc allocator;
+		Compare comp;
 	public:
 
 		typedef Key key_type;
@@ -398,14 +399,14 @@ namespace ft {
 		explicit map(const key_compare &comp = key_compare(),
 					 const allocator_type &alloc = allocator_type()) {
 			root = nullptr;
-			count = 0;
+			_size = 0;
 		}
 //		constructor[range (2)]
 		template <class InputIterator>
 		map (InputIterator first, InputIterator last,
 			 const key_compare& comp = key_compare(),
 			 const allocator_type& alloc = allocator_type()) {
-			count = 0;
+			_size = 0;
 			root = nullptr;
 			while (first != last) {
 				insert(value_type(first->first, first->second));
@@ -414,7 +415,7 @@ namespace ft {
 		}
 //		constructor[copy (3)]
 		map (const map& x) {
-			count = 0;
+			_size = 0;
 			root = nullptr;
 			const_iterator first = x.begin();
 			const_iterator last = x.end();
@@ -483,12 +484,12 @@ namespace ft {
 		}
 		// empty()
 		bool empty() const {
-			return (count == 0 ? true : false);
+			return (_size == 0 ? true : false);
 		}
 
 //		size()
 		size_type size() const {
-			return count;
+			return _size;
 		}
 
 		// max_size()
@@ -515,7 +516,7 @@ namespace ft {
 			}
 			if (root == nullptr) {						//if the element is the first node
 				root = new node(val, nullptr, nullptr, (new node(value_type(), root, nullptr, nullptr)));		// the most right element (aka last element) is always an ` node
-				count++;
+				_size++;
 				return (std::pair<iterator, bool>(iterator(root), true));
 			}
 			node *ptr = root;
@@ -525,7 +526,7 @@ namespace ft {
 						delete ptr->right;
 						ptr->right = new node(val, ptr, nullptr, (new node(value_type(), nullptr, nullptr, nullptr)));		// the most right element (aka last element) is always an empty node
 						ptr->right->right->set_node_prev(ptr->right);
-						count++;
+						_size++;
 						ptr = ptr->right;
 						break;
 					}
@@ -534,7 +535,7 @@ namespace ft {
 					if (ptr->left == nullptr) {
 						ptr->left = new node(val, ptr, nullptr, (new node(value_type(), nullptr, nullptr, nullptr)));
 						ptr->left->right->set_node_prev(ptr->left);
-						count++;
+						_size++;
 						ptr = ptr->left;
 						break;
 					}
@@ -554,7 +555,7 @@ namespace ft {
 			}
 			if (root == nullptr) {						//if the element is the first node
 				root = new node(val, nullptr, nullptr, (new node(value_type(), root, nullptr, nullptr)));		// the most right element (aka last element) is always an ` node
-				count++;
+				_size++;
 				return iterator(root);
 			}
 			if (func(root->data, val))
@@ -567,7 +568,7 @@ namespace ft {
 						delete ptr->right;
 						ptr->right = new node(val, ptr, nullptr, (new node(value_type(), nullptr, nullptr, nullptr)));		// the most right element (aka last element) is always an empty node
 						ptr->right->right->set_node_prev(ptr->right);
-						count++;
+						_size++;
 						ptr = ptr->right;
 						break;
 					}
@@ -576,7 +577,7 @@ namespace ft {
 					if (ptr->left == nullptr) {
 						ptr->left = new node(val, ptr, nullptr, (new node(value_type(), nullptr, nullptr, nullptr)));
 						ptr->left->right->set_node_prev(ptr->left);
-						count++;
+						_size++;
 						ptr = ptr->left;
 						break;
 					}
@@ -626,7 +627,7 @@ namespace ft {
 				ptr->prev = tmp->prev;
 				delete tmp;
 			}
-			count--;
+			_size--;
 		}
 //		(2)
 		size_type erase (const key_type& k) {
@@ -660,7 +661,15 @@ namespace ft {
 			if (size() != 0)
 				erase_nodes(root);
 			root = nullptr;
-			count = 0;
+			_size = 0;
+		}
+
+		key_compare key_comp() const {
+			return comp;
+		}
+
+		value_compare value_comp() const {
+			return value_compare();
 		}
 
 		iterator find (const key_type& k) {
@@ -681,6 +690,122 @@ namespace ft {
 				}
 			}
 			return end();
+		}
+
+		const_iterator find (const key_type& k) const {
+			node *ptr = root;
+			while (ptr != nullptr) {
+				if (ptr->data.first == k)
+					return const_iterator(ptr);
+				if (ptr->data.first < k) {
+					if (ptr->right == nullptr) {
+						return end();
+					}
+					ptr = ptr->right;
+				} else {
+					if (ptr->left == nullptr) {
+						return end();
+					}
+					ptr = ptr->left;
+				}
+			}
+			return end();
+		}
+
+
+		size_type count (const key_type& k) const {
+			if (find(k) != end())
+				return 1;
+			else
+				return 0;
+		}
+
+		iterator lower_bound (const key_type& k) {
+			iterator it_e = end();
+			iterator it_f = find(k);
+			size_t __size = size();
+			while (__size != 0) {
+				--it_e;
+				if (comp(it_e->first, k)) {
+					++it_e;
+					return it_e;
+				}
+				__size--;
+			}
+			if (it_f != end())
+				return it_f;
+			return end();
+		}
+		const_iterator lower_bound (const key_type& k) const {
+			const_iterator it_e = end();
+			const_iterator it_f = find(k);
+			size_t __size = size();
+			while (__size != 0) {
+				--it_e;
+				if (comp(it_e->first, k)) {
+					++it_e;
+					return it_e;
+				}
+				__size--;
+			}
+			if (it_f != end())
+				return it_f;
+			return end();
+		}
+
+		iterator upper_bound (const key_type& k) {
+			iterator it_e = end();
+			iterator it_b = begin();
+			iterator it_f = find(k);
+			size_t __size = size();
+			while (__size != 0) {
+				if (comp(k, it_b->first)) {
+					return it_b;
+				}
+				__size--;
+				++it_b;
+			}
+			if (it_f != end())
+				return it_f;
+			return end();
+		}
+		const_iterator upper_bound (const key_type& k) const {
+			const_iterator it_e = end();
+			const_iterator it_b = begin();
+			const_iterator it_f = find(k);
+			size_t __size = size();
+			while (__size != 0) {
+				if (comp(k, it_b->first)) {
+					return it_b;
+				}
+				__size--;
+				++it_b;
+			}
+			if (it_f != end())
+				return it_f;
+			return end();
+		}
+
+
+		std::pair<const_iterator,const_iterator> equal_range (const key_type& k) const {
+			const_iterator first = lower_bound(k);
+			const_iterator second = upper_bound(k);
+			if (first == end())
+				first = begin();
+			if (second == end())
+				second = begin();
+			return (std::pair<const_iterator, const_iterator>(first, second));
+//			return (std::pair<const_iterator, const_iterator>(lower_bound(k), upper_bound(k)));
+		}
+		std::pair<iterator,iterator>	equal_range (const key_type& k) {
+			iterator first = lower_bound(k);
+			iterator second = upper_bound(k);
+			if (first == end())
+				first = begin();
+			if (second == end())
+				second = begin();
+			return (std::pair<iterator, iterator>(first, second));
+//			return (std::pair<iterator, iterator>(lower_bound(k), upper_bound(k)));
 		}
 
 		void DUMP (node *ptr, int level = 0) {
@@ -722,7 +847,7 @@ namespace ft {
 					n->prev->right = nullptr;
 				}
 				delete n;
-				count--;
+				_size--;
 			}
 		}
 
