@@ -17,16 +17,6 @@
 #define T16 // lower_bound()
 #define T17 // upper_bound()
 #define T18 // equal_range()
-//#define T19
-//#define T20
-//#define T21
-//#define T22
-//#define T23
-//#define T24
-//#define T25
-//#define T26
-//#define T27
-//#define T28
 
 
 using namespace std;
@@ -692,16 +682,6 @@ int main(void) {
 			PUT_STR(KO);
 //			std::cout << std_map.equal_range(777).first->first << "\t" << ft_map.equal_range(777).first->first << "\t" << std_map.equal_range(777).second->first << "\t" << ft_map.equal_range(777).second->first << std::endl;
 		}
-	}
-#endif
-#ifdef T19
-	{
-		PUT_STR(B"SWAP()");
-	}
-#endif
-#ifdef T20
-	{
-		PUT_STR(B"CLEAR()");
 	}
 #endif
 	return 0;
