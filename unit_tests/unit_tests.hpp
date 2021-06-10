@@ -2,12 +2,15 @@
 
 //#include "../list/list.hpp"
 //#include "../vector/vector.hpp"
-#include "../map/map.hpp"
+//#include "../map/map.hpp"
+#include "../srcs/stack.hpp"
+
 
 #include <type_traits>
 #include <list>
 #include <vector>
 #include <map>
+#include <stack>
 #include <iostream>
 #include <stdexcept>
 
