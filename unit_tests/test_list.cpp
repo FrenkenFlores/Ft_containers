@@ -1050,14 +1050,8 @@ int main(void) {
 //				++ft_itb;
 //				++std_itb;
 //			}
-			for (int i = 0; i < 3; ++i) {
-				ft.erase(ft_itb);
-				++ft_itb;
-			}
-			for (int i = 0; i < 3; ++i) {
-				std.erase(std_itb);
-				++std_itb;
-			}
+			ft.erase(ft_itb);
+			std.erase(std_itb);
 			ft_itb = ft.begin();
 			std_itb = std.begin();
 			ft_ite = ft.end();
@@ -1065,13 +1059,13 @@ int main(void) {
 			check_value<int>(ft_itb, ft_ite, std_itb, std_ite, flag);
 			check_flag(flag);
 			check_size(ft, std, flag);
-//			if (ft.size() != std.size())
-//			{
-//				flag = false;
-//				cout << LB << ft.size() << " != " << std.size() << CLEAN << std::endl;
-//			} else {
-//				flag = true;
-//			}
+			if (ft.size() != std.size())
+			{
+				flag = false;
+				cout << LB << ft.size() << " != " << std.size() << CLEAN << std::endl;
+			} else {
+				flag = true;
+			}
 			check_flag(flag);
 		}
 		{

@@ -325,7 +325,7 @@ void ft::list<T, A>::pop_back() {
 	tail->next->prev = tail->prev;
 	tail->prev->next = tail->next;
 	tail = tail->prev;
-	if (head->next == head->prev)			// for the last node
+	if (!size())			// for the last node
 		tail = head;
 	delete tmp;
 	node_number--;
@@ -375,12 +375,11 @@ typename ft::list<T, A>::iterator ft::list<T, A>::erase(typename ft::list<T, A>:
 
 template <typename T, typename A>
 typename ft::list<T, A>::iterator ft::list<T, A>::erase(typename ft::list<T, A>::iterator first, typename ft::list<T, A>::iterator last) {
-	iterator it;
 	while (first != last) {
-		it = erase(first);
+		first = erase(first);
 		++first;
 	}
-	return (it);
+	return (first);
 }
 
 template <typename T, typename A>
@@ -490,7 +489,7 @@ void ft::list<T, A>::unique() {
 	node *first = tail;
 	node *last = head;
 	while (first != last) {
-		if (abs((first->data - first->prev->data)) < std::numeric_limits<T>::epsilon()){   //same as first->data == first->next->data
+		if (std::abs((first->data - first->prev->data)) < std::numeric_limits<T>::epsilon()){   //same as first->data == first->next->data
 			if (first == tail)
 				tail = first->prev;
 			first->detach_node();

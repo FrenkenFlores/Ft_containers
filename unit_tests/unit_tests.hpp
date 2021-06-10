@@ -1,16 +1,17 @@
 #pragma once
 
-//#include "../list/list.hpp"
+#include "../srcs/list.hpp"
 //#include "../vector/vector.hpp"
 //#include "../map/map.hpp"
-#include "../srcs/stack.hpp"
-
+//#include "../srcs/stack.hpp"
+#include "../srcs/queue.hpp"
 
 #include <type_traits>
 #include <list>
 #include <vector>
 #include <map>
 #include <stack>
+#include <queue>
 #include <iostream>
 #include <stdexcept>
 

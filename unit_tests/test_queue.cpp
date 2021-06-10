@@ -2,7 +2,7 @@
 #define T1 // constructors
 #define T2 // empty()
 #define T3 // size()
-#define T4 // top()
+#define T4 // front(), back()
 #define T5 // push(), pop()
 
 using namespace std;
@@ -16,7 +16,7 @@ void check_flag(bool flag) {
 }
 
 template <typename T>
-void check_size(ft::stack<T> &x, std::stack<T> &y, bool &flag) {
+void check_size(ft::queue<T> &x, std::queue<T> &y, bool &flag) {
 	if (x.size() != y.size())
 	{
 		flag = false;
@@ -27,32 +27,31 @@ void check_size(ft::stack<T> &x, std::stack<T> &y, bool &flag) {
 	}
 }
 
-
 int main(void) {
 	bool flag = true;
 #ifdef T1
 	{
 		PUT_STR(B"CONSTRUCTORS");
-		ft::stack<int> ft_stack;
-		std::stack<int> std_stack;
-		check_size(ft_stack, std_stack, flag);
+		ft::queue<int> ft_queue;
+		std::queue<int> std_queue;
+		check_size(ft_queue, std_queue, flag);
 		check_flag(flag);
 	}
 #endif
 #ifdef T2
 	{
 		PUT_STR(B"EMPTY()");
-		ft::stack<int> ft_stack;
-		std::stack<int> std_stack;
-		if (ft_stack.empty() == std_stack.empty())
+		ft::queue<int> ft_queue;
+		std::queue<int> std_queue;
+		if (ft_queue.empty() == std_queue.empty())
 			PUT_STR(OK);
 		else
 			PUT_STR(KO);
 		for (int i = 0; i < 10; i++)
-			ft_stack.push(i);
+			ft_queue.push(i);
 		for (int i = 0; i < 10; i++)
-			std_stack.push(i);
-		if (ft_stack.empty() == std_stack.empty())
+			std_queue.push(i);
+		if (ft_queue.empty() == std_queue.empty())
 			PUT_STR(OK);
 		else
 			PUT_STR(KO);
@@ -61,17 +60,17 @@ int main(void) {
 #ifdef T3
 	{
 		PUT_STR(B"SIZE()");
-		ft::stack<int> ft_stack;
-		std::stack<int> std_stack;
-		if (ft_stack.size() == std_stack.size())
+		ft::queue<int> ft_queue;
+		std::queue<int> std_queue;
+		if (ft_queue.size() == std_queue.size())
 			PUT_STR(OK);
 		else
 			PUT_STR(KO);
 		for (int i = 0; i < 10; i++)
-			ft_stack.push(i);
+			ft_queue.push(i);
 		for (int i = 0; i < 10; i++)
-			std_stack.push(i);
-		if (ft_stack.size() == std_stack.size())
+			std_queue.push(i);
+		if (ft_queue.size() == std_queue.size())
 			PUT_STR(OK);
 		else
 			PUT_STR(KO);
@@ -79,14 +78,18 @@ int main(void) {
 #endif
 #ifdef T4
 	{
-		PUT_STR(B"TOP()");
-		ft::stack<int> ft_stack;
-		std::stack<int> std_stack;
+		PUT_STR(B"FRONT()/BACK()");
+		ft::queue<int> ft_queue;
+		std::queue<int> std_queue;
 		for (int i = 0; i < 10; i++)
-			ft_stack.push(i);
+			ft_queue.push(i);
 		for (int i = 0; i < 10; i++)
-			std_stack.push(i);
-		if (ft_stack.top() == std_stack.top())
+			std_queue.push(i);
+		if (ft_queue.front() == std_queue.front())
+			PUT_STR(OK);
+		else
+			PUT_STR(KO);
+		if (ft_queue.back() == std_queue.back())
 			PUT_STR(OK);
 		else
 			PUT_STR(KO);
@@ -95,23 +98,23 @@ int main(void) {
 #ifdef T5
 	{
 		PUT_STR(B"PUSH()/POP()");
-		ft::stack<int> ft_stack;
-		std::stack<int> std_stack;
+		ft::queue<int> ft_queue;
+		std::queue<int> std_queue;
 		for (int i = 0; i < 3; i++)
-			ft_stack.push(i);
+			ft_queue.push(i);
 		for (int i = 0; i < 3; i++)
-			std_stack.push(i);
-		while (!ft_stack.empty() && !std_stack.empty()) {
-			if (ft_stack.top() == std_stack.top()) {
-//				std::cout << ft_stack.top() << " : " << std_stack.top() << std::endl;
+			std_queue.push(i);
+		while (!ft_queue.empty() && !std_queue.empty()) {
+			if (ft_queue.front() == std_queue.front()) {
+//				std::cout << ft_queue.front() << " : " << std_queue.front() << std::endl;
 				PUT_STR(OK);
 			}
 			else {
-//				std::cout << ft_stack.top() << " : " << std_stack.top() << std::endl;
+//				std::cout << ft_queue.front() << " : " << std_queue.front() << std::endl;
 				PUT_STR(KO);
 			}
-			ft_stack.pop();
-			std_stack.pop();
+			ft_queue.pop();
+			std_queue.pop();
 		}
 	}
 #endif
