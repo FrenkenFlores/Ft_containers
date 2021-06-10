@@ -5,23 +5,8 @@
 #include <stdexcept>
 #include <type_traits>
 #include <iostream>
-
+#include "utils.hpp"
 namespace ft {
-
-	template <bool>
-	struct enable_if {};
-
-	template <>
-	struct enable_if<true> {
-		typedef void type;
-	};
-
-class out_of_range : public std::logic_error {
-	public:
-		explicit out_of_range (const std::string& what_arg) : logic_error(what_arg) { }
-		explicit out_of_range (const char *what_arg) : logic_error(what_arg) { }
-};
-
 	template <typename T, typename A = std::allocator<T> >
 	class vector {
 	private:
@@ -210,6 +195,19 @@ class out_of_range : public std::logic_error {
 				arr[i] = it_b[i];
 			return *this;
 		}
+
+//		vector & operator=(const vector & rhs) {
+//			if (this->capacity() < rhs.capacity()) {    // allocate memory only if there is enough capacity
+//				clear();
+//				arr = new value_type[rhs.size()];
+//				_capacity = rhs.capacity();
+//			}
+//			iterator it_b = rhs.begin();
+//			_size = rhs.size();
+//			for (int i = 0; i < _size; i++)
+//				arr[i] = it_b[i];
+//			return *this;
+//		}
 		//reserve
 		void reserve (size_type n) {
 			if (n > this->capacity()) {

@@ -519,7 +519,7 @@ int main(void) {
 			ft.push_back(i);
 			std.push_back(i);
 		}
-		if (*(ft.end()) == *(std.end()))
+		if (*(--ft.end()) == *(--std.end()))
 			PUT_STR(OK);
 		else {
 			cout << LB << *(ft.end()) << " != " << *(std.end()) << CLEAN << std::endl;
@@ -553,11 +553,50 @@ int main(void) {
 			ft.push_back(i);
 			std.push_back(i);
 		}
-		if (*(ft.rend()) == *(std.rend()))
+		if (*(--ft.rend()) == *(--std.rend()))
 			PUT_STR(OK);
 		else {
-			cout << LB << *(ft.rend()) << " != " << *(std.rend()) << CLEAN << std::endl;
+			cout << LB << *(--ft.rend()) << " != " << *(--std.rend()) << CLEAN << std::endl;
 			PUT_STR(KO);
+		}
+	}
+	{
+		PUT_STR(B"REV_ITERATION");
+		ft::list<int> ft;
+		std::list<int> std;
+		for (int i = 0; i < 4; ++i) {
+			ft.push_back(i);
+			std.push_back(i);
+		}
+		ft::list<int>::reverse_iterator ft_r_it_e = ft.rend();
+		ft::list<int>::reverse_iterator ft_r_it_b = ft.rbegin();
+		std::list<int>::reverse_iterator std_r_it_e = std.rend();
+		std::list<int>::reverse_iterator std_r_it_b = std.rbegin();
+		while (std_r_it_b != std_r_it_e) {
+			if (*ft_r_it_b == *std_r_it_b) {
+//				cout << P << *ft_r_it_b << " == " << *std_r_it_b << CLEAN << std::endl;
+				PUT_STR(OK);
+			} else {
+				cout << LB << *ft_r_it_b << " != " << *std_r_it_b << CLEAN << std::endl;
+				PUT_STR(KO);
+			}
+			ft_r_it_b++;
+			std_r_it_b++;
+		}
+		ft_r_it_e = --ft.rend();
+		ft_r_it_b = ft.rbegin();
+		std_r_it_e = --std.rend();
+		std_r_it_b = std.rbegin();
+		while (std_r_it_b != std_r_it_e) {
+			if (*ft_r_it_e == *std_r_it_e){
+//				cout << P << *ft_r_it_e << " == " << *std_r_it_e << CLEAN << std::endl;
+				PUT_STR(OK);
+			} else {
+				cout << LB << *ft_r_it_e << " != " << *std_r_it_e << CLEAN << std::endl;
+				PUT_STR(KO);
+			}
+			ft_r_it_e--;
+			std_r_it_e--;
 		}
 	}
 #endif
@@ -566,6 +605,7 @@ int main(void) {
 		PUT_STR(B"EMPTY()");
 		ft::list<int> ft;
 		std::list<int> std;
+		std.max_size();
 		if (ft.empty() == std.empty())
 			PUT_STR(OK);
 		else {
@@ -1628,46 +1668,6 @@ int main(void) {
 		check_flag(flag);
 		check_value<double>(ft_itb, ft_ite, std_itb, std_ite, flag);
 		check_flag(flag);
-
-		ft_itb = ft_second.begin();
-		std_itb = std_second.begin();
-		ft_ite = ft_second.end();
-		std_ite = std_second.end();
-
-		check_size(ft_second, std_second, flag);
-		check_flag(flag);
-		check_value<double>(ft_itb, ft_ite, std_itb, std_ite, flag);
-		check_flag(flag);
-
-		std_second.push_back (1.1);
-		ft_second.push_back (1.1);
-
-//		std_first.merge(std_second);
-//		ft_first.merge(ft_second);
-
-		std_first.merge(std_second,greater_than<double>);
-		ft_first.merge(ft_second,greater_than<double>);
-
-		ft_itb = ft_first.begin();
-		std_itb = std_first.begin();
-		ft_ite = ft_first.end();
-		std_ite = std_first.end();
-
-		check_size(ft_first, std_first, flag);
-		check_flag(flag);
-		check_value<double>(ft_itb, ft_ite, std_itb, std_ite, flag);
-		check_flag(flag);
-
-		ft_itb = ft_second.begin();
-		std_itb = std_second.begin();
-		ft_ite = ft_second.end();
-		std_ite = std_second.end();
-
-		check_size(ft_second, std_second, flag);
-		check_flag(flag);
-		check_value<double>(ft_itb, ft_ite, std_itb, std_ite, flag);
-		check_flag(flag);
-
 	}
 #endif
 #ifdef T37

@@ -1,9 +1,9 @@
 #pragma once
 
 #include "../srcs/list.hpp"
-//#include "../vector/vector.hpp"
-//#include "../map/map.hpp"
-//#include "../srcs/stack.hpp"
+#include "../srcs/vector.hpp"
+#include "../srcs/map.hpp"
+#include "../srcs/stack.hpp"
 #include "../srcs/queue.hpp"
 
 #include <type_traits>

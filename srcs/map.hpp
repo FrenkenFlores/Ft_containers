@@ -6,15 +6,12 @@
 #include <utility>
 
 namespace ft {
-	template <class T> struct less : std::binary_function <T,T,bool> {
-		bool operator() (const T& x, const T& y) const {return x<y;}
-	};
-
 	template < class Key,									// map::key_type
 			class T,										// map::mapped_type
 			class Compare = ft::less<Key>,					// map::key_compare
 			class Alloc = std::allocator<std::pair<const Key,T> >		// map::allocator_type
-	> class map {
+	>
+	class map {
 	private:
 		struct node {
 			std::pair<Key, T> data;
@@ -30,7 +27,7 @@ namespace ft {
 		};
 		node *root;
 		size_t _size;
-		Alloc allocator;
+		std::allocator<node> allocator;
 		Compare comp;
 	public:
 

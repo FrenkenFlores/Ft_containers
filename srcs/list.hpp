@@ -7,9 +7,8 @@
 #include <type_traits>
 #include <limits>
 #include <cmath>
-#include "../utils/utils.hpp"
+#include "utils.hpp"
 
-//list container
 namespace ft {
 	template < typename T, typename A = std::allocator<T> >
 	class list {
@@ -87,8 +86,10 @@ namespace ft {
 			~iterator() { }
 			type_reference operator*() const{ return m_ptr->data; }
 			type_pointer operator->() const { return &m_ptr->data; }
-			void operator++() { m_ptr = m_ptr->next; }
-			void operator--() { m_ptr = m_ptr->prev; }
+			iterator operator++() { m_ptr = m_ptr->next; return *this;}
+			iterator operator--() { m_ptr = m_ptr->prev; return *this;}
+			iterator operator++(int) { m_ptr = m_ptr->next; return *this;}
+			iterator operator--(int) { m_ptr = m_ptr->prev; return *this;}
 			bool operator==(const iterator & rhs) { return this->m_ptr == rhs.m_ptr; }
 			bool operator!=(const iterator & rhs) { return this->m_ptr != rhs.m_ptr; }
 			node_pointer get_node_pointer() { return m_ptr; }
@@ -127,65 +128,15 @@ namespace ft {
 			~const_iterator() { }
 			type_reference operator*() const{ return m_ptr->data; }
 			type_pointer operator->() const { return &m_ptr->data; }
-			void operator++() { m_ptr = m_ptr->next; }
-			void operator--() { m_ptr = m_ptr->prev; }
+			const_iterator operator++() { m_ptr = m_ptr->next; return *this; }
+			const_iterator operator--() { m_ptr = m_ptr->prev; return *this; }
+			const_iterator operator++(int) { m_ptr = m_ptr->next; return *this; }
+			const_iterator operator--(int) { m_ptr = m_ptr->prev; return *this; }
 			bool operator==(const const_iterator & rhs) { return this->m_ptr == rhs.m_ptr; }
 			bool operator!=(const const_iterator & rhs) { return this->m_ptr != rhs.m_ptr; }
 		private:
 			node_pointer m_ptr;
 		};
-
-
-//		struct reverse_iterator : 	public iterator {
-//			typedef typename iterator::iterator_category iterator_category;
-//			typedef typename iterator::difference_type difference_type;
-//			typedef typename iterator::value_type value_type;
-//			typedef typename iterator::node_pointer node_pointer;
-//			typedef typename iterator::node_reference node_reference;
-//			typedef typename iterator::type_pointer type_pointer;
-//			typedef typename iterator::type_reference type_reference;
-//			reverse_iterator() : m_ptr(0) { }
-//			reverse_iterator(node_pointer ptr) : m_ptr(ptr) { }
-//			reverse_iterator(const reverse_iterator & src) {
-//				*this = src;
-//				return;
-//			}
-//			reverse_iterator & operator=(const reverse_iterator & rhs) {
-//				this->m_ptr = rhs.m_ptr;
-//				return *this;
-//			}
-//			~reverse_iterator() { }
-//			type_reference operator*() const{ return m_ptr->data; }
-//			type_pointer operator->() const { return &m_ptr->data; }
-//			node_pointer operator+(const unsigned int n) {
-//				for (int i = 0; i < n; ++i) {
-//					m_ptr = m_ptr->prev;
-//				}
-//				return m_ptr;
-//			}
-//			void operator++() { m_ptr = m_ptr->prev; }
-//			node_pointer operator-(const unsigned int n) {
-//				for (int i = 0; i < n; ++i) {
-//					m_ptr = m_ptr->next;
-//				}
-//				return m_ptr;
-//			}
-//			void operator--() { m_ptr = m_ptr->next; }
-//			bool operator==(const reverse_iterator & rhs) { return this->m_ptr == rhs.m_ptr; }
-//			bool operator!=(const reverse_iterator & rhs) { return this->m_ptr != rhs.m_ptr; }
-//			type_reference operator[](const int & index) {
-//				node_pointer tmp = m_ptr;
-//				for (int i = 0; i < index && index < node_number; ++i)
-//				{
-//					tmp = tmp->prev;
-//				}
-//				return tmp->data;
-//			}
-//		private:
-//			node_pointer m_ptr;
-//		};
-
-
 
 		struct reverse_iterator {
 		public:
@@ -215,14 +166,16 @@ namespace ft {
 				}
 				return m_ptr;
 			}
-			void operator++() { m_ptr = m_ptr->prev; }
+			reverse_iterator operator++() { m_ptr = m_ptr->prev; return  *this; }
+			reverse_iterator operator++(int) { m_ptr = m_ptr->prev; return *this; }
 			node_pointer operator-(const unsigned int n) {
 				for (int i = 0; i < n; ++i) {
 					m_ptr = m_ptr->next;
 				}
 				return m_ptr;
 			}
-			void operator--() { m_ptr = m_ptr->next; }
+			reverse_iterator operator--() { m_ptr = m_ptr->next; return  *this; }
+			reverse_iterator operator--(int) { m_ptr = m_ptr->next; return *this; }
 			bool operator==(const reverse_iterator & rhs) { return this->m_ptr == rhs.m_ptr; }
 			bool operator!=(const reverse_iterator & rhs) { return this->m_ptr != rhs.m_ptr; }
 			type_reference operator[](const int & index) {
@@ -344,7 +297,7 @@ namespace ft {
 		void set_tail(node *tail);
 		node *get_tail() const;
 	protected:
-		A	the_allocator;
+		std::allocator<node> node_allocator;
 	};
 }
 

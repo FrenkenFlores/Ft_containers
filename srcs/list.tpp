@@ -164,16 +164,18 @@ typename ft::list<T, A>::reverse_iterator ft::list<T, A>::rbegin() {
 
 template <typename T, typename A>
 typename ft::list<T, A>::const_reverse_iterator ft::list<T, A>::rbegin() const {
-	if (head == tail)
-		return const_reverse_iterator(tail);
-	return const_reverse_iterator(tail->next);
+//	if (head == tail)
+//		return const_reverse_iterator(tail);
+//	return const_reverse_iterator(tail->next);
+	return reverse_iterator(tail);
 }
 
 template <typename T, typename A>
 typename ft::list<T, A>::reverse_iterator ft::list<T, A>::rend() {
-	if (head == tail)
-		return reverse_iterator(head);
-	return reverse_iterator(head->next);
+//	if (head == tail)
+//		return reverse_iterator(head);
+//	return reverse_iterator(head->next);
+	return reverse_iterator(head);
 }
 
 template <typename T, typename A>
@@ -205,7 +207,7 @@ typename ft::list<T, A>::size_type ft::list<T, A>::size() const {
 
 template <typename T, typename A>
 typename ft::list<T, A>::size_type ft::list<T, A>::max_size() const {
-	return the_allocator.max_size();
+	return node_allocator.max_size();
 }
 
 template <typename T, typename A>

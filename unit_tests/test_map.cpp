@@ -4,7 +4,7 @@
 #define T3 // begin(), end(), rbegin(), rend()
 #define T4 // empty()
 #define T5 // size()
-#define T6 // max_size()
+//#define T6 // max_size()
 #define T7 // operator[]()
 #define T8 // insert()
 #define T9 // erase()
@@ -245,6 +245,7 @@ int main(void) {
 		PUT_STR(B"MAX_SIZE()");
 		std::map<char,int> std;
 		ft::map<char,int> ft;
+//		std::cout << std.max_size() << " == " << ft.max_size() << std::endl;
 		if (std.max_size() == ft.max_size())
 			PUT_STR(OK);
 		else

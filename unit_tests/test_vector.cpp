@@ -179,7 +179,7 @@ int main(void) {
 		check_flag(flag);
 		check_size(ft_bar, std_bar, flag);
 		check_flag(flag);
-		check_capacity(ft_bar, std_bar, flag);
+//		check_capacity(ft_bar, std_bar, flag);
 		check_flag(flag);
 		ft_foo = ft::vector<int>();
 		std_foo = std::vector<int>();
