@@ -99,10 +99,10 @@ namespace ft {
 				this->end = rhs.end;
 				return *this;
 			}
-			~iterator() { }
+			virtual ~iterator() { }
 			type_reference operator*() const { return m_ptr->data; } 
 			type_pointer operator->() const { return &m_ptr->data; }
-			iterator operator++() {			//clockwise
+			virtual iterator operator++() {			//clockwise
 				node *ptr;
 				if (m_ptr == nullptr) {
 					m_ptr = root;
@@ -126,7 +126,7 @@ namespace ft {
 				}
 				return *this;
 			}
-			iterator operator++(int) {			//clockwise
+			virtual iterator operator++(int) {			//clockwise
 				node *ptr;
 				if (m_ptr == nullptr) {
 					m_ptr = root;
@@ -150,7 +150,7 @@ namespace ft {
 				}
 				return *this;
 			}
-			iterator operator--() {			//clockwise
+			virtual iterator operator--() {			//clockwise
 				node *ptr;
 				if (m_ptr == nullptr) {
 					m_ptr = root;
@@ -174,7 +174,7 @@ namespace ft {
 				}
 				return *this;
 			}
-			iterator operator--(int) {			//clockwise
+			virtual iterator operator--(int) {			//clockwise
 				node *ptr;
 				if (m_ptr == nullptr) {
 					m_ptr = root;
@@ -263,10 +263,10 @@ namespace ft {
 				this->end = rhs.end;
 				return *this;
 			}
-			~const_iterator() { }
+			virtual ~const_iterator() { }
 			type_reference operator*() const { return m_ptr->data; } 
 			type_pointer operator->() const { return &m_ptr->data; }
-			const_iterator operator++() {			//clockwise
+			virtual const_iterator operator++() {			//clockwise
 				node *ptr;
 				if (m_ptr == nullptr) {
 					m_ptr = root;
@@ -290,7 +290,7 @@ namespace ft {
 				}
 				return *this;
 			}
-			const_iterator operator++(int) {			//clockwise
+			virtual const_iterator operator++(int) {			//clockwise
 				node *ptr;
 				if (m_ptr == nullptr) {
 					m_ptr = root;
@@ -314,7 +314,7 @@ namespace ft {
 				}
 				return *this;
 			}
-			const_iterator operator--() {			//clockwise
+			virtual const_iterator operator--() {			//clockwise
 				node *ptr;
 				if (m_ptr == nullptr) {
 					m_ptr = root;
@@ -338,7 +338,7 @@ namespace ft {
 				}
 				return *this;
 			}
-			const_iterator operator--(int) {			//clockwise
+			virtual const_iterator operator--(int) {			//clockwise
 				node *ptr;
 				if (m_ptr == nullptr) {
 					m_ptr = root;
@@ -385,9 +385,227 @@ namespace ft {
 			node_pointer begin;
 			node_pointer end;
 		};
-		struct reverse_iterator {
+		struct reverse_iterator : public iterator{
+			typedef std::bidirectional_iterator_tag iterator_category;
+			typedef std::ptrdiff_t difference_type;
+			typedef std::pair<key_type, mapped_type> value_type;
+			typedef node* node_pointer;
+			typedef node& node_reference;
+			typedef value_type* type_pointer;
+			typedef value_type& type_reference;
+
+			reverse_iterator operator--() {
+				node *ptr;
+				if (m_ptr == nullptr) {
+					m_ptr = root;
+					while (m_ptr->left != nullptr)
+						m_ptr = m_ptr->left;
+				} else if (m_ptr->right->right != nullptr) {
+					m_ptr = m_ptr->right;
+					while (m_ptr->left != nullptr) {
+						m_ptr = m_ptr->left;
+					}
+				} else if (m_ptr->right == end) {
+					m_ptr = m_ptr->right;
+				}
+				else {
+					ptr = m_ptr->prev;
+					while (ptr != nullptr && m_ptr == ptr->right) {
+						m_ptr = ptr;
+						ptr = ptr->prev;
+					}
+					m_ptr = ptr;
+				}
+				return *this;
+			}
+			reverse_iterator operator--(int) {
+				node *ptr;
+				if (m_ptr == nullptr) {
+					m_ptr = root;
+					while (m_ptr->left != nullptr)
+						m_ptr = m_ptr->left;
+				} else if (m_ptr->right->right != nullptr) {
+					m_ptr = m_ptr->right;
+					while (m_ptr->left != nullptr) {
+						m_ptr = m_ptr->left;
+					}
+				} else if (m_ptr->right == end) {
+					m_ptr = m_ptr->right;
+				}
+				else {
+					ptr = m_ptr->prev;
+					while (ptr != nullptr && m_ptr == ptr->right) {
+						m_ptr = ptr;
+						ptr = ptr->prev;
+					}
+					m_ptr = ptr;
+				}
+				return *this;
+			}
+			reverse_iterator operator++() {
+				node *ptr;
+				if (m_ptr == nullptr) {
+					m_ptr = root;
+					while (m_ptr->right->right != nullptr)
+						m_ptr = m_ptr->right;
+				} else if (m_ptr->left != nullptr) {
+					m_ptr = m_ptr->left;
+					while (m_ptr->right->right != nullptr) {
+						m_ptr = m_ptr->right;
+					}
+				} else if (m_ptr->left == begin) {
+					m_ptr = m_ptr->left;
+				}
+				else {
+					ptr = m_ptr->prev;
+					while (ptr != nullptr && m_ptr == ptr->left) {
+						m_ptr = ptr;
+						ptr = ptr->prev;
+					}
+					m_ptr = ptr;
+				}
+				return *this;
+			}
+			reverse_iterator operator++(int) {
+				node *ptr;
+				if (m_ptr == nullptr) {
+					m_ptr = root;
+					while (m_ptr->right->right != nullptr)
+						m_ptr = m_ptr->right;
+				} else if (m_ptr->left != nullptr) {
+					m_ptr = m_ptr->left;
+					while (m_ptr->right->right != nullptr) {
+						m_ptr = m_ptr->right;
+					}
+				} else if (m_ptr->left == begin) {
+					m_ptr = m_ptr->left;
+				}
+				else {
+					ptr = m_ptr->prev;
+					while (ptr != nullptr && m_ptr == ptr->left) {
+						m_ptr = ptr;
+						ptr = ptr->prev;
+					}
+					m_ptr = ptr;
+				}
+				return *this;
+			}
+		private:
+			node_pointer m_ptr;
+			node_pointer root;
+			node_pointer begin;
+			node_pointer end;
 		};
-		struct const_reverse_iterator {
+		struct const_reverse_iterator : public const_iterator{
+			typedef std::bidirectional_iterator_tag iterator_category;
+			typedef std::ptrdiff_t difference_type;
+			typedef std::pair<key_type, mapped_type> value_type;
+			typedef const node* node_pointer;
+			typedef const node& node_reference;
+			typedef const value_type* type_pointer;
+			typedef const value_type& type_reference;
+
+			const_reverse_iterator operator--() {
+				node *ptr;
+				if (m_ptr == nullptr) {
+					m_ptr = root;
+					while (m_ptr->left != nullptr)
+						m_ptr = m_ptr->left;
+				} else if (m_ptr->right->right != nullptr) {
+					m_ptr = m_ptr->right;
+					while (m_ptr->left != nullptr) {
+						m_ptr = m_ptr->left;
+					}
+				} else if (m_ptr->right == end) {
+					m_ptr = m_ptr->right;
+				}
+				else {
+					ptr = m_ptr->prev;
+					while (ptr != nullptr && m_ptr == ptr->right) {
+						m_ptr = ptr;
+						ptr = ptr->prev;
+					}
+					m_ptr = ptr;
+				}
+				return *this;
+			}
+			const_reverse_iterator operator--(int) {
+				node *ptr;
+				if (m_ptr == nullptr) {
+					m_ptr = root;
+					while (m_ptr->left != nullptr)
+						m_ptr = m_ptr->left;
+				} else if (m_ptr->right->right != nullptr) {
+					m_ptr = m_ptr->right;
+					while (m_ptr->left != nullptr) {
+						m_ptr = m_ptr->left;
+					}
+				} else if (m_ptr->right == end) {
+					m_ptr = m_ptr->right;
+				}
+				else {
+					ptr = m_ptr->prev;
+					while (ptr != nullptr && m_ptr == ptr->right) {
+						m_ptr = ptr;
+						ptr = ptr->prev;
+					}
+					m_ptr = ptr;
+				}
+				return *this;
+			}
+			const_reverse_iterator operator++() {
+				node *ptr;
+				if (m_ptr == nullptr) {
+					m_ptr = root;
+					while (m_ptr->right->right != nullptr)
+						m_ptr = m_ptr->right;
+				} else if (m_ptr->left != nullptr) {
+					m_ptr = m_ptr->left;
+					while (m_ptr->right->right != nullptr) {
+						m_ptr = m_ptr->right;
+					}
+				} else if (m_ptr->left == begin) {
+					m_ptr = m_ptr->left;
+				}
+				else {
+					ptr = m_ptr->prev;
+					while (ptr != nullptr && m_ptr == ptr->left) {
+						m_ptr = ptr;
+						ptr = ptr->prev;
+					}
+					m_ptr = ptr;
+				}
+				return *this;
+			}
+			const_reverse_iterator operator++(int) {
+				node *ptr;
+				if (m_ptr == nullptr) {
+					m_ptr = root;
+					while (m_ptr->right->right != nullptr)
+						m_ptr = m_ptr->right;
+				} else if (m_ptr->left != nullptr) {
+					m_ptr = m_ptr->left;
+					while (m_ptr->right->right != nullptr) {
+						m_ptr = m_ptr->right;
+					}
+				} else if (m_ptr->left == begin) {
+					m_ptr = m_ptr->left;
+				}
+				else {
+					ptr = m_ptr->prev;
+					while (ptr != nullptr && m_ptr == ptr->left) {
+						m_ptr = ptr;
+						ptr = ptr->prev;
+					}
+					m_ptr = ptr;
+				}
+				return *this;
+			}
+		private:
+			node_pointer m_ptr;
+			node_pointer root;
+			node_pointer begin;
+			node_pointer end;
 		};
 		typedef ptrdiff_t difference_type;
 		typedef size_t size_type;
@@ -425,7 +643,6 @@ namespace ft {
 		~map() {
 			clear();
 		}
-
 //		operator=()
 		map &operator=(const map &rhs) {
 			clear();
@@ -437,7 +654,6 @@ namespace ft {
 			}
 			return *this;
 		}
-
 //		begin()
 		iterator begin() {
 			node *ptr = root;
@@ -483,17 +699,14 @@ namespace ft {
 		bool empty() const {
 			return (_size == 0 ? true : false);
 		}
-
 //		size()
 		size_type size() const {
 			return _size;
 		}
-
 		// max_size()
 		size_type max_size() const {
 			return allocator.max_size();
 		}
-
 		// operator[]()
 		mapped_type& operator[] (const key_type& k) {
 			iterator it = find(k);
@@ -635,7 +848,6 @@ namespace ft {
 			}
 			return 0;
 		}
-
 //		(3)
 		void erase (iterator first, iterator last) {
 			iterator it_tmp;
@@ -645,14 +857,12 @@ namespace ft {
 				erase(it_tmp);
 			}
 	     }
-
 //		swap()
 		void swap (map& x){
 			map tmp = x;
 			x = *this;
 			*this = tmp;
 		}
-
 //		clear()
 		void clear() {
 			if (size() != 0)
@@ -766,6 +976,7 @@ namespace ft {
 				return it_f;
 			return end();
 		}
+
 		const_iterator upper_bound (const key_type& k) const {
 			const_iterator it_e = end();
 			const_iterator it_b = begin();
@@ -783,7 +994,6 @@ namespace ft {
 			return end();
 		}
 
-
 		std::pair<const_iterator,const_iterator> equal_range (const key_type& k) const {
 			const_iterator first = lower_bound(k);
 			const_iterator second = upper_bound(k);
@@ -792,7 +1002,6 @@ namespace ft {
 			if (second == end())
 				second = begin();
 			return (std::pair<const_iterator, const_iterator>(first, second));
-//			return (std::pair<const_iterator, const_iterator>(lower_bound(k), upper_bound(k)));
 		}
 		std::pair<iterator,iterator>	equal_range (const key_type& k) {
 			iterator first = lower_bound(k);
@@ -802,7 +1011,6 @@ namespace ft {
 			if (second == end())
 				second = begin();
 			return (std::pair<iterator, iterator>(first, second));
-//			return (std::pair<iterator, iterator>(lower_bound(k), upper_bound(k)));
 		}
 
 		void DUMP (node *ptr, int level = 0) {
@@ -829,15 +1037,12 @@ namespace ft {
 		private:
 		void erase_nodes(node *n) {
 			if (n->left != nullptr) {
-				// std::cout << n->data.first << ":" << n->data.second << "\t";
 				erase_nodes(n->left);
 			}
 			if (n->right != nullptr) {
-				// std::cout << n->data.first << ":" << n->data.second << "\t";
 				erase_nodes(n->right);
 			}
 			if (n->left == nullptr && n->right  == nullptr) {
-				// std::cout << n->data.first << ":" << n->data.second << std::endl;
 				if (n->prev != nullptr && n == n->prev->left) {
 					n->prev->left = nullptr;
 				} else if (n->prev != nullptr && n == n->prev->right) {

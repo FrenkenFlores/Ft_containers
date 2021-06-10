@@ -47,8 +47,10 @@ namespace ft {
 			pointer operator->() const { return m_ptr; }
 			iterator & operator+(const int x) { m_ptr = m_ptr + x; return *this; }
 			iterator & operator-(const int x) { m_ptr = m_ptr - x; return *this; }
-			void operator++() { m_ptr++; }
-			void operator--() { m_ptr--; }
+			iterator operator++() { m_ptr++; return *this; }
+			iterator operator--() { m_ptr--; return *this; }
+			iterator operator++(int) { m_ptr++; return *this; }
+			iterator operator--(int) { m_ptr--; return *this; }
 			bool operator==(const iterator & rhs) { return m_ptr == rhs.m_ptr; }
 			bool operator!=(const iterator & rhs) { return m_ptr != rhs.m_ptr; }
 			reference operator[](const int & index) { return *(m_ptr + index); }
@@ -76,8 +78,10 @@ namespace ft {
 			~const_iterator() { }
 			reference operator*() const{ return *m_ptr;}
 			pointer operator->() const { return m_ptr; }
-			void operator++() { m_ptr++; }
-			void operator--() { m_ptr--; }
+			const_iterator operator++() { m_ptr++; return *this; }
+			const_iterator operator--() { m_ptr--; return *this; }
+			const_iterator operator++(int) { m_ptr++; return *this; }
+			const_iterator operator--(int) { m_ptr--; return *this; }
 			bool operator==(const const_iterator & rhs) { return m_ptr == rhs.m_ptr; }
 			bool operator!=(const const_iterator & rhs) { return m_ptr != rhs.m_ptr; }
 			reference operator[](const int & index) const { return *(m_ptr + index); }
@@ -105,8 +109,10 @@ namespace ft {
 			~reverse_iterator() { }
 			reference operator*() const{ return *m_ptr;}
 			pointer operator->() const { return m_ptr; }
-			void operator++() { m_ptr--; }
-			void operator--() { m_ptr++; }
+			reverse_iterator operator++() { m_ptr--; return *this; }
+			reverse_iterator operator--() { m_ptr++; return *this; }
+			reverse_iterator operator++(int) { m_ptr--; return *this; }
+			reverse_iterator operator--(int) { m_ptr++; return *this; }
 			bool operator==(const reverse_iterator & rhs) { return m_ptr == rhs.m_ptr; }
 			bool operator!=(const reverse_iterator & rhs) { return m_ptr != rhs.m_ptr; }
 			reference operator[](const int & index) { return *(m_ptr - index); }
@@ -134,8 +140,10 @@ namespace ft {
 			~const_reverse_iterator() { }
 			reference operator*() const{ return *m_ptr;}
 			pointer operator->() const { return m_ptr; }
-			void operator++() { m_ptr--; }
-			void operator--() { m_ptr++; }
+			const_reverse_iterator operator++() { m_ptr--; return *this; }
+			const_reverse_iterator operator--() { m_ptr++; return *this; }
+			const_reverse_iterator operator++(int) { m_ptr--; return *this; }
+			const_reverse_iterator operator--(int) { m_ptr++; return *this; }
 			bool operator==(const const_reverse_iterator & rhs) { return m_ptr == rhs.m_ptr; }
 			bool operator!=(const const_reverse_iterator & rhs) { return m_ptr != rhs.m_ptr; }
 			reference operator[](const int & index) const { return *(m_ptr - index); }
@@ -208,6 +216,7 @@ namespace ft {
 //				arr[i] = it_b[i];
 //			return *this;
 //		}
+
 		//reserve
 		void reserve (size_type n) {
 			if (n > this->capacity()) {
@@ -429,8 +438,5 @@ namespace ft {
 			_size = 0;
 		}
 	};
-
 }
-
-
 #endif

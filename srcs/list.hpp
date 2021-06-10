@@ -212,8 +212,10 @@ namespace ft {
 			~const_reverse_iterator() { }
 			type_reference operator*() const{ return m_ptr->data; }
 			type_pointer operator->() const { return &m_ptr->data; }
-			void operator++() { m_ptr = m_ptr->prev; }
-			void operator--() { m_ptr = m_ptr->next; }
+			const_reverse_iterator operator++() { m_ptr = m_ptr->prev; return *this; }
+			const_reverse_iterator operator--() { m_ptr = m_ptr->next; return *this; }
+			const_reverse_iterator operator++(int) { m_ptr = m_ptr->prev; return *this; }
+			const_reverse_iterator operator--(int) { m_ptr = m_ptr->next; return *this; }
 			bool operator==(const const_reverse_iterator & rhs) { return this->m_ptr == rhs.m_ptr; }
 			bool operator!=(const const_reverse_iterator & rhs) { return this->m_ptr != rhs.m_ptr; }
 		private:

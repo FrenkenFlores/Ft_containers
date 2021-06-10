@@ -23,7 +23,7 @@ void check_size(ft::queue<T> &x, std::queue<T> &y, bool &flag) {
 		cout << LB << x.size() << " != " << y.size() << CLEAN << std::endl;
 	} else {
 		flag = true;
-		cout << P << x.size() << " == " << y.size() << CLEAN << std::endl;
+//		cout << P << x.size() << " == " << y.size() << CLEAN << std::endl;
 	}
 }
 

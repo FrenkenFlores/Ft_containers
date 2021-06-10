@@ -44,7 +44,7 @@ void check_value(ft::map<T, U> &x, std::map<T, U> &y, bool &flag) {
 			cout << LB << ft_itb->first << ":" << ft_itb->second << " != " << std_itb->first << ":" << std_itb->second << CLEAN << std::endl;
 			break;
 		} else {
-			cout << P << ft_itb->first << ":" << ft_itb->second << " == " << std_itb->first << ":" << std_itb->second << CLEAN << std::endl;
+//			cout << P << ft_itb->first << ":" << ft_itb->second << " == " << std_itb->first << ":" << std_itb->second << CLEAN << std::endl;
 			flag = true;
 		}
 		++ft_itb;
@@ -60,7 +60,7 @@ void check_size(ft::map<T, U> &x, std::map<T, U> &y, bool &flag) {
 		cout << LB << x.size() << " != " << y.size() << CLEAN << std::endl;
 	} else {
 		flag = true;
-		cout << P << x.size() << " == " << y.size() << CLEAN << std::endl;
+//		cout << P << x.size() << " == " << y.size() << CLEAN << std::endl;
 	}
 }
 

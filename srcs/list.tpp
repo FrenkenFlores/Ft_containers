@@ -61,32 +61,6 @@ ft::list<T, A>::list (const list& x) {
 	}
 }
 
-//template <typename T, typename A>
-//ft::list<T, A>::list() {}
-//
-//template <typename T, typename A>
-//ft::list<T, A>::list(const ft::list<T, A> &src) {}
-//
-//template <typename T, typename A>
-//ft::list<T, A>::list(const allocator_type &alloc) {}
-//
-
-//// destructor
-//template <typename T, typename A>
-//ft::list<T, A>::~list() {
-//	iterator it_begin = begin();
-//	iterator it_end = end();
-//	while (it_begin != it_end)
-//	{
-//		delete it_end.get_node_pointer();
-//		--it_end;
-//	}
-//	delete it_begin.get_node_pointer();
-//	this->head = NULL;
-//	this->tail = NULL;
-//	this->node_number = 0;
-//}
-
 // destructor
 template <typename T, typename A>
 ft::list<T, A>::~list() {
@@ -151,30 +125,18 @@ typename ft::list<T, A>::const_iterator ft::list<T, A>::end() const {
 
 template <typename T, typename A>
 typename ft::list<T, A>::reverse_iterator ft::list<T, A>::rbegin() {
-//	std::cout << "->" << head->data << std::endl;
-//	std::cout << "->" << tail->data << std::endl;
-//	std::cout << "->" << tail->next->data << std::endl;
-
 	if (head == tail)
 		return reverse_iterator(tail->next);
-//		return reverse_iterator(tail);
-//	return reverse_iterator(tail->next);
 	return reverse_iterator(tail);
 }
 
 template <typename T, typename A>
 typename ft::list<T, A>::const_reverse_iterator ft::list<T, A>::rbegin() const {
-//	if (head == tail)
-//		return const_reverse_iterator(tail);
-//	return const_reverse_iterator(tail->next);
 	return reverse_iterator(tail);
 }
 
 template <typename T, typename A>
 typename ft::list<T, A>::reverse_iterator ft::list<T, A>::rend() {
-//	if (head == tail)
-//		return reverse_iterator(head);
-//	return reverse_iterator(head->next);
 	return reverse_iterator(head);
 }
 
@@ -364,7 +326,6 @@ void ft::list<T, A>::insert(typename ft::list<T, A>::iterator position, InputIte
 
 template <typename T, typename A>
 typename ft::list<T, A>::iterator ft::list<T, A>::erase(typename ft::list<T, A>::iterator position) {
-//	std::cout << *position << ": position" << std::endl;
 	node *tmp = position.get_node_pointer();
 	node *prev = position.get_node_pointer()->prev;
 	node *next = position.get_node_pointer()->next;
@@ -503,38 +464,6 @@ void ft::list<T, A>::unique() {
 	}
 }
 
-
-//template <typename T, typename A>
-//void ft::list<T, A>::unique() {
-//	node *first = head;
-//	node *last = tail;
-//	while (first != last) {
-//		if (first->data == first->next->data){
-//			first->detach_node();
-//			delete first;
-//			first = head;
-//			continue;
-//		}
-//		first = first->next;
-//	}
-//}
-
-//template <typename T, typename A>
-//template <class BinaryPredicate>
-//void ft::list<T, A>::unique(BinaryPredicate binary_pred) {
-//	node *first = head->next;
-//	node *last = tail;
-//	while (first != last) {
-//		if ((binary_pred)(first->data, first->prev->data)){
-//			first->detach_node();																//same as first->data == first->next->data
-//			delete first;
-//			first = head->next;
-//			continue;
-//		}
-//		first = first->next;
-//	}
-//}
-
 template <typename T, typename A>
 template <class BinaryPredicate>
 void ft::list<T, A>::unique(BinaryPredicate binary_pred) {
@@ -566,31 +495,6 @@ void ft::list<T, A>::merge(ft::list<T, A> &x, Condition cond) {
 	sort(cond);
 }
 
-////Bubble sort(changes the nodes)
-//template <typename T, typename A>
-//void ft::list<T, A>::sort() {
-//	node *first = head->next;
-//	node *last = tail;
-//	node *ptr_next;
-//	node *ptr;
-//	while (first != last) {
-//		ptr = head->next;
-//		while (ptr != last) {
-//			if (ptr->data > ptr->next->data){
-//				if (ptr->next == tail)
-//					tail = ptr;
-//				ptr_next = ptr->next;
-//				ptr->detach_node();
-//				ptr_next->insert_after(ptr);
-//				ptr = ptr_next;
-//				continue;
-//			}
-//			ptr = ptr->next;
-//		}
-//		first = first->next;
-//	}
-//}
-
 
 //Bubble sort(changes the nodes)
 template <typename T, typename A>
@@ -617,29 +521,6 @@ void ft::list<T, A>::sort() {
 	}
 }
 
-
-////Bubble sort(changes the data of the node)
-//template <typename T, typename A>
-//void ft::list<T, A>::sort() {
-//	node *first = head;
-//	node *last = tail;
-//	value_type tmp;
-//	node *ptr;
-//	while (first != last) {
-//		ptr = head;
-//		while (ptr != last) {
-//			if (ptr->data > ptr->next->data){
-//				tmp = ptr->data;
-//				ptr->data = ptr->next->data;
-//				ptr->next->data = tmp;
-//			}
-//			ptr = ptr->next;
-//		}
-//		first = first->next;
-//	}
-//}
-
-
 template <typename T, typename A>
 template<typename Condition>
 void ft::list<T, A>::sort(Condition cond) {
@@ -664,10 +545,6 @@ void ft::list<T, A>::sort(Condition cond) {
 		first = first->next;
 	}
 }
-
-
-//template <typename T, typename A>
-//void ft::list<T, A>::sort(void (*f)(T, T)) {}
 
 template <typename T, typename A>
 void ft::list<T, A>::reverse() {
