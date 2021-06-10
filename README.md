@@ -8,8 +8,12 @@
 > - queue
 
 ## resources
+- [cs](https://www.cs.cmu.edu/afs/cs/academic/class/15451-s07/www/lecture_notes/)
 - [cs361](https://www.cs.odu.edu/~zeil/cs361/sum21_zeil/Directory/outline/)
 - [Data Structers and Algorithm Analysis in C++](https://drive.google.com/file/d/1YdXGW8XQ_ntyKBjc9nkigP5Edq8FUKIf/view?usp=sharing)
+- [Data structures by Narasimha Karumanchi](https://drive.google.com/file/d/1si4WRHraF5zQxFhGywk3QktXKe5iHEEk/view?usp=sharing)
+- [Data Structers and Algorithm Analysis by John Bullinaria](https://drive.google.com/file/d/1xtbaILvFgFDSVRcRliLgR1k9elkF6KAO/view?usp=sharing)
+- [Data Structures and Algorithms by Granville Barnett](https://drive.google.com/file/d/1eLzxioj0bUnFDQrDhWSAjGUB6Qbwu4D2/view?usp=sharing)
 - [papers about STL](https://tproger.ru/articles/stl-cpp/#:~:text=%D0%9C%D0%B5%D1%85%D0%B0%D0%BD%D0%B8%D0%B7%D0%BC%20%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD%D0%BE%D0%B2%20%D0%B2%D1%81%D1%82%D1%80%D0%BE%D0%B5%D0%BD%20%D0%B2%20%D0%BA%D0%BE%D0%BC%D0%BF%D0%B8%D0%BB%D1%8F%D1%82%D0%BE%D1%80,%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA%D0%BE%D0%B9%20C%2B%2B%20%D0%BD%D0%B0%20%D1%81%D0%B5%D0%B3%D0%BE%D0%B4%D0%BD%D1%8F%D1%88%D0%BD%D0%B8%D0%B9%20%D0%B4%D0%B5%D0%BD%D1%8C.)
 - [cplusplus](https://www.cplusplus.com)
 - [cppreference](https://en.cppreference.com/w/)
@@ -23,7 +27,6 @@
 - [Страуструп](https://drive.google.com/file/d/11Fg6GRePMS8U_3Beodk6LJWPckLosWC6/view?usp=sharing)
 - [Question about templates](https://stackoverflow.com/questions/495021/why-can-templates-only-be-implemented-in-the-header-file)
 - [Brown's paper about STL structure](http://cs.brown.edu/people/jak/programming/stl-tutorial/tut.html#38)
-- [cs](https://www.cs.cmu.edu/afs/cs/academic/class/15451-s07/www/lecture_notes/)
 - [libs documentation](https://devdocs.io/cpp/)
 - [Iterator Traits](https://www.codeproject.com/Articles/36530/An-Introduction-to-Iterator-Traits)
 - [on how to write container+iterator](https://internalpointers.com/post/writing-custom-iterators-modern-cpp)
