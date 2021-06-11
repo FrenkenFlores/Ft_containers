@@ -600,10 +600,12 @@ int main(void) {
 			PUT_STR(OK);
 		else
 			PUT_STR(KO);
-		if (ft_map.lower_bound(777)->first == std_map.lower_bound(777)->first)
+		if (ft_map.lower_bound(777) == ft_map.end())
 			PUT_STR(OK);
-		else
+		else {
+			std::cout << ft_map.lower_bound(777)->first << " != " << std_map.lower_bound(777)->first << std::endl;
 			PUT_STR(KO);
+		}
 	}
 #endif
 #ifdef T17
@@ -638,10 +640,12 @@ int main(void) {
 			PUT_STR(OK);
 		else
 			PUT_STR(KO);
-		if (ft_map.upper_bound(777)->first == std_map.upper_bound(777)->first)
+		if (ft_map.upper_bound(777) == ft_map.end())
 			PUT_STR(OK);
-		else
+		else {
+			std::cout << ft_map.upper_bound(777)->first << " != " << std_map.upper_bound(777)->first << std::endl;
 			PUT_STR(KO);
+		}
 	}
 #endif
 #ifdef T18
@@ -681,7 +685,7 @@ int main(void) {
 		}
 		else {
 			PUT_STR(KO);
-//			std::cout << std_map.equal_range(777).first->first << "\t" << ft_map.equal_range(777).first->first << "\t" << std_map.equal_range(777).second->first << "\t" << ft_map.equal_range(777).second->first << std::endl;
+			std::cout << std_map.equal_range(777).first->first << "\t" << ft_map.equal_range(777).first->first << "\t" << std_map.equal_range(777).second->first << "\t" << ft_map.equal_range(777).second->first << std::endl;
 		}
 	}
 #endif

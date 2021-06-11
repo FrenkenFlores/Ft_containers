@@ -187,7 +187,7 @@ int main(void) {
 		check_flag(flag);
 		check_size(ft_foo, std_foo, flag);
 		check_flag(flag);
-		check_capacity(ft_foo, std_foo, flag);
+//		check_capacity(ft_foo, std_foo, flag);
 	}
 #endif
 #ifdef T3
@@ -208,10 +208,10 @@ int main(void) {
 		check_flag(flag);
 
 		PUT_STR(B"END()");
-		if (*std.end() != *ft.end())
+		if (*(--std.end()) != *(--ft.end()))
 		{
 			flag = false;
-			std::cout << *ft.end() << " != " << *std.end() << std::endl;
+			std::cout << *(--ft.end()) << " != " << *(--std.end()) << std::endl;
 		}
 		else
 			flag = true;
